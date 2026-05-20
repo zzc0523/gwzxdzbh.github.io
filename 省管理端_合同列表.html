@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 合同列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-building text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-blue-200 text-xs">省级管理部端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 金融机构管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
+                        <div class="flex items-center">
+                            <i class="fa fa-bank w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
+                    </button>
+                    <div id="financial-institution-submenu" class="submenu">
+                        <a href="省管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
+                    </button>
+                    <div id="product-submenu" class="submenu">
+                        <a href="省管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 合同管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('contract')">
+                        <div class="flex items-center">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">合同管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="contract-icon"></i>
+                    </button>
+                    <div id="contract-submenu" class="submenu">
+                        <a href="省管理端_合同列表.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-list w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">合同列表</span>
+                        </a>
+                        <a href="省管理端_合同数据导入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-upload w-5 text-center mr-3"></i>
+                            <span class="font-medium">合同数据导入</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="省管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600">
+                    <i class="fa fa-shield w-5 text-center mr-3"></i>
+                    <span class="font-medium">保函订单</span>
+                </a>
+                
+                <a href="省管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600">
+                    <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                    <span class="font-medium">保函验真</span>
+                </a>
+                
+                <a href="省管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600">
+                    <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                    <span class="font-medium">保函理赔</span>
+                </a>
+            </nav>
+
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        省
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">省级管理部</p>
+                        <p class="text-xs text-gray-500">管理员</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">合同列表</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索和筛选 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同编号</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入工程施工合同编号">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同名称</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入工程施工合同名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程合同甲方单位（发包人）</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">请选择</option>
+                                <option value="fuzhou">福州市地铁集团有限公司</option>
+                                <option value="xiamen">厦门新机场建设指挥部</option>
+                                <option value="quanzhou">泉州市交通运输局</option>
+                                <option value="zhangzhou">漳州市港口管理局</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同类型</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部类型</option>
+                                <option value="metro">工程类</option>
+                                <option value="airport">机场工程</option>
+                                <option value="bridge">桥梁工程</option>
+                                <option value="port">港口工程</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">施工合同起期</label>
+                            <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">施工合同止期</label>
+                            <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4 space-x-3">
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-refresh mr-2"></i>重置
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <i class="fa fa-search mr-2"></i>查询
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 合同列表 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fa fa-file-text-o text-primary mr-2"></i>
+                            合同列表
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程地址</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">施工合同起期</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">施工合同止期</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">HT202604150001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁5号线延长线工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁集团有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省福州市仓山区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-10-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202604150001')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">HT202603280003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场配套工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场建设指挥部</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省厦门市翔安区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-28</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-07-28</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202603280003')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">HT202602150002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州湾大桥养护工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通运输局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省泉州市丰泽区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-02-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202602150002')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">HT202601100001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州港码头扩建工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州市港口管理局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省漳州市龙海区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-01-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202601100001')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="text-sm text-gray-700">
+                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">4</span> 条，共 <span class="font-medium">12</span> 条
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 合同详情模态框 -->
+    <div id="contract-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">合同详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeContractDetailModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程施工合同编号</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-id">HT202604150001</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-name">福州市地铁5号线延长线工程</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程合同甲方单位（发包人）</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-party-a">福州市地铁集团有限公司</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程合同甲方企业名称</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-party-a-name">福州市地铁集团有限公司</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程施工合同类型</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-type">地铁工程</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程质量保证金金额（元）</p>
+                        <p class="text-lg font-bold text-primary" id="detail-deposit-amount">¥500,000.00</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程质量保证金起始日期</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-deposit-start">2026-04-15</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程质量保证金结束日期</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-deposit-end">2027-04-15</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程地址（省市区）</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-project-address">福建省福州市仓山区</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">工程详细地址</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-project-detail-address">福州市仓山区盖山镇地铁5号线延长线</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">施工合同起期</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-start">2026-04-15</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">施工合同止期</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-end">2026-10-15</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-bold text-gray-800 mb-3">相关保函</h4>
+                    <div class="space-y-3" id="detail-guarantees">
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-shield text-primary mr-3"></i>
+                                <span class="text-sm text-gray-700">履约保函（BH202604150001）</span>
+                            </div>
+                            <button class="text-primary hover:text-secondary text-sm">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeContractDetailModal()">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            document.getElementById('today-date').textContent = dateStr;
+        });
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function viewContractDetail(contractId) {
+            const contractData = {
+                'HT202604150001': {
+                    id: 'HT202604150001',
+                    name: '福州市地铁5号线延长线工程',
+                    partyA: '福州市地铁集团有限公司',
+                    partyAName: '福州市地铁集团有限公司',
+                    depositAmount: '¥500,000.00',
+                    contractType: '工程类',
+                    depositStart: '2026-04-15',
+                    depositEnd: '2027-04-15',
+                    projectAddress: '福建省福州市仓山区',
+                    projectDetailAddress: '福州市仓山区盖山镇地铁5号线延长线',
+                    contractStart: '2026-04-15',
+                    contractEnd: '2026-10-15',
+                    content: '本合同由福州市地铁集团有限公司（甲方）与福建省建设工程有限公司（乙方）于2026年4月15日签订，乙方负责福州市地铁5号线延长线工程的施工建设，工程总金额为500万元整，工期为180天。乙方需按照合同约定的技术标准和质量要求完成工程建设，并在规定时间内交付使用。',
+                    guarantees: [
+                        { id: 'BH202604150001', type: '履约保函' }
+                    ]
+                },
+                'HT202603280003': {
+                    id: 'HT202603280003',
+                    name: '厦门新机场配套工程',
+                    partyA: '厦门新机场建设指挥部',
+                    partyAName: '厦门新机场建设指挥部',
+                    depositAmount: '¥350,000.00',
+                    contractType: '工程类',
+                    depositStart: '2026-03-28',
+                    depositEnd: '2027-03-28',
+                    projectAddress: '福建省厦门市翔安区',
+                    projectDetailAddress: '厦门市翔安区新机场建设工地',
+                    contractStart: '2026-03-28',
+                    contractEnd: '2026-07-28',
+                    content: '本合同由厦门新机场建设指挥部（甲方）与厦门市市政工程有限公司（乙方）于2026年3月28日签订，乙方负责厦门新机场配套工程的施工建设，工程总金额为350万元整，工期为120天。',
+                    guarantees: [
+                        { id: 'BH202603280003', type: '履约保函' }
+                    ]
+                },
+                'HT202602150002': {
+                    id: 'HT202602150002',
+                    name: '泉州湾大桥养护工程',
+                    partyA: '泉州市交通运输局',
+                    partyAName: '泉州市交通运输局',
+                    depositAmount: '¥120,000.00',
+                    contractType: '工程类',
+                    depositStart: '2026-02-15',
+                    depositEnd: '2027-02-15',
+                    projectAddress: '福建省泉州市丰泽区',
+                    projectDetailAddress: '泉州市丰泽区泉州湾大桥',
+                    contractStart: '2026-02-15',
+                    contractEnd: '2026-04-15',
+                    content: '本合同由泉州市交通运输局（甲方）与泉州市交通工程有限公司（乙方）于2026年2月15日签订，乙方负责泉州湾大桥养护工程，工程总金额为120万元整，工期为60天。',
+                    guarantees: [
+                        { id: 'BH202602150002', type: '履约保函' }
+                    ]
+                },
+                'HT202601100001': {
+                    id: 'HT202601100001',
+                    name: '漳州港码头扩建工程',
+                    partyA: '漳州市港口管理局',
+                    partyAName: '漳州市港口管理局',
+                    depositAmount: '¥280,000.00',
+                    contractType: '工程类',
+                    depositStart: '2026-01-10',
+                    depositEnd: '2027-01-10',
+                    projectAddress: '福建省漳州市龙海区',
+                    projectDetailAddress: '漳州市龙海区漳州港',
+                    contractStart: '2026-01-10',
+                    contractEnd: '2026-04-10',
+                    content: '本合同由漳州市港口管理局（甲方）与漳州市港口工程有限公司（乙方）于2026年1月10日签订，乙方负责漳州港码头扩建工程，工程总金额为280万元整，工期为90天。',
+                    guarantees: [
+                        { id: 'BH202601100001', type: '履约保函' }
+                    ]
+                }
+            };
+
+            const data = contractData[contractId];
+            if (data) {
+                document.getElementById('detail-contract-id').textContent = data.id;
+                document.getElementById('detail-contract-name').textContent = data.name;
+                document.getElementById('detail-party-a').textContent = data.partyA;
+                document.getElementById('detail-party-a-name').textContent = data.partyAName;
+                document.getElementById('detail-contract-type').textContent = data.contractType;
+                document.getElementById('detail-deposit-amount').textContent = data.depositAmount;
+                document.getElementById('detail-deposit-start').textContent = data.depositStart;
+                document.getElementById('detail-deposit-end').textContent = data.depositEnd;
+                document.getElementById('detail-project-address').textContent = data.projectAddress;
+                document.getElementById('detail-project-detail-address').textContent = data.projectDetailAddress;
+                document.getElementById('detail-contract-start').textContent = data.contractStart;
+                document.getElementById('detail-contract-end').textContent = data.contractEnd;
+                
+                const guaranteesEl = document.getElementById('detail-guarantees');
+                guaranteesEl.innerHTML = data.guarantees.map(guarantee => `
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield text-primary mr-3"></i>
+                            <span class="text-sm text-gray-700">${guarantee.type}（${guarantee.id}）</span>
+                        </div>
+                        <button class="text-primary hover:text-secondary text-sm">
+                            <i class="fa fa-eye mr-1"></i>查看
+                        </button>
+                    </div>
+                `).join('');
+                
+                document.getElementById('contract-detail-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeContractDetailModal() {
+            document.getElementById('contract-detail-modal').classList.add('hidden');
+        }
+
+        // 点击模态框外部关闭
+        document.getElementById('contract-detail-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeContractDetailModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 产品管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-cog text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">管理端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 金融机构管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
+                        <div class="flex items-center">
+                            <i class="fa fa-bank w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
+                    </button>
+                    <div id="financial-institution-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('product')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cubes w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">产品管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
+                    </button>
+                    <div id="product-submenu" class="submenu">
+                        <a href="管理端_产品管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 平台管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
+                        <div class="flex items-center">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">平台管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
+                    </button>
+                    <div id="platform-submenu" class="submenu">
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级平台管理</span>
+                        </a>
+                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级管理员管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu">
+                        <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函验真</span>
+                        </a>
+                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 系统管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('system')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cog w-5 text-center mr-3"></i>
+                            <span class="font-medium">系统管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="system-icon"></i>
+                    </button>
+                    <div id="system-submenu" class="submenu">
+                        <a href="管理端_角色管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-users w-5 text-center mr-3"></i>
+                            <span class="font-medium">角色管理</span>
+                        </a>
+                        <a href="管理端_组织与人员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
+                            <span class="font-medium">组织与人员管理</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        管
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">产品管理</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddProductModal()">
+                            <i class="fa fa-plus mr-2"></i>新增产品
+                        </button>
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 内容区 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+                    <!-- 搜索和筛选 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">产品名称</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入产品名称">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">金融机构</label>
+                                <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">全部机构</option>
+                                    <option value="ccb">中国建设银行</option>
+                                    <option value="icbc">中国工商银行</option>
+                                    <option value="cpic">中国太平洋保险</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">产品类型</label>
+                                <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">全部类型</option>
+                                    <option value="performance">履约保函</option>
+                                    <option value="quality">质量保函</option>
+                                    <option value="advance">预付款保函</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
+                                <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">全部状态</option>
+                                    <option value="online">已上架</option>
+                                    <option value="offline">已下架</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-4 space-x-3">
+                            <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fa fa-refresh mr-2"></i>重置
+                            </button>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                <i class="fa fa-search mr-2"></i>查询
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 产品列表 -->
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                                <i class="fa fa-cubes text-primary mr-2"></i>
+                                产品列表
+                            </h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品名称</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">金融机构</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">产品类型</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">费率</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">履约保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0.5%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="badge bg-green-100 text-success">已上架</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                            <button class="text-primary hover:text-secondary mr-3" onclick="editProduct('1')">
+                                                <i class="fa fa-edit mr-1"></i>编辑
+                                            </button>
+                                            <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewProduct('1')">
+                                                <i class="fa fa-eye mr-1"></i>查看
+                                            </button>
+                                            <button class="text-accent hover:text-blue-500 mr-3" onclick="configureProduct('1')">
+                                                <i class="fa fa-cog mr-1"></i>配置
+                                            </button>
+                                            <button class="text-danger hover:text-red-600" onclick="offlineProduct('1')">
+                                                <i class="fa fa-arrow-down mr-1"></i>下架
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">质量保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国工商银行</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">0.8%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="badge bg-green-100 text-success">已上架</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                            <button class="text-primary hover:text-secondary mr-3" onclick="editProduct('2')">
+                                                <i class="fa fa-edit mr-1"></i>编辑
+                                            </button>
+                                            <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewProduct('2')">
+                                                <i class="fa fa-eye mr-1"></i>查看
+                                            </button>
+                                            <button class="text-accent hover:text-blue-500 mr-3" onclick="configureProduct('2')">
+                                                <i class="fa fa-cog mr-1"></i>配置
+                                            </button>
+                                            <button class="text-danger hover:text-red-600" onclick="offlineProduct('2')">
+                                                <i class="fa fa-arrow-down mr-1"></i>下架
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">预付款保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国太平洋保险</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">预付款保函</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1.0%</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="badge bg-gray-100 text-gray-500">已下架</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                            <button class="text-primary hover:text-secondary mr-3" onclick="editProduct('3')">
+                                                <i class="fa fa-edit mr-1"></i>编辑
+                                            </button>
+                                            <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewProduct('3')">
+                                                <i class="fa fa-eye mr-1"></i>查看
+                                            </button>
+                                            <button class="text-accent hover:text-blue-500 mr-3" onclick="configureProduct('3')">
+                                                <i class="fa fa-cog mr-1"></i>配置
+                                            </button>
+                                            <button class="text-success hover:text-green-600" onclick="onlineProduct('3')">
+                                                <i class="fa fa-arrow-up mr-1"></i>上架
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- 分页 -->
+                        <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="text-sm text-gray-700">
+                                显示 <span class="font-medium">1</span> 到 <span class="font-medium">3</span> 条，共 <span class="font-medium">12</span> 条
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                    <i class="fa fa-angle-left"></i>
+                                </button>
+                                <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
+                                <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                                <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                                <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">4</button>
+                                <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
+                                    <i class="fa fa-angle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 新增产品模态框 -->
+    <div id="add-product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">新增产品</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeAddProductModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">产品基础信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品名称 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入产品名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">金融机构 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">请选择金融机构</option>
+                                <option value="ccb">中国建设银行</option>
+                                <option value="icbc">中国工商银行</option>
+                                <option value="cpic">中国太平洋保险</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品类型 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">请选择产品类型</option>
+                                <option value="performance">履约保函</option>
+                                <option value="quality">质量保函</option>
+                                <option value="advance">预付款保函</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">费率 <span class="text-red-500">*</span></label>
+                            <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入费率">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">平均时效 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平均时效，如：3个工作日">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">对接方式 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">请选择对接方式</option>
+                                <option value="api">API对接</option>
+                                <option value="manual">人工审核</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">产品特点</h4>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入产品特点"></textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">申请要求</h4>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入申请要求"></textarea>
+                </div>
+                
+
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeAddProductModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addProduct()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑金融产品模态框 -->
+    <div id="edit-product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">编辑金融产品</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditProductModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">产品基础信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品名称 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="履约保函" placeholder="请输入产品名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">金融机构 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="ccb" selected>中国建设银行</option>
+                                <option value="icbc">中国工商银行</option>
+                                <option value="cpic">中国太平洋保险</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品类型 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="performance" selected>履约保函</option>
+                                <option value="quality">质量保函</option>
+                                <option value="advance">预付款保函</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">费率 <span class="text-red-500">*</span></label>
+                            <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="0.5" placeholder="请输入费率">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">平均时效 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="3个工作日" placeholder="请输入平均时效，如：3个工作日">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">对接方式 <span class="text-red-500">*</span></label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="api" selected>API对接</option>
+                                <option value="manual">人工审核</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">产品特点</h4>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入产品特点">费率低，审批快，操作简便</textarea>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">申请要求</h4>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入申请要求">企业资质良好，无不良信用记录，提供完整的申请材料</textarea>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditProductModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="updateProduct()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 产品配置模态框 -->
+    <div id="configure-product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">产品配置</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeConfigureProductModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 步骤导航 -->
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between max-w-3xl mx-auto">
+                    <div class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold mb-2 step-indicator" data-step="1">1</div>
+                        <span class="text-sm font-medium text-primary">配置投标字段材料</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-gray-200 mx-4">
+                        <div class="h-full bg-primary step-progress" data-step="1"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold mb-2 step-indicator" data-step="2">2</div>
+                        <span class="text-sm font-medium text-gray-500">配置收款账户</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-gray-200 mx-4">
+                        <div class="h-full bg-gray-200 step-progress" data-step="2"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold mb-2 step-indicator" data-step="3">3</div>
+                        <span class="text-sm font-medium text-gray-500">完成</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 步骤内容 -->
+            <div class="p-6">
+                <!-- 步骤1：配置投标字段材料 -->
+                <div id="step-1" class="step-content block">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">配置投标字段材料</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段分类</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否需要</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">默认配置项，不支持调整</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-3 border border-gray-200">合同信息</td>
+                                    <td class="px-4 py-3 border border-gray-200">工程合同甲方单位（发包人）</td>
+                                    <td class="px-4 py-3 border border-gray-200">必填</td>
+                                    <td class="px-4 py-3 border border-gray-200">
+                                        <div class="flex items-center space-x-4">
+                                            <label class="flex items-center">
+                                                <input type="radio" name="party-a" value="yes" checked class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">是</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="party-a" value="no" class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">否</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 border border-gray-200">默认配置</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 border border-gray-200">合同信息</td>
+                                    <td class="px-4 py-3 border border-gray-200">工程合同甲方企业名称</td>
+                                    <td class="px-4 py-3 border border-gray-200">必填</td>
+                                    <td class="px-4 py-3 border border-gray-200">
+                                        <div class="flex items-center space-x-4">
+                                            <label class="flex items-center">
+                                                <input type="radio" name="party-a-name" value="yes" checked class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">是</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="party-a-name" value="no" class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">否</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 border border-gray-200">默认配置</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 border border-gray-200">合同信息</td>
+                                    <td class="px-4 py-3 border border-gray-200">客服电话</td>
+                                    <td class="px-4 py-3 border border-gray-200">非必填</td>
+                                    <td class="px-4 py-3 border border-gray-200">
+                                        <div class="flex items-center space-x-4">
+                                            <label class="flex items-center">
+                                                <input type="radio" name="service-phone" value="yes" class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">是</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="service-phone" value="no" checked class="text-primary focus:ring-primary/20 border-gray-300">
+                                                <span class="ml-2 text-sm">否</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 border border-gray-200">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeConfigureProductModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="saveConfig()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            document.getElementById('today-date').textContent = dateStr;
+        });
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        function openAddProductModal() {
+            document.getElementById('add-product-modal').classList.remove('hidden');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('add-product-modal').classList.add('hidden');
+        }
+
+        function addProduct() {
+            showNotification('产品添加成功', 'success');
+            setTimeout(() => {
+                closeAddProductModal();
+                location.reload();
+            }, 1500);
+        }
+
+        function editProduct(id) {
+            document.getElementById('edit-product-modal').classList.remove('hidden');
+        }
+
+        function closeEditProductModal() {
+            document.getElementById('edit-product-modal').classList.add('hidden');
+        }
+
+        function updateProduct() {
+            showNotification('产品更新成功', 'success');
+            setTimeout(() => {
+                closeEditProductModal();
+                location.reload();
+            }, 1500);
+        }
+
+        function viewProduct(id) {
+            showNotification('查看产品详情', 'info');
+        }
+
+        function configureProduct(id) {
+            document.getElementById('configure-product-modal').classList.remove('hidden');
+        }
+
+        function closeConfigureProductModal() {
+            document.getElementById('configure-product-modal').classList.add('hidden');
+        }
+
+        function saveConfig() {
+            showNotification('产品配置保存成功', 'success');
+            setTimeout(() => {
+                closeConfigureProductModal();
+            }, 1500);
+        }
+
+        function offlineProduct(id) {
+            if (confirm('确定要下架该产品吗？')) {
+                showNotification('产品已下架', 'success');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        }
+
+        function onlineProduct(id) {
+            if (confirm('确定要上架该产品吗？')) {
+                showNotification('产品已上架', 'success');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // 点击模态框外部关闭
+        document.getElementById('add-product-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAddProductModal();
+            }
+        });
+
+        document.getElementById('edit-product-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditProductModal();
+            }
+        });
+
+        document.getElementById('configure-product-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeConfigureProductModal();
+            }
+        });
+    </script>
+</body>
+</html>

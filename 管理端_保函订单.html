@@ -88,7 +88,7 @@
                     </div>
                     <div>
                         <h1 class="text-white font-bold text-lg">国网征信</h1>
-                        <p class="text-blue-200 text-xs">管理端</p>
+                        <p class="text-accent text-xs">管理端</p>
                     </div>
                 </div>
             </div>
@@ -97,6 +97,40 @@
             <nav class="flex-1 py-6">
                 <div class="px-4 mb-4">
                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 金融机构管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
+                        <div class="flex items-center">
+                            <i class="fa fa-bank w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
+                    </button>
+                    <div id="financial-institution-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
+                    </button>
+                    <div id="product-submenu" class="submenu">
+                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                    </div>
                 </div>
                 
                 <!-- 平台管理 -->
@@ -108,9 +142,9 @@
                         </div>
                         <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
                     </button>
-                    <div id="platform-submenu" class="submenu hidden">
+                    <div id="platform-submenu" class="submenu">
                         <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-map w-5 text-center mr-3"></i>
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
                             <span class="font-medium">省级平台管理</span>
                         </a>
                         <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
@@ -129,14 +163,18 @@
                         </div>
                         <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
                     </button>
-                    <div id="guarantee-submenu" class="submenu hidden">
+                    <div id="guarantee-submenu" class="submenu">
                         <a href="管理端_保函订单.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
-                            <i class="fa fa-list w-5 text-center mr-3 text-primary"></i>
+                            <i class="fa fa-file-text-o w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">保函订单</span>
                         </a>
                         <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-check-circle w-5 text-center mr-3"></i>
                             <span class="font-medium">保函验真</span>
+                        </a>
+                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
                         </a>
                     </div>
                 </div>
@@ -150,7 +188,7 @@
                         </div>
                         <i class="fa fa-angle-down text-xs transition-transform" id="system-icon"></i>
                     </button>
-                    <div id="system-submenu" class="submenu hidden">
+                    <div id="system-submenu" class="submenu">
                         <a href="管理端_角色管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-users w-5 text-center mr-3"></i>
                             <span class="font-medium">角色管理</span>
@@ -171,7 +209,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
-                        <p class="text-xs text-gray-500">超级管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
                     </div>
                     <button class="text-gray-400 hover:text-gray-600">
                         <i class="fa fa-sign-out"></i>
@@ -188,6 +226,7 @@
                     <div>
                         <h2 class="text-xl font-bold text-gray-900">保函订单</h2>
                         <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                        <p class="text-xs text-blue-500 mt-1">可查看全平台所有订单数据</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">

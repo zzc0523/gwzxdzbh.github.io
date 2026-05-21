@@ -36,11 +36,11 @@
             transition: all 0.2s ease;
         }
         .sidebar-link:hover {
-            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(124,58,237,0.1) 0%, transparent 100%);
         }
         .sidebar-link.active {
-            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
-            border-left: 3px solid #004B93;
+            background: linear-gradient(90deg, rgba(124,58,237,0.15) 0%, transparent 100%);
+            border-left: 3px solid #7C3AED;
         }
         .stat-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
@@ -48,13 +48,13 @@
         }
         .stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+            box-shadow: 0 20px 40px rgba(124,58,237,0.15);
         }
         .table-row {
             transition: all 0.2s ease;
         }
         .table-row:hover {
-            background-color: rgba(0,75,147,0.03);
+            background-color: rgba(124,58,237,0.03);
         }
         .badge {
             display: inline-flex;
@@ -74,11 +74,11 @@
             <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
-                        <i class="fa fa-building text-primary text-xl"></i>
+                        <i class="fa fa-cogs text-primary text-xl"></i>
                     </div>
                     <div>
                         <h1 class="text-white font-bold text-lg">国网征信</h1>
-                        <p class="text-blue-200 text-xs">省管理端</p>
+                        <p class="text-accent text-xs">管理端</p>
                     </div>
                 </div>
             </div>
@@ -89,27 +89,61 @@
                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
                 </div>
                 
-                <!-- 合同管理 -->
+                <!-- 金融机构管理 -->
                 <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('contract')">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
                         <div class="flex items-center">
-                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
-                            <span class="font-medium">合同管理</span>
+                            <i class="fa fa-bank w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构管理</span>
                         </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="contract-icon"></i>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
                     </button>
-                    <div id="contract-submenu" class="submenu">
-                        <a href="省管理端_合同列表.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-list w-5 text-center mr-3"></i>
-                            <span class="font-medium">合同列表</span>
-                        </a>
-                        <a href="省管理端_合同数据导入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-upload w-5 text-center mr-3"></i>
-                            <span class="font-medium">合同数据导入</span>
+                    <div id="financial-institution-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
                         </a>
                     </div>
                 </div>
                 
+                <!-- 产品管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
+                    </button>
+                    <div id="product-submenu" class="submenu">
+                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 平台管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
+                        <div class="flex items-center">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">平台管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
+                    </button>
+                    <div id="platform-submenu" class="submenu">
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级平台管理</span>
+                        </a>
+                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级管理员管理</span>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- 保函管理 -->
                 <div class="menu-group">
                     <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('guarantee')">
@@ -120,17 +154,38 @@
                         <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
                     </button>
                     <div id="guarantee-submenu" class="submenu">
-                        <a href="省管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                        <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
                             <span class="font-medium">保函订单</span>
                         </a>
-                        <a href="省管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-check-circle w-5 text-center mr-3"></i>
                             <span class="font-medium">保函验真</span>
                         </a>
-                        <a href="省管理端_保函理赔.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                        <a href="管理端_保函理赔.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
                             <i class="fa fa-exclamation-circle w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">保函理赔</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 系统管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('system')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cog w-5 text-center mr-3"></i>
+                            <span class="font-medium">系统管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="system-icon"></i>
+                    </button>
+                    <div id="system-submenu" class="submenu">
+                        <a href="管理端_角色管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-users w-5 text-center mr-3"></i>
+                            <span class="font-medium">角色管理</span>
+                        </a>
+                        <a href="管理端_组织与人员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
+                            <span class="font-medium">组织与人员管理</span>
                         </a>
                     </div>
                 </div>
@@ -140,11 +195,11 @@
             <div class="p-4 border-t border-gray-100 bg-gray-50">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
-                        省
+                        管
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate">省级管理部</p>
-                        <p class="text-xs text-gray-500">管理员</p>
+                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
                     </div>
                     <button class="text-gray-400 hover:text-gray-600">
                         <i class="fa fa-sign-out"></i>
@@ -161,12 +216,9 @@
                     <div>
                         <h2 class="text-xl font-bold text-gray-900">保函理赔</h2>
                         <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
-                        <p class="text-xs text-blue-500 mt-1">可查看本省数据</p>
+                        <p class="text-xs text-blue-500 mt-1">可查看全平台所有数据</p>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors hidden" onclick="openClaimModal()">
-                            <i class="fa fa-plus mr-2"></i>发起理赔
-                        </button>
                         <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
                             <i class="fa fa-bell-o text-xl"></i>
                             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
@@ -282,13 +334,43 @@
                                         </button>
                                     </td>
                                 </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604180003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202604010004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市建筑工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥80,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-yellow-100 text-warning">处理中</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604180003')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604050004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603010005</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">宁德市水利工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥25,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-success">已赔付</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604050004')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <!-- 分页 -->
                     <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
                         <div class="text-sm text-gray-700">
-                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">3</span> 条，共 <span class="font-medium">5</span> 条
+                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">5</span> 条，共 <span class="font-medium">12</span> 条
                         </div>
                         <div class="flex space-x-2">
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
@@ -296,6 +378,7 @@
                             </button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
                                 <i class="fa fa-angle-right"></i>
                             </button>
@@ -304,60 +387,6 @@
                 </div>
             </div>
         </main>
-    </div>
-
-    <!-- 发起理赔模态框 -->
-    <div id="claim-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">发起理赔</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeClaimModal()">
-                    <i class="fa fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">保函编号 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函编号">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">合同编号 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同编号">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">供应商 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入供应商名称">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">理赔金额 <span class="text-red-500">*</span></label>
-                        <input type="number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔金额">
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">理赔原因 <span class="text-red-500">*</span></label>
-                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请详细描述理赔原因，包括质量问题的具体情况、整改要求及供应商的回应等"></textarea>
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">上传证明材料 <span class="text-red-500">*</span></label>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
-                        <i class="fa fa-cloud-upload text-3xl text-gray-400 mb-3"></i>
-                        <p class="text-sm text-gray-500 mb-2">点击或拖拽文件到此处上传</p>
-                        <p class="text-xs text-gray-400">支持 PDF、JPG、PNG 格式，单个文件不超过10MB</p>
-                    </div>
-                </div>
-            </div>
-            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeClaimModal()">
-                    取消
-                </button>
-                <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors" onclick="submitClaim()">
-                    <i class="fa fa-check mr-2"></i>提交理赔
-                </button>
-            </div>
-        </div>
     </div>
 
     <!-- 理赔详情模态框 -->
@@ -415,7 +444,7 @@
                                 <i class="fa fa-file-pdf-o text-red-500 mr-3"></i>
                                 <span class="text-sm text-gray-700">质量问题现场照片.pdf</span>
                             </div>
-                            <button class="text-primary hover:text-blue-700 text-sm">
+                            <button class="text-primary hover:text-secondary text-sm">
                                 <i class="fa fa-download mr-1"></i>下载
                             </button>
                         </div>
@@ -424,7 +453,7 @@
                                 <i class="fa fa-file-word-o text-blue-500 mr-3"></i>
                                 <span class="text-sm text-gray-700">整改通知书.docx</span>
                             </div>
-                            <button class="text-primary hover:text-blue-700 text-sm">
+                            <button class="text-primary hover:text-secondary text-sm">
                                 <i class="fa fa-download mr-1"></i>下载
                             </button>
                         </div>
@@ -479,20 +508,15 @@
             document.getElementById('today-date').textContent = dateStr;
         });
 
-        function openClaimModal() {
-            document.getElementById('claim-modal').classList.remove('hidden');
-        }
-
-        function closeClaimModal() {
-            document.getElementById('claim-modal').classList.add('hidden');
-        }
-
-        function submitClaim() {
-            showNotification('理赔申请已提交', 'success');
-            setTimeout(() => {
-                closeClaimModal();
-                location.reload();
-            }, 1500);
+        function toggleMenu(menuName) {
+            const submenu = document.getElementById(menuName + '-submenu');
+            const icon = document.getElementById(menuName + '-icon');
+            if (submenu) {
+                submenu.classList.toggle('hidden');
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            }
         }
 
         function viewClaimDetail(claimId) {
@@ -552,6 +576,43 @@
                         { step: '金融机构处理中', date: '2026-03-27 09:00', status: 'completed' },
                         { step: '理赔已拒绝', date: '2026-03-28 14:00', status: 'completed' }
                     ]
+                },
+                'LP202604180003': {
+                    id: 'LP202604180003',
+                    guaranteeId: 'BH202604010004',
+                    supplier: '福州市建筑工程有限公司',
+                    amount: '¥80,000',
+                    applyDate: '2026-04-18',
+                    status: '处理中',
+                    reason: '福州地铁5号线附属工程存在质量问题，主要表现为：1. 墙体裂缝；2. 防水层失效。我方已要求供应商进行整改，但供应商未按时完成，故申请保函理赔。',
+                    materials: [
+                        { name: '质量检测报告.pdf', type: 'pdf' },
+                        { name: '现场照片.zip', type: 'zip' }
+                    ],
+                    progress: [
+                        { step: '提交理赔申请', date: '2026-04-18 15:00', status: 'completed' },
+                        { step: '材料审核通过', date: '2026-04-19 10:30', status: 'completed' },
+                        { step: '金融机构处理中', date: '2026-04-20 09:00', status: 'processing' }
+                    ]
+                },
+                'LP202604050004': {
+                    id: 'LP202604050004',
+                    guaranteeId: 'BH202603010005',
+                    supplier: '宁德市水利工程有限公司',
+                    amount: '¥25,000',
+                    applyDate: '2026-04-05',
+                    status: '已赔付',
+                    reason: '宁德水库加固工程存在质量问题，主要表现为：堤坝渗漏。我方要求供应商进行修补，但供应商未能完成，故申请保函理赔。',
+                    materials: [
+                        { name: '渗漏检测报告.pdf', type: 'pdf' },
+                        { name: '修补方案对比.docx', type: 'word' }
+                    ],
+                    progress: [
+                        { step: '提交理赔申请', date: '2026-04-05 11:00', status: 'completed' },
+                        { step: '材料审核通过', date: '2026-04-06 09:30', status: 'completed' },
+                        { step: '金融机构处理中', date: '2026-04-07 14:00', status: 'completed' },
+                        { step: '理赔已赔付', date: '2026-04-08 10:00', status: 'completed' }
+                    ]
                 }
             };
 
@@ -570,10 +631,10 @@
                 materialsEl.innerHTML = data.materials.map(material => `
                     <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
                         <div class="flex items-center">
-                            <i class="fa fa-file-${material.type === 'pdf' ? 'pdf-o text-red-500' : 'word-o text-blue-500'} mr-3"></i>
+                            <i class="fa fa-file-${material.type === 'pdf' ? 'pdf-o text-red-500' : material.type === 'word' ? 'word-o text-blue-500' : 'archive-o text-gray-500'} mr-3"></i>
                             <span class="text-sm text-gray-700">${material.name}</span>
                         </div>
-                        <button class="text-primary hover:text-blue-700 text-sm">
+                        <button class="text-primary hover:text-secondary text-sm">
                             <i class="fa fa-download mr-1"></i>下载
                         </button>
                     </div>
@@ -599,30 +660,6 @@
         function closeClaimDetailModal() {
             document.getElementById('claim-detail-modal').classList.add('hidden');
         }
-
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
-            notification.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-        }
-
-        // 点击模态框外部关闭
-        document.getElementById('claim-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeClaimModal();
-            }
-        });
 
         document.getElementById('claim-detail-modal').addEventListener('click', function(e) {
             if (e.target === this) {

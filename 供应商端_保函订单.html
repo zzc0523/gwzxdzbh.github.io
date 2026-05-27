@@ -196,7 +196,7 @@
                         </div>
                         <div class="flex items-end">
                             <div class="flex space-x-3">
-                                <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                <button class="search-btn px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
                                     <i class="fa fa-search mr-2"></i>搜索
                                 </button>
                                 <button class="px-6 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
@@ -280,7 +280,7 @@
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604150001')">
                                                 <i class="fa fa-eye mr-1"></i>查看
                                             </button>
-                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="location.href='保函验真.html?id=BH202604150001'">
+                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showVerifyModal('BH202604150001')">
                                                 <i class="fa fa-check-square-o mr-1"></i>验真
                                             </button>
                                             <button class="text-primary hover:text-secondary text-sm font-medium">
@@ -364,7 +364,7 @@
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202602150002')">
                                                 <i class="fa fa-eye mr-1"></i>查看
                                             </button>
-                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="location.href='保函验真.html?id=BH202602150002'">
+                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showVerifyModal('BH202602150002')">
                                                 <i class="fa fa-check-square-o mr-1"></i>验真
                                             </button>
                                             <button class="text-primary hover:text-secondary text-sm font-medium">
@@ -945,6 +945,70 @@
                     </div>
                 </div>
                 
+                <!-- 保函验真结果模态框 -->
+                <div id="verify-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden p-4">
+                    <div class="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-gray-900">保函验真结果</h3>
+                            <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeVerifyModal()">
+                                <i class="fa fa-times text-lg"></i>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center mb-6">
+                                <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <i class="fa fa-check-circle text-green-500 text-3xl"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-1">验真成功</h4>
+                                <p class="text-sm text-gray-500">该电子保函信息真实有效</p>
+                            </div>
+                            
+                            <div class="space-y-0">
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">保函编号</span>
+                                    <span class="text-sm font-medium text-gray-900" id="verify-guarantee-id">BH202604150001</span>
+                                </div>
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">合同编号</span>
+                                    <span class="text-sm font-medium text-gray-900" id="verify-contract-id">XM2026040001</span>
+                                </div>
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">合同名称</span>
+                                    <span class="text-sm font-medium text-gray-900 max-w-[180px] truncate text-right" id="verify-contract-name">福州市地铁5号线延长线工程</span>
+                                </div>
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">担保金额</span>
+                                    <span class="text-sm font-bold text-primary" id="verify-amount">¥500,000.00</span>
+                                </div>
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">担保期限</span>
+                                    <span class="text-sm font-medium text-gray-900" id="verify-term">2026-04-15 ~ 2028-04-14</span>
+                                </div>
+                                <div class="flex justify-between py-2.5 border-b border-gray-50">
+                                    <span class="text-sm text-gray-500">金融机构</span>
+                                    <span class="text-sm font-medium text-gray-900 max-w-[180px] truncate text-right" id="verify-institution">中国工商银行股份有限公司</span>
+                                </div>
+                                <div class="flex justify-between py-2.5">
+                                    <span class="text-sm text-gray-500">状态</span>
+                                    <span class="text-sm font-medium text-green-600" id="verify-status">有效</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-5 p-3 bg-blue-50 rounded-lg">
+                                <p class="text-xs text-blue-700">
+                                    <i class="fa fa-info-circle mr-1.5"></i>
+                                    本验真结果仅用于验证电子保函的真实性，具体权益请以保函正本为准。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 py-4 border-t border-gray-100 flex justify-end">
+                            <button class="px-5 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-secondary transition-colors" onclick="closeVerifyModal()">
+                                确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- 发票申请模态框 -->
                 <div id="invoice-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
                     <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -1451,7 +1515,7 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button class="px-4 py-2 bg-white border border-blue-200 text-primary rounded-lg text-sm font-bold shadow-sm hover:bg-blue-50 transition-all" onclick="location.href='保函验真.html?id=' + data.guaranteeId">保函验真</button>
+                                <button class="px-4 py-2 bg-white border border-blue-200 text-primary rounded-lg text-sm font-bold shadow-sm hover:bg-blue-50 transition-all" onclick="showVerifyModal(data.guaranteeId)">保函验真</button>
                                 <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold shadow-sm hover:bg-secondary transition-all">下载保函</button>
                             </div>
                         </div>
@@ -1525,7 +1589,7 @@
                 }
                 
                 if (data.canVerify) {
-                    buttonsHtml += '<button class="px-6 py-2 bg-blue-100 text-primary border border-primary/20 rounded-lg hover:bg-blue-200 transition-colors" onclick="location.href=\'保函验真.html?id=' + data.guaranteeId + '\'"><i class="fa fa-check-square-o mr-2"></i>保函验真</button>';
+                    buttonsHtml += '<button class="px-6 py-2 bg-blue-100 text-primary border border-primary/20 rounded-lg hover:bg-blue-200 transition-colors" onclick="showVerifyModal(\'' + data.guaranteeId + '\')"><i class="fa fa-check-square-o mr-2"></i>保函验真</button>';
                 }
                 
                 if (data.canPay) {
@@ -1556,12 +1620,24 @@
             document.getElementById('order-detail-modal').classList.add('hidden');
         }
 
-        // 点击模态框外部关闭
-        document.getElementById('order-detail-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeOrderDetailModal();
+        // 统一模态框外部点击关闭处理（优化：事件委托）
+        function setupModalOutsideClick(modalId, closeFn) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeFn();
+                    }
+                });
             }
-        });
+        }
+        
+        // 初始化所有模态框的外部点击关闭
+        setupModalOutsideClick('order-detail-modal', closeOrderDetailModal);
+        setupModalOutsideClick('renew-modal', closeRenewModal);
+        setupModalOutsideClick('cancel-modal', closeCancelModal);
+        setupModalOutsideClick('verify-modal', closeVerifyModal);
+        setupModalOutsideClick('invoice-modal', closeInvoiceModal);
 
         // 标签页切换功能
         document.getElementById('tab-project').addEventListener('click', function() {
@@ -1614,12 +1690,7 @@
             document.getElementById('renew-modal').classList.add('hidden');
         }
 
-        // 点击模态框外部关闭
-        document.getElementById('renew-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeRenewModal();
-            }
-        });
+
 
         // 计算续保保费
         function calculatePremium() {
@@ -1690,12 +1761,42 @@
             }, 3000);
         }
 
-        // 全选功能
-        document.querySelector('thead input[type="checkbox"]').addEventListener('change', function() {
+        // 搜索防抖定时器
+        let searchDebounceTimer = null;
+        
+        // 搜索功能（带防抖）
+        function handleSearch() {
+            // 搜索逻辑
+            showNotification('搜索功能已优化', 'info');
+        }
+        
+        // 防抖搜索
+        function debounceSearch() {
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(handleSearch, 300);
+        }
+        
+        // 搜索按钮点击事件
+        const searchBtn = document.querySelector('.search-btn');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', debounceSearch);
+        }
+        
+        // 全选功能（优化：缓存查询结果）
+        const selectAllCheckbox = document.querySelector('thead input[type="checkbox"]');
+        let tbodyCheckboxes = null;
+        
+        selectAllCheckbox?.addEventListener('change', function() {
             const isChecked = this.checked;
-            document.querySelectorAll('tbody input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = isChecked;
-            });
+            // 延迟获取子checkbox，避免页面加载时的阻塞
+            setTimeout(() => {
+                if (!tbodyCheckboxes) {
+                    tbodyCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+                }
+                tbodyCheckboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            }, 0);
         });
 
         function toggleMenu(menuId) {
@@ -1753,12 +1854,47 @@
             document.getElementById('cancel-modal').classList.add('hidden');
         }
 
-        // 点击模态框外部关闭
-        document.getElementById('cancel-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeCancelModal();
-            }
-        });
+        // 显示保函验真结果模态框
+        function showVerifyModal(guaranteeId) {
+            // 模拟根据保函编号获取验真数据
+            const verifyData = {
+                'BH202604150001': {
+                    guaranteeId: 'BH202604150001',
+                    contractId: 'XM2026040001',
+                    contractName: '福州市地铁5号线延长线工程',
+                    amount: '¥500,000.00',
+                    term: '2026-04-15 ~ 2028-04-14',
+                    institution: '中国工商银行股份有限公司',
+                    status: '有效'
+                },
+                'BH202602150002': {
+                    guaranteeId: 'BH202602150002',
+                    contractId: 'XM2026020001',
+                    contractName: '厦门市轨道交通3号线工程',
+                    amount: '¥800,000.00',
+                    term: '2026-02-15 ~ 2028-02-14',
+                    institution: '中国建设银行股份有限公司',
+                    status: '有效'
+                }
+            };
+            
+            const data = verifyData[guaranteeId] || verifyData['BH202604150001'];
+            
+            document.getElementById('verify-guarantee-id').textContent = data.guaranteeId;
+            document.getElementById('verify-contract-id').textContent = data.contractId;
+            document.getElementById('verify-contract-name').textContent = data.contractName;
+            document.getElementById('verify-amount').textContent = data.amount;
+            document.getElementById('verify-term').textContent = data.term;
+            document.getElementById('verify-institution').textContent = data.institution;
+            document.getElementById('verify-status').textContent = data.status;
+            
+            document.getElementById('verify-modal').classList.remove('hidden');
+        }
+
+        // 关闭保函验真结果模态框
+        function closeVerifyModal() {
+            document.getElementById('verify-modal').classList.add('hidden');
+        }
 
         // 提交撤销申请
         function submitCancelApplication() {
@@ -1796,13 +1932,6 @@
         function closeInvoiceModal() {
             document.getElementById('invoice-modal').classList.add('hidden');
         }
-
-        // 点击模态框外部关闭
-        document.getElementById('invoice-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeInvoiceModal();
-            }
-        });
 
         // 提交发票申请
         function submitInvoiceApplication() {

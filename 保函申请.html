@@ -311,13 +311,16 @@
                     if (draftsView) draftsView.classList.remove('hidden');
                 }
 
+                // 确定显示的步骤状态（step=4和step=5时保持在步骤3）
+                const displayStep = (step === 4 || step === 5) ? 3 : step;
+
                 // 更新圆圈和标签状态
                 steps.forEach((item, index) => {
                     const circle = item.querySelector('.step-circle');
                     const label = item.querySelector('.step-label');
                     const currentIdx = index + 1;
                     
-                    if (currentIdx <= step) {
+                    if (currentIdx <= displayStep) {
                         // 已完成或当前步骤
                         circle.classList.remove('bg-slate-100', 'text-slate-400');
                         circle.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-blue-100');
@@ -336,7 +339,7 @@
                 for (let i = 1; i <= 3; i++) {
                     const line = document.getElementById(`step-line-${i}`);
                     if (line) {
-                        if (i < step) {
+                        if (i < displayStep) {
                             line.style.transform = 'translateX(0)';
                         } else {
                             line.style.transform = 'translateX(-100%)';
@@ -345,7 +348,7 @@
                 }
                 
                 if (stepText) {
-                    stepText.textContent = `步骤 ${step}/4 - ${stepNames[step-1] || '选择项目'}`;
+                    stepText.textContent = `步骤 ${displayStep}/4 - ${stepNames[displayStep-1] || '选择项目'}`;
                 }
 
                 // 统一管理所有视图的显隐
@@ -364,7 +367,7 @@
                 // 先全部隐藏
                 views.forEach(view => { if(view) view.classList.add('hidden'); });
 
-                // 根据步骤显示对应视图 (4步流程)
+                // 根据步骤显示对应视图
                 if (step === 1) {
                     if(applicationFormView) applicationFormView.classList.remove('hidden');
                 } else if (step === 2) {
@@ -374,6 +377,13 @@
                     const signingView = document.getElementById('agreement-signing-view');
                     if(signingView) signingView.classList.remove('hidden');
                 } else if (step === 4) {
+                    // 资料审核中，进度条保持在步骤3
+                    if(auditView) auditView.classList.remove('hidden');
+                } else if (step === 5) {
+                    // 审核通过后显示支付页面
+                    if(paymentView) paymentView.classList.remove('hidden');
+                } else if (step === 6) {
+                    // 支付完成后显示下载页面
                     if(downloadView) downloadView.classList.remove('hidden');
                 } else if (step === 0) {
                     if(typeSelectionView) typeSelectionView.classList.remove('hidden');
@@ -2269,6 +2279,14 @@
                                             <span class="text-gray-500 text-sm">点击上传</span>
                                         </div>
                             </div>
+                        </div>
+                        
+                        <!-- 协议勾选 -->
+                        <div class="flex items-start space-x-3 mb-6">
+                            <input type="checkbox" id="agree-protocol" class="mt-1 w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary">
+                            <label for="agree-protocol" class="text-sm text-gray-700">
+                                我已阅读并同意上述<span class="text-blue-600 font-medium">《电子投标保函投保协议》</span>全部内容
+                            </label>
                         </div>
                     </div>
                 </div>

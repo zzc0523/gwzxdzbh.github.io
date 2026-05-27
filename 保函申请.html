@@ -311,8 +311,17 @@
                     if (draftsView) draftsView.classList.remove('hidden');
                 }
 
-                // 确定显示的步骤状态（step=4和step=5时保持在步骤3）
-                const displayStep = (step === 4 || step === 5) ? 3 : step;
+                // 确定显示的步骤状态
+                let displayStep;
+                if (step === 4 || step === 5) {
+                    // 资料审核中和支付保费，进度条保持在步骤3（申请保函）
+                    displayStep = 3;
+                } else if (step === 6) {
+                    // 查看结果页面，进度条显示步骤4（查看结果）
+                    displayStep = 4;
+                } else {
+                    displayStep = step;
+                }
 
                 // 更新圆圈和标签状态
                 steps.forEach((item, index) => {
@@ -2541,7 +2550,7 @@
                             <i class="fa fa-check text-emerald-500 text-4xl"></i>
                         </div>
                         <h3 class="text-3xl font-black text-slate-900 mb-4">保函开立成功！</h3>
-                        <p class="text-slate-500 mb-12 max-w-md mx-auto leading-relaxed">您的投标保函已正式签发，具有法律效力。您可以随时在“保函订单”中查看、预览或下载该保函。</p>
+                        <p class="text-slate-500 mb-12 max-w-md mx-auto leading-relaxed">您申请的保函已正式签发，具有法律效力。您可以随时在“保函订单”中查看、预览或下载该保函。</p>
                         
                         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
                             <button onclick="window.handlePreviewAction()" class="w-full sm:w-auto px-10 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 shadow-xl shadow-blue-100 transition-all active:scale-95 flex items-center justify-center">
@@ -2553,7 +2562,7 @@
                         </div>
                         
                         <div class="mt-12 pt-8 border-t border-slate-100">
-                            <button onclick="window.location.href='保函订单.html'" class="text-slate-400 hover:text-primary transition-colors text-sm font-bold">
+                            <button onclick="window.location.href='供应商端_保函订单.html'" class="text-slate-400 hover:text-primary transition-colors text-sm font-bold">
                                 返回保函订单 <i class="fa fa-arrow-right ml-1"></i>
                             </button>
                         </div>

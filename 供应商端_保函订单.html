@@ -1435,17 +1435,14 @@
                 case '待支付':
                     infoHtml = `
                         <div class="p-4 bg-orange-50 rounded-xl border border-orange-200">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
-                                        <i class="fa fa-credit-card text-orange-600 text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-bold text-orange-800">等待支付保费</h5>
-                                        <p class="text-sm text-orange-700">审核已通过，请尽快完成保费缴纳以生成保函。</p>
-                                    </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-credit-card text-orange-600 text-lg"></i>
                                 </div>
-                                <button class="px-4 py-2 bg-orange-600 text-white rounded-lg text-sm font-bold shadow-sm hover:bg-orange-700 transition-all">立即支付</button>
+                                <div>
+                                    <h5 class="font-bold text-orange-800">等待支付保费</h5>
+                                    <p class="text-sm text-orange-700">审核已通过，请尽快完成保费缴纳以生成保函。</p>
+                                </div>
                             </div>
                         </div>`;
                     recordsHtml = `
@@ -1504,19 +1501,14 @@
                 case '已出函':
                     infoHtml = `
                         <div class="p-4 bg-blue-50 rounded-xl border border-blue-200">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                        <i class="fa fa-shield text-primary text-lg"></i>
-                                    </div>
-                                    <div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-shield text-primary text-lg"></i>
+                                </div>
+                                <div>
                                     <h5 class="font-bold text-blue-800">保函已开具</h5>
                                     <p class="text-sm text-blue-700">您的电子保函已正式生成，您可以随时下载或进行验真。</p>
                                 </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="px-4 py-2 bg-white border border-blue-200 text-primary rounded-lg text-sm font-bold shadow-sm hover:bg-blue-50 transition-all" onclick="showVerifyModal(data.guaranteeId)">保函验真</button>
-                                <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold shadow-sm hover:bg-secondary transition-all">下载保函</button>
                             </div>
                         </div>
                     </div>`;

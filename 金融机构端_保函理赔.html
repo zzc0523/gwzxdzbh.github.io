@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 保函理赔</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        .sidebar-link {
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+        }
+        .table-row {
+            transition: background-color 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .submenu {
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+        }
+        .submenu.hidden {
+            max-height: 0;
+        }
+        .submenu:not(.hidden) {
+            max-height: 200px;
+        }
+        /* 优化渲染性能 */
+        .sidebar-link, .stat-card, .table-row {
+            will-change: auto;
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease;
+        }
+        .upload-area:hover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.03);
+        }
+        .upload-area.dragover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.08);
+        }
+        .upload-file-preview {
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-university text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">金融机构端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu">
+                        <a href="金融机构端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="金融机构端_保函理赔.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                        <a href="金融机构端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 发票管理 -->
+                <div class="menu-group">
+                    <a href="金融机构端_发票管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600">
+                        <i class="fa fa-file-text w-5 text-center mr-3"></i>
+                        <span class="font-medium">发票管理</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        金
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">中国建设银行</p>
+                        <p class="text-xs text-gray-500">金融机构管理员</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">保函理赔</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                        <p class="text-xs text-blue-500 mt-1">可处理本机构的理赔申请</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索和筛选 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">理赔编号</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔编号">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">保函编号</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函编号">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">供应商</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入供应商名称">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部状态</option>
+                                <option value="pending">处理中</option>
+                                <option value="approved">已赔付</option>
+                                <option value="rejected">已拒绝</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4 space-x-3">
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-refresh mr-2"></i>重置
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <i class="fa fa-search mr-2"></i>查询
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 理赔记录列表 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fa fa-exclamation-circle text-danger mr-2"></i>
+                            理赔记录
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供应商</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔金额</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请日期</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604150001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603280003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门市市政工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥50,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-yellow-100 text-warning">处理中</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604150001')">
+                            <i class="fa fa-eye mr-1"></i>查看
+                        </button>
+                        <button class="text-danger hover:text-red-600 mr-3" onclick="openRejectClaimModal('LP202604150001')">
+                            <i class="fa fa-times-circle mr-1"></i>拒绝赔付
+                        </button>
+                        <button class="text-success hover:text-green-600" onclick="openProcessClaimModal('LP202604150001')">
+                            <i class="fa fa-check-circle mr-1"></i>赔付处理
+                        </button>
+                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604100002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202601100001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州市港口工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥30,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-success">已赔付</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604100002')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202603250001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202602150002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥15,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-25</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-gray-100 text-gray-500">已拒绝</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202603250001')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604180003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202604010004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市建筑工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥80,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-yellow-100 text-warning">处理中</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604180003')">
+                            <i class="fa fa-eye mr-1"></i>查看
+                        </button>
+                        <button class="text-danger hover:text-red-600 mr-3" onclick="openRejectClaimModal('LP202604180003')">
+                            <i class="fa fa-times-circle mr-1"></i>拒绝赔付
+                        </button>
+                        <button class="text-success hover:text-green-600" onclick="openProcessClaimModal('LP202604180003')">
+                            <i class="fa fa-check-circle mr-1"></i>赔付处理
+                        </button>
+                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604050004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603010005</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">宁德市水利工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥25,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-success">已赔付</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewClaimDetail('LP202604050004')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="text-sm text-gray-700">
+                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">5</span> 条，共 <span class="font-medium">12</span> 条
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 理赔详情模态框 -->
+    <div id="claim-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">理赔详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeClaimDetailModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">理赔编号</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-claim-id">LP202604150001</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">保函编号</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-guarantee-id">BH202603280003</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">供应商</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-supplier">厦门市市政工程有限公司</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">理赔金额</p>
+                        <p class="text-lg font-bold text-danger" id="detail-amount">¥50,000</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">申请日期</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-apply-date">2026-04-15</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">状态</p>
+                        <p class="text-lg font-medium" id="detail-status">处理中</p>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-3">理赔原因</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-700" id="detail-reason">
+                            厦门新机场配套工程存在质量问题，主要表现为：1. 路面平整度不达标；2. 排水系统堵塞；3. 路灯安装不符合规范。
+                            我方已多次要求供应商厦门市市政工程有限公司进行整改，但供应商拒不整改，故申请保函理赔。
+                        </p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-bold text-gray-800 mb-3">证明材料</h4>
+                    <div class="space-y-2" id="detail-materials">
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-pdf-o text-red-500 mr-3"></i>
+                                <span class="text-sm text-gray-700">质量问题现场照片.pdf</span>
+                            </div>
+                            <button class="text-primary hover:text-secondary text-sm">
+                                <i class="fa fa-download mr-1"></i>下载
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-word-o text-blue-500 mr-3"></i>
+                                <span class="text-sm text-gray-700">整改通知书.docx</span>
+                            </div>
+                            <button class="text-primary hover:text-secondary text-sm">
+                                <i class="fa fa-download mr-1"></i>下载
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeClaimDetailModal()">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 赔付处理模态框 -->
+    <div id="process-claim-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">赔付处理</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeProcessClaimModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- 理赔信息 -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fa fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">理赔信息</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">理赔编号</p>
+                            <p class="font-medium text-gray-900" id="process-claim-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">保函编号</p>
+                            <p class="font-medium text-gray-900" id="process-guarantee-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">供应商</p>
+                            <p class="font-medium text-gray-900" id="process-supplier">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">申请理赔金额</p>
+                            <p class="font-bold text-danger" id="process-request-amount">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 赔付时间 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        赔付时间 <span class="text-red-500">*</span>
+                    </label>
+                    <input type="date" id="process-date" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                </div>
+
+                <!-- 实际赔付金额 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        实际赔付金额 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">¥</span>
+                        <input type="number" id="process-amount" class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="请输入实际赔付金额">
+                    </div>
+                </div>
+
+                <!-- 上传赔付证明文件 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">
+                        上传赔付证明文件 <span class="text-red-500">*</span>
+                    </label>
+                    <div id="process-upload-area" class="upload-area rounded-xl p-8 text-center cursor-pointer">
+                        <input type="file" id="process-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" onchange="handleProcessFileSelect(event)">
+                        <i class="fa fa-cloud-upload text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-700 font-medium mb-1">点击或拖拽上传赔付证明文件</p>
+                        <p class="text-sm text-gray-500">支持PDF、JPG、JPEG、PNG格式，文件大小不超过10MB</p>
+                    </div>
+                    <!-- 文件预览 -->
+                    <div id="process-file-preview" class="mt-4 hidden">
+                        <div class="upload-file-preview rounded-lg p-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-pdf-o text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800" id="process-preview-filename">-</p>
+                                    <p class="text-xs text-gray-500" id="process-preview-filesize">-</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-500 transition-colors" onclick="removeProcessFile()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeProcessClaimModal()">
+                        取消
+                    </button>
+                    <button id="confirm-process-btn" class="px-6 py-2.5 bg-success text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onclick="confirmProcessClaim()" disabled>
+                        <i class="fa fa-check-circle mr-1"></i>确认赔付
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 拒绝赔付模态框 -->
+    <div id="reject-claim-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">拒绝赔付</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeRejectClaimModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- 理赔信息 -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fa fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">理赔信息</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">理赔编号</p>
+                            <p class="font-medium text-gray-900" id="reject-claim-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">保函编号</p>
+                            <p class="font-medium text-gray-900" id="reject-guarantee-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">供应商</p>
+                            <p class="font-medium text-gray-900" id="reject-supplier">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">申请理赔金额</p>
+                            <p class="font-bold text-danger" id="reject-request-amount">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 拒绝原因 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        拒绝原因 <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="reject-reason" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-danger focus:border-danger transition-all resize-none" rows="4" placeholder="请输入拒绝赔付的原因"></textarea>
+                </div>
+
+                <!-- 上传拒绝证明文件 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">
+                        上传拒绝证明文件 <span class="text-gray-500">(选填)</span>
+                    </label>
+                    <div id="reject-upload-area" class="upload-area rounded-xl p-8 text-center cursor-pointer">
+                        <input type="file" id="reject-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" onchange="handleRejectFileSelect(event)">
+                        <i class="fa fa-cloud-upload text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-700 font-medium mb-1">点击或拖拽上传拒绝证明文件</p>
+                        <p class="text-sm text-gray-500">支持PDF、JPG、JPEG、PNG格式，文件大小不超过10MB</p>
+                    </div>
+                    <!-- 文件预览 -->
+                    <div id="reject-file-preview" class="mt-4 hidden">
+                        <div class="upload-file-preview rounded-lg p-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-pdf-o text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800" id="reject-preview-filename">-</p>
+                                    <p class="text-xs text-gray-500" id="reject-preview-filesize">-</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-500 transition-colors" onclick="removeRejectFile()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeRejectClaimModal()">
+                        取消
+                    </button>
+                    <button id="confirm-reject-btn" class="px-6 py-2.5 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onclick="confirmRejectClaim()" disabled>
+                        <i class="fa fa-times-circle mr-1"></i>确认拒绝
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 缓存DOM元素
+        const cache = {};
+        
+        // 理赔数据
+        const claimData = {
+            'LP202604150001': {
+                id: 'LP202604150001',
+                guaranteeId: 'BH202603280003',
+                supplier: '厦门市市政工程有限公司',
+                amount: '¥50,000',
+                applyDate: '2026-04-15',
+                status: '处理中',
+                reason: '厦门新机场配套工程存在质量问题，主要表现为：1. 路面平整度不达标；2. 排水系统堵塞；3. 路灯安装不符合规范。我方已多次要求供应商厦门市市政工程有限公司进行整改，但供应商拒不整改，故申请保函理赔。',
+                materials: [
+                    { name: '质量问题现场照片.pdf', type: 'pdf' },
+                    { name: '整改通知书.docx', type: 'word' }
+                ],
+                progress: [
+                    { step: '提交理赔申请', date: '2026-04-15 10:30', status: 'completed' },
+                    { step: '材料审核通过', date: '2026-04-15 14:20', status: 'completed' },
+                    { step: '金融机构处理中', date: '2026-04-16 09:00', status: 'processing' }
+                ]
+            },
+            'LP202604100002': {
+                id: 'LP202604100002',
+                guaranteeId: 'BH202601100001',
+                supplier: '漳州市港口工程有限公司',
+                amount: '¥30,000',
+                applyDate: '2026-04-10',
+                status: '已赔付',
+                reason: '漳州港码头扩建工程存在质量问题，主要表现为：1. 码头地面裂缝；2. 护栏安装不牢固。我方已多次要求供应商进行整改，但供应商拒不整改，故申请保函理赔。',
+                materials: [
+                    { name: '质量问题现场照片.pdf', type: 'pdf' },
+                    { name: '整改通知书.docx', type: 'word' },
+                    { name: '监理报告.pdf', type: 'pdf' }
+                ],
+                progress: [
+                    { step: '提交理赔申请', date: '2026-04-10 09:15', status: 'completed' },
+                    { step: '材料审核通过', date: '2026-04-10 11:30', status: 'completed' },
+                    { step: '金融机构处理中', date: '2026-04-11 14:00', status: 'completed' },
+                    { step: '理赔已赔付', date: '2026-04-12 10:00', status: 'completed' }
+                ]
+            },
+            'LP202603250001': {
+                id: 'LP202603250001',
+                guaranteeId: 'BH202602150002',
+                supplier: '泉州市交通工程有限公司',
+                amount: '¥15,000',
+                applyDate: '2026-03-25',
+                status: '已拒绝',
+                reason: '泉州湾大桥养护工程存在质量问题，主要表现为：桥面坑洼不平。我方要求供应商进行整改，但供应商认为问题不严重，故申请保函理赔。',
+                materials: [
+                    { name: '质量问题现场照片.pdf', type: 'pdf' }
+                ],
+                progress: [
+                    { step: '提交理赔申请', date: '2026-03-25 14:30', status: 'completed' },
+                    { step: '材料审核通过', date: '2026-03-26 10:00', status: 'completed' },
+                    { step: '金融机构处理中', date: '2026-03-27 09:00', status: 'completed' },
+                    { step: '理赔已拒绝', date: '2026-03-28 14:00', status: 'completed' }
+                ]
+            },
+            'LP202604180003': {
+                id: 'LP202604180003',
+                guaranteeId: 'BH202604010004',
+                supplier: '福州市建筑工程有限公司',
+                amount: '¥80,000',
+                applyDate: '2026-04-18',
+                status: '处理中',
+                reason: '福州地铁5号线附属工程存在质量问题，主要表现为：1. 墙体裂缝；2. 防水层失效。我方已要求供应商进行整改，但供应商未按时完成，故申请保函理赔。',
+                materials: [
+                    { name: '质量检测报告.pdf', type: 'pdf' },
+                    { name: '现场照片.zip', type: 'zip' }
+                ],
+                progress: [
+                    { step: '提交理赔申请', date: '2026-04-18 15:00', status: 'completed' },
+                    { step: '材料审核通过', date: '2026-04-19 10:30', status: 'completed' },
+                    { step: '金融机构处理中', date: '2026-04-20 09:00', status: 'processing' }
+                ]
+            },
+            'LP202604050004': {
+                id: 'LP202604050004',
+                guaranteeId: 'BH202603010005',
+                supplier: '宁德市水利工程有限公司',
+                amount: '¥25,000',
+                applyDate: '2026-04-05',
+                status: '已赔付',
+                reason: '宁德水库加固工程存在质量问题，主要表现为：堤坝渗漏。我方要求供应商进行修补，但供应商未能完成，故申请保函理赔。',
+                materials: [
+                    { name: '渗漏检测报告.pdf', type: 'pdf' },
+                    { name: '修补方案对比.docx', type: 'word' }
+                ],
+                progress: [
+                    { step: '提交理赔申请', date: '2026-04-05 11:00', status: 'completed' },
+                    { step: '材料审核通过', date: '2026-04-06 09:30', status: 'completed' },
+                    { step: '金融机构处理中', date: '2026-04-07 14:00', status: 'completed' },
+                    { step: '理赔已赔付', date: '2026-04-08 10:00', status: 'completed' }
+                ]
+            }
+        };
+        
+        let currentClaimId = '';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 预缓存常用元素
+            cache.todayDate = document.getElementById('today-date');
+            cache.claimModal = document.getElementById('claim-detail-modal');
+            cache.guaranteeIcon = document.getElementById('guarantee-icon');
+            cache.guaranteeSubmenu = document.getElementById('guarantee-submenu');
+            cache.detailClaimId = document.getElementById('detail-claim-id');
+            cache.detailGuaranteeId = document.getElementById('detail-guarantee-id');
+            cache.detailSupplier = document.getElementById('detail-supplier');
+            cache.detailAmount = document.getElementById('detail-amount');
+            cache.detailApplyDate = document.getElementById('detail-apply-date');
+            cache.detailStatus = document.getElementById('detail-status');
+            cache.detailReason = document.getElementById('detail-reason');
+            cache.detailMaterials = document.getElementById('detail-materials');
+            
+            // 赔付处理相关
+            cache.processModal = document.getElementById('process-claim-modal');
+            cache.processClaimId = document.getElementById('process-claim-id');
+            cache.processGuaranteeId = document.getElementById('process-guarantee-id');
+            cache.processSupplier = document.getElementById('process-supplier');
+            cache.processRequestAmount = document.getElementById('process-request-amount');
+            cache.processDate = document.getElementById('process-date');
+            cache.processAmount = document.getElementById('process-amount');
+            cache.processUploadArea = document.getElementById('process-upload-area');
+            cache.processFileInput = document.getElementById('process-file-input');
+            cache.processFilePreview = document.getElementById('process-file-preview');
+            cache.processPreviewFilename = document.getElementById('process-preview-filename');
+            cache.processPreviewFilesize = document.getElementById('process-preview-filesize');
+            cache.confirmProcessBtn = document.getElementById('confirm-process-btn');
+            
+            // 拒绝赔付相关
+            cache.rejectModal = document.getElementById('reject-claim-modal');
+            cache.rejectClaimId = document.getElementById('reject-claim-id');
+            cache.rejectGuaranteeId = document.getElementById('reject-guarantee-id');
+            cache.rejectSupplier = document.getElementById('reject-supplier');
+            cache.rejectRequestAmount = document.getElementById('reject-request-amount');
+            cache.rejectReason = document.getElementById('reject-reason');
+            cache.rejectUploadArea = document.getElementById('reject-upload-area');
+            cache.rejectFileInput = document.getElementById('reject-file-input');
+            cache.rejectFilePreview = document.getElementById('reject-file-preview');
+            cache.rejectPreviewFilename = document.getElementById('reject-preview-filename');
+            cache.rejectPreviewFilesize = document.getElementById('reject-preview-filesize');
+            cache.confirmRejectBtn = document.getElementById('confirm-reject-btn');
+            
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            if (cache.todayDate) {
+                cache.todayDate.textContent = dateStr;
+            }
+            
+            // 设置默认赔付时间为今天
+            if (cache.processDate) {
+                const todayDate = new Date().toISOString().split('T')[0];
+                cache.processDate.value = todayDate;
+            }
+            
+            // 初始化拖拽上传
+            initProcessDragDrop();
+            initRejectDragDrop();
+            
+            // 监听表单输入，启用/禁用确认按钮
+            if (cache.processDate) {
+                cache.processDate.addEventListener('input', checkProcessFormValid);
+            }
+            if (cache.processAmount) {
+                cache.processAmount.addEventListener('input', checkProcessFormValid);
+            }
+            if (cache.rejectReason) {
+                cache.rejectReason.addEventListener('input', checkRejectFormValid);
+            }
+        });
+
+        function toggleMenu(menuName) {
+            const submenu = document.getElementById(menuName + '-submenu');
+            const icon = document.getElementById(menuName + '-icon');
+            if (submenu && icon) {
+                submenu.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        }
+
+        function viewClaimDetail(claimId) {
+            const data = claimData[claimId];
+            if (data && cache.detailClaimId) {
+                cache.detailClaimId.textContent = data.id;
+                cache.detailGuaranteeId.textContent = data.guaranteeId;
+                cache.detailSupplier.textContent = data.supplier;
+                cache.detailAmount.textContent = data.amount;
+                cache.detailApplyDate.textContent = data.applyDate;
+                cache.detailStatus.textContent = data.status;
+                cache.detailStatus.className = data.status === '处理中' ? 'text-lg font-medium text-warning' : data.status === '已赔付' ? 'text-lg font-medium text-success' : 'text-lg font-medium text-gray-500';
+                cache.detailReason.textContent = data.reason;
+                
+                cache.detailMaterials.innerHTML = data.materials.map(material => `
+                    <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fa fa-file-${material.type === 'pdf' ? 'pdf-o text-red-500' : material.type === 'word' ? 'word-o text-blue-500' : 'archive-o text-gray-500'} mr-3"></i>
+                            <span class="text-sm text-gray-700">${material.name}</span>
+                        </div>
+                        <button class="text-primary hover:text-secondary text-sm">
+                            <i class="fa fa-download mr-1"></i>下载
+                        </button>
+                    </div>
+                `).join('');
+                
+                cache.claimModal.classList.remove('hidden');
+            }
+        }
+
+        function closeClaimDetailModal() {
+            if (cache.claimModal) {
+                cache.claimModal.classList.add('hidden');
+            }
+        }
+
+
+
+        // 打开赔付处理弹窗
+        function openProcessClaimModal(claimId) {
+            currentClaimId = claimId;
+            const data = claimData[claimId];
+            
+            if (data) {
+                cache.processClaimId.textContent = data.id;
+                cache.processGuaranteeId.textContent = data.guaranteeId;
+                cache.processSupplier.textContent = data.supplier;
+                cache.processRequestAmount.textContent = data.amount;
+                
+                // 预填充默认赔付金额
+                const amountValue = data.amount.replace(/[^0-9]/g, '');
+                cache.processAmount.value = amountValue;
+            }
+            
+            // 重置表单
+            resetProcessForm();
+            
+            // 显示弹窗
+            cache.processModal.classList.remove('hidden');
+        }
+
+        // 关闭赔付处理弹窗
+        function closeProcessClaimModal() {
+            cache.processModal.classList.add('hidden');
+            resetProcessForm();
+        }
+
+        // 重置赔付处理表单
+        function resetProcessForm() {
+            // 重置日期为今天
+            const todayDate = new Date().toISOString().split('T')[0];
+            cache.processDate.value = todayDate;
+            
+            // 重置文件上传
+            cache.processFileInput.value = '';
+            cache.processFilePreview.classList.add('hidden');
+            cache.confirmProcessBtn.disabled = true;
+        }
+
+        // 初始化拖拽上传
+        function initProcessDragDrop() {
+            if (!cache.processUploadArea) return;
+            
+            // 点击上传区域
+            cache.processUploadArea.addEventListener('click', function() {
+                cache.processFileInput.click();
+            });
+            
+            // 拖拽事件
+            cache.processUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                cache.processUploadArea.classList.add('dragover');
+            });
+            
+            cache.processUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                cache.processUploadArea.classList.remove('dragover');
+            });
+            
+            cache.processUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                cache.processUploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleProcessFile(files[0]);
+                }
+            });
+        }
+
+        // 处理文件选择
+        function handleProcessFileSelect(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                handleProcessFile(files[0]);
+            }
+        }
+
+        // 处理文件
+        function handleProcessFile(file) {
+            // 验证文件类型
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('请上传PDF或图片格式的文件', 'error');
+                return;
+            }
+            
+            // 验证文件大小（10MB）
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('文件大小不能超过10MB', 'error');
+                return;
+            }
+            
+            // 显示文件预览
+            cache.processPreviewFilename.textContent = file.name;
+            cache.processPreviewFilesize.textContent = formatFileSize(file.size);
+            cache.processFilePreview.classList.remove('hidden');
+            
+            // 检查表单是否有效
+            checkProcessFormValid();
+        }
+
+        // 移除文件
+        function removeProcessFile() {
+            cache.processFileInput.value = '';
+            cache.processFilePreview.classList.add('hidden');
+            checkProcessFormValid();
+        }
+
+        // 检查赔付处理表单是否有效
+        function checkProcessFormValid() {
+            const hasDate = cache.processDate && cache.processDate.value;
+            const hasAmount = cache.processAmount && cache.processAmount.value && Number(cache.processAmount.value) > 0;
+            const hasFile = cache.processFilePreview && !cache.processFilePreview.classList.contains('hidden');
+            
+            cache.confirmProcessBtn.disabled = !(hasDate && hasAmount && hasFile);
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        // 确认赔付
+        function confirmProcessClaim() {
+            // 验证
+            if (!cache.processDate.value) {
+                showNotification('请选择赔付时间', 'error');
+                return;
+            }
+            
+            if (!cache.processAmount.value || Number(cache.processAmount.value) <= 0) {
+                showNotification('请输入有效的赔付金额', 'error');
+                return;
+            }
+            
+            if (cache.processFilePreview.classList.contains('hidden')) {
+                showNotification('请上传赔付证明文件', 'error');
+                return;
+            }
+            
+            // 模拟赔付过程
+            showNotification('正在处理赔付...', 'info');
+            
+            setTimeout(() => {
+                // 更新理赔数据
+                if (claimData[currentClaimId]) {
+                    claimData[currentClaimId].status = '已赔付';
+                    claimData[currentClaimId].progress.push({
+                        step: '理赔已赔付',
+                        date: cache.processDate.value + ' 10:00',
+                        status: 'completed'
+                    });
+                }
+                
+                // 更新列表状态
+                updateClaimListStatus(currentClaimId);
+                
+                // 关闭弹窗
+                closeProcessClaimModal();
+                
+                // 显示成功通知
+                showNotification('赔付成功！', 'success');
+            }, 1500);
+        }
+
+        // 打开拒绝赔付弹窗
+        function openRejectClaimModal(claimId) {
+            currentClaimId = claimId;
+            const data = claimData[claimId];
+            
+            if (data) {
+                cache.rejectClaimId.textContent = data.id;
+                cache.rejectGuaranteeId.textContent = data.guaranteeId;
+                cache.rejectSupplier.textContent = data.supplier;
+                cache.rejectRequestAmount.textContent = data.amount;
+            }
+            
+            // 重置表单
+            resetRejectForm();
+            
+            // 显示弹窗
+            cache.rejectModal.classList.remove('hidden');
+        }
+
+        // 关闭拒绝赔付弹窗
+        function closeRejectClaimModal() {
+            cache.rejectModal.classList.add('hidden');
+            resetRejectForm();
+        }
+
+        // 重置拒绝赔付表单
+        function resetRejectForm() {
+            cache.rejectReason.value = '';
+            cache.rejectFileInput.value = '';
+            cache.rejectFilePreview.classList.add('hidden');
+            cache.confirmRejectBtn.disabled = true;
+        }
+
+        // 初始化拒绝赔付拖拽上传
+        function initRejectDragDrop() {
+            if (!cache.rejectUploadArea) return;
+            
+            // 点击上传区域
+            cache.rejectUploadArea.addEventListener('click', function() {
+                cache.rejectFileInput.click();
+            });
+            
+            // 拖拽事件
+            cache.rejectUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                cache.rejectUploadArea.classList.add('dragover');
+            });
+            
+            cache.rejectUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                cache.rejectUploadArea.classList.remove('dragover');
+            });
+            
+            cache.rejectUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                cache.rejectUploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleRejectFile(files[0]);
+                }
+            });
+        }
+
+        // 处理拒绝赔付文件选择
+        function handleRejectFileSelect(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                handleRejectFile(files[0]);
+            }
+        }
+
+        // 处理拒绝赔付文件
+        function handleRejectFile(file) {
+            // 验证文件类型
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('请上传PDF或图片格式的文件', 'error');
+                return;
+            }
+            
+            // 验证文件大小（10MB）
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('文件大小不能超过10MB', 'error');
+                return;
+            }
+            
+            // 显示文件预览
+            cache.rejectPreviewFilename.textContent = file.name;
+            cache.rejectPreviewFilesize.textContent = formatFileSize(file.size);
+            cache.rejectFilePreview.classList.remove('hidden');
+            
+            // 检查表单是否有效
+            checkRejectFormValid();
+        }
+
+        // 移除拒绝赔付文件
+        function removeRejectFile() {
+            cache.rejectFileInput.value = '';
+            cache.rejectFilePreview.classList.add('hidden');
+            checkRejectFormValid();
+        }
+
+        // 检查拒绝赔付表单是否有效
+        function checkRejectFormValid() {
+            const hasReason = cache.rejectReason && cache.rejectReason.value.trim() !== '';
+            cache.confirmRejectBtn.disabled = !hasReason;
+        }
+
+        // 确认拒绝赔付
+        function confirmRejectClaim() {
+            // 验证
+            if (!cache.rejectReason.value.trim()) {
+                showNotification('请输入拒绝赔付的原因', 'error');
+                return;
+            }
+            
+            // 模拟处理
+            showNotification('正在处理拒绝赔付...', 'info');
+            
+            setTimeout(() => {
+                // 更新理赔数据
+                if (claimData[currentClaimId]) {
+                    claimData[currentClaimId].status = '已拒绝';
+                }
+                
+                // 更新列表状态
+                updateClaimListStatus(currentClaimId, 'reject');
+                
+                // 关闭弹窗
+                closeRejectClaimModal();
+                
+                // 显示成功通知
+                showNotification('拒赔成功！', 'success');
+            }, 1500);
+        }
+
+        // 更新列表中理赔状态
+        function updateClaimListStatus(claimId, type = 'process') {
+            const rows = document.querySelectorAll('.table-row');
+            
+            rows.forEach(function(row) {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell && firstCell.textContent.trim() === claimId) {
+                    // 更新状态标签
+                    const statusCell = row.querySelector('td:nth-child(6)');
+                    if (statusCell) {
+                        const badge = statusCell.querySelector('.badge');
+                        if (badge) {
+                            if (type === 'process') {
+                                badge.textContent = '已赔付';
+                                badge.className = 'badge bg-green-100 text-success';
+                            } else {
+                                badge.textContent = '已拒绝';
+                                badge.className = 'badge bg-gray-100 text-gray-500';
+                            }
+                        }
+                    }
+                    
+                    // 更新操作按钮 - 移除"拒绝赔付"和"赔付处理"按钮
+                    const actionCell = row.querySelector('td:last-child');
+                    if (actionCell) {
+                        const rejectBtn = actionCell.querySelector('button[onclick="openRejectClaimModal(\'' + claimId + '\')"]');
+                        if (rejectBtn) {
+                            rejectBtn.remove();
+                        }
+                        const processBtn = actionCell.querySelector('button[onclick="openProcessClaimModal(\'' + claimId + '\')"]');
+                        if (processBtn) {
+                            processBtn.remove();
+                        }
+                    }
+                }
+            });
+        }
+
+        // 复用通知元素
+        let notificationTimeout;
+        function showNotification(message, type = 'info') {
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            notificationTimeout = setTimeout(() => {
+                notification.style.transition = 'opacity 0.3s ease';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // 事件委托
+        document.addEventListener('click', function(e) {
+            if (cache.claimModal && e.target === cache.claimModal) {
+                closeClaimDetailModal();
+            }
+            if (cache.processModal && e.target === cache.processModal) {
+                closeProcessClaimModal();
+            }
+        });
+    </script>
+</body>
+</html>

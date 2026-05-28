@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>国网征信系统 - 保函订单</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -22,7 +28,7 @@
                         'neutral-dark': '#2C3E50'
                     },
                     fontFamily: {
-                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                        sans: ['Noto Sans SC', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
                     }
                 }
             }
@@ -30,10 +36,10 @@
     </script>
     <style>
         * {
-            font-family: 'Noto Sans SC', sans-serif;
+            font-family: 'Noto Sans SC', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
         .sidebar-link {
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease;
         }
         .sidebar-link:hover {
             background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
@@ -44,14 +50,14 @@
         }
         .stat-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .stat-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0,75,147,0.15);
         }
         .table-row {
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
         }
         .table-row:hover {
             background-color: rgba(0,75,147,0.03);
@@ -66,13 +72,32 @@
         }
         .submenu {
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.25s ease-out;
         }
         .submenu.hidden {
             max-height: 0;
         }
         .submenu:not(.hidden) {
             max-height: 200px;
+        }
+        /* 优化渲染性能 */
+        .sidebar-link, .stat-card, .table-row {
+            will-change: auto;
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease;
+        }
+        .upload-area:hover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.03);
+        }
+        .upload-area.dragover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.08);
+        }
+        .upload-file-preview {
+            border: 1px solid #e2e8f0;
         }
     </style>
 </head>
@@ -84,11 +109,11 @@
             <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
-                        <i class="fa fa-cogs text-primary text-xl"></i>
+                        <i class="fa fa-university text-primary text-xl"></i>
                     </div>
                     <div>
                         <h1 class="text-white font-bold text-lg">国网征信</h1>
-                        <p class="text-accent text-xs">管理端</p>
+                        <p class="text-accent text-xs">金融机构端</p>
                     </div>
                 </div>
             </div>
@@ -99,61 +124,6 @@
                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
                 </div>
                 
-                <!-- 金融机构管理 -->
-                <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
-                        <div class="flex items-center">
-                            <i class="fa fa-bank w-5 text-center mr-3"></i>
-                            <span class="font-medium">金融机构管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
-                    </button>
-                    <div id="financial-institution-submenu" class="submenu">
-                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
-                            <span class="font-medium">金融机构接入</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- 产品管理 -->
-                <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
-                        <div class="flex items-center">
-                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
-                            <span class="font-medium">产品管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
-                    </button>
-                    <div id="product-submenu" class="submenu">
-                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
-                            <span class="font-medium">产品管理</span>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- 平台管理 -->
-                <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
-                        <div class="flex items-center">
-                            <i class="fa fa-globe w-5 text-center mr-3"></i>
-                            <span class="font-medium">平台管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
-                    </button>
-                    <div id="platform-submenu" class="submenu">
-                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-globe w-5 text-center mr-3"></i>
-                            <span class="font-medium">省级平台管理</span>
-                        </a>
-                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
-                            <span class="font-medium">省级管理员管理</span>
-                        </a>
-                    </div>
-                </div>
-
                 <!-- 保函管理 -->
                 <div class="menu-group">
                     <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('guarantee')">
@@ -164,40 +134,27 @@
                         <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
                     </button>
                     <div id="guarantee-submenu" class="submenu">
-                        <a href="管理端_保函订单.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                        <a href="金融机构端_保函订单.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
                             <i class="fa fa-file-text-o w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">保函订单</span>
                         </a>
-                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
-                            <span class="font-medium">保函验真</span>
-                        </a>
-                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                        <a href="金融机构端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
                             <span class="font-medium">保函理赔</span>
                         </a>
+                        <a href="金融机构端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
                     </div>
                 </div>
-                
-                <!-- 系统管理 -->
+
+                <!-- 发票管理 -->
                 <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('system')">
-                        <div class="flex items-center">
-                            <i class="fa fa-cog w-5 text-center mr-3"></i>
-                            <span class="font-medium">系统管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="system-icon"></i>
-                    </button>
-                    <div id="system-submenu" class="submenu">
-                        <a href="管理端_角色管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-users w-5 text-center mr-3"></i>
-                            <span class="font-medium">角色管理</span>
-                        </a>
-                        <a href="管理端_组织与人员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
-                            <span class="font-medium">组织与人员管理</span>
-                        </a>
-                    </div>
+                    <a href="金融机构端_发票管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600">
+                        <i class="fa fa-file-text w-5 text-center mr-3"></i>
+                        <span class="font-medium">发票管理</span>
+                    </a>
                 </div>
             </nav>
 
@@ -205,11 +162,11 @@
             <div class="p-4 border-t border-gray-100 bg-gray-50">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
-                        管
+                        金
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
-                        <p class="text-xs text-gray-500">管理端</p>
+                        <p class="text-sm font-medium text-gray-900 truncate">中国建设银行</p>
+                        <p class="text-xs text-gray-500">金融机构管理员</p>
                     </div>
                     <button class="text-gray-400 hover:text-gray-600">
                         <i class="fa fa-sign-out"></i>
@@ -226,7 +183,7 @@
                     <div>
                         <h2 class="text-xl font-bold text-gray-900">保函订单</h2>
                         <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
-                        <p class="text-xs text-blue-500 mt-1">可查看全平台所有订单数据</p>
+                        <p class="text-xs text-blue-500 mt-1">可查看本机构出具的所有订单数据</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
@@ -276,9 +233,8 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部状态</option>
-                                <option value="approved">生效中</option>
-                                <option value="waiting_renew">待续保</option>
-                                <option value="expired">已过期</option>
+                                <option value="pending">待处理</option>
+                                <option value="issued">已开函</option>
                             </select>
                         </div>
                     </div>
@@ -318,21 +274,21 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604100001</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202604100001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁1号线配套工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁集团有限公司</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥150,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-green-100 text-success">生效中</span>
+                                        <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('1')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
-                                        <button class="text-warning hover:text-yellow-600" onclick="downloadGuarantee('1')">
-                                            <i class="fa fa-download mr-1"></i>下载
+                                        <button class="text-success hover:text-green-600" onclick="openUploadGuaranteeModal('DD202604100001')">
+                                            <i class="fa fa-upload mr-1"></i>上传保函
                                         </button>
                                     </td>
                                 </tr>
@@ -345,7 +301,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-green-100 text-success">生效中</span>
+                                        <span class="badge bg-green-100 text-success">已开函</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('2')">
@@ -358,18 +314,21 @@
                                 </tr>
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604100003</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202604100003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市高速公路连接线工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通运输局</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥300,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-gray-100 text-gray-500">已过期</span>
+                                        <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('3')">
                                             <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-success hover:text-green-600" onclick="openUploadGuaranteeModal('DD202604100003')">
+                                            <i class="fa fa-upload mr-1"></i>上传保函
                                         </button>
                                     </td>
                                 </tr>
@@ -382,11 +341,14 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-orange-100 text-orange-700">待续保</span>
+                                        <span class="badge bg-green-100 text-success">已开函</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('6')">
                                             <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-warning hover:text-yellow-600" onclick="downloadGuarantee('6')">
+                                            <i class="fa fa-download mr-1"></i>下载
                                         </button>
                                     </td>
                                 </tr>
@@ -411,10 +373,10 @@
                                 <i class="fa fa-angle-right"></i>
                             </button>
                         </div>
-              </div>
+                    </div>
 
-          </div>
-      </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -459,7 +421,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">状态</p>
-                        <p class="text-lg font-medium" id="detail-status">已出函</p>
+                        <p class="text-lg font-medium" id="detail-status">已开函</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">有效期</p>
@@ -482,16 +444,207 @@
         </div>
     </div>
 
+    <!-- 上传保函模态框 -->
+    <div id="upload-guarantee-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">上传保函</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeUploadGuaranteeModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- 订单信息 -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fa fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">订单信息</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">订单编号</p>
+                            <p class="font-medium text-gray-900" id="upload-order-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">工程施工合同名称</p>
+                            <p class="font-medium text-gray-900" id="upload-contract-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">工程合同甲方单位（发包人）</p>
+                            <p class="font-medium text-gray-900" id="upload-party-a">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">保函金额</p>
+                            <p class="font-bold text-primary" id="upload-amount">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 保函编号输入 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        保函编号 <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="guarantee-number-input" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="请输入保函编号，如：FJ202604100001">
+                </div>
+
+                <!-- 保函有效期 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        保函有效期 <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">开始日期</label>
+                            <input type="date" id="guarantee-start-date" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">结束日期</label>
+                            <input type="date" id="guarantee-end-date" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上传保函文件 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">
+                        上传保函文件 <span class="text-red-500">*</span>
+                    </label>
+                    <div id="guarantee-upload-area" class="upload-area rounded-xl p-8 text-center cursor-pointer">
+                        <input type="file" id="guarantee-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" onchange="handleGuaranteeFileSelect(event)">
+                        <i class="fa fa-cloud-upload text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-700 font-medium mb-1">点击或拖拽上传保函文件</p>
+                        <p class="text-sm text-gray-500">支持PDF、JPG、JPEG、PNG格式，文件大小不超过10MB</p>
+                    </div>
+                    <!-- 文件预览 -->
+                    <div id="guarantee-file-preview" class="mt-4 hidden">
+                        <div class="upload-file-preview rounded-lg p-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-pdf-o text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800" id="guarantee-preview-filename">-</p>
+                                    <p class="text-xs text-gray-500" id="guarantee-preview-filesize">-</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-500 transition-colors" onclick="removeGuaranteeFile()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeUploadGuaranteeModal()">
+                        取消
+                    </button>
+                    <button id="confirm-upload-btn" class="px-6 py-2.5 bg-success text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onclick="confirmUploadGuarantee()" disabled>
+                        <i class="fa fa-check-circle mr-1"></i>确认上传
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // 缓存DOM元素
+        const cache = {};
+        
+        // 订单数据
+        const orderData = {
+            'DD202604100001': {
+                orderId: 'DD202604100001',
+                guaranteeId: '',
+                contractName: '福州市地铁1号线配套工程',
+                partyA: '福州市地铁集团有限公司',
+                amount: '¥150,000',
+                status: 'pending'
+            },
+            'DD202604100002': {
+                orderId: 'DD202604100002',
+                guaranteeId: 'FJ202604100002',
+                contractName: '厦门市环岛路扩建工程',
+                partyA: '厦门新机场建设指挥部',
+                amount: '¥200,000',
+                status: 'issued'
+            },
+            'DD202604100003': {
+                orderId: 'DD202604100003',
+                guaranteeId: '',
+                contractName: '泉州市高速公路连接线工程',
+                partyA: '泉州市交通运输局',
+                amount: '¥300,000',
+                status: 'pending'
+            },
+            'DD202604150006': {
+                orderId: 'DD202604150006',
+                guaranteeId: 'FJ202604150006',
+                contractName: '莆田市木兰溪防洪工程',
+                partyA: '莆田市水利局',
+                amount: '¥200,000',
+                status: 'issued'
+            }
+        };
+        
+        let currentOrderId = '';
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // 预缓存常用元素
+            cache.todayDate = document.getElementById('today-date');
+            cache.guaranteeModal = document.getElementById('guarantee-detail-modal');
+            cache.guaranteeIcon = document.getElementById('guarantee-icon');
+            cache.guaranteeSubmenu = document.getElementById('guarantee-submenu');
+            // 上传保函相关
+            cache.uploadGuaranteeModal = document.getElementById('upload-guarantee-modal');
+            cache.uploadOrderId = document.getElementById('upload-order-id');
+            cache.uploadContractName = document.getElementById('upload-contract-name');
+            cache.uploadPartyA = document.getElementById('upload-party-a');
+            cache.uploadAmount = document.getElementById('upload-amount');
+            cache.guaranteeNumberInput = document.getElementById('guarantee-number-input');
+            cache.guaranteeStartDate = document.getElementById('guarantee-start-date');
+            cache.guaranteeEndDate = document.getElementById('guarantee-end-date');
+            cache.guaranteeUploadArea = document.getElementById('guarantee-upload-area');
+            cache.guaranteeFileInput = document.getElementById('guarantee-file-input');
+            cache.guaranteeFilePreview = document.getElementById('guarantee-file-preview');
+            cache.guaranteePreviewFilename = document.getElementById('guarantee-preview-filename');
+            cache.guaranteePreviewFilesize = document.getElementById('guarantee-preview-filesize');
+            cache.confirmUploadBtn = document.getElementById('confirm-upload-btn');
+            
             const today = new Date();
             const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
-            document.getElementById('today-date').textContent = dateStr;
+            if (cache.todayDate) {
+                cache.todayDate.textContent = dateStr;
+            }
+            
+            // 设置日期默认值
+            const todayDate = new Date().toISOString().split('T')[0];
+            if (cache.guaranteeStartDate) {
+                cache.guaranteeStartDate.value = todayDate;
+            }
+            
+            // 监听表单输入，启用/禁用确认按钮
+            if (cache.guaranteeNumberInput) {
+                cache.guaranteeNumberInput.addEventListener('input', checkGuaranteeUploadFormValid);
+            }
+            if (cache.guaranteeStartDate) {
+                cache.guaranteeStartDate.addEventListener('input', checkGuaranteeUploadFormValid);
+            }
+            if (cache.guaranteeEndDate) {
+                cache.guaranteeEndDate.addEventListener('input', checkGuaranteeUploadFormValid);
+            }
+            
+            // 初始化拖拽上传
+            initGuaranteeDragDrop();
+            
+            // 监听保函编号输入和文件上传，启用/禁用确认按钮
+
         });
 
         function toggleMenu(menuId) {
             const submenu = document.getElementById(menuId + '-submenu');
             const icon = document.getElementById(menuId + '-icon');
+            
+            if (!submenu || !icon) return;
             
             if (submenu.classList.contains('hidden')) {
                 submenu.classList.remove('hidden');
@@ -503,11 +656,15 @@
         }
 
         function viewGuaranteeDetail(id) {
-            document.getElementById('guarantee-detail-modal').classList.remove('hidden');
+            if (cache.guaranteeModal) {
+                cache.guaranteeModal.classList.remove('hidden');
+            }
         }
 
         function closeGuaranteeDetailModal() {
-            document.getElementById('guarantee-detail-modal').classList.add('hidden');
+            if (cache.guaranteeModal) {
+                cache.guaranteeModal.classList.add('hidden');
+            }
         }
 
         function downloadGuarantee(id) {
@@ -517,7 +674,225 @@
             }, 1500);
         }
 
+        // 打开上传保函弹窗
+        function openUploadGuaranteeModal(orderId) {
+            currentOrderId = orderId;
+            const order = orderData[orderId];
+            
+            if (order) {
+                cache.uploadOrderId.textContent = order.orderId;
+                cache.uploadContractName.textContent = order.contractName;
+                cache.uploadPartyA.textContent = order.partyA;
+                cache.uploadAmount.textContent = order.amount;
+            }
+            
+            // 重置表单
+            resetUploadForm();
+            
+            // 显示弹窗
+            cache.uploadGuaranteeModal.classList.remove('hidden');
+        }
+
+        // 关闭上传保函弹窗
+        function closeUploadGuaranteeModal() {
+            cache.uploadGuaranteeModal.classList.add('hidden');
+            resetUploadForm();
+        }
+
+        // 重置上传表单
+        function resetUploadForm() {
+            cache.guaranteeNumberInput.value = '';
+            const todayDate = new Date().toISOString().split('T')[0];
+            if (cache.guaranteeStartDate) {
+                cache.guaranteeStartDate.value = todayDate;
+            }
+            if (cache.guaranteeEndDate) {
+                cache.guaranteeEndDate.value = '';
+            }
+            cache.guaranteeFileInput.value = '';
+            cache.guaranteeFilePreview.classList.add('hidden');
+            cache.confirmUploadBtn.disabled = true;
+        }
+
+        // 初始化拖拽上传
+        function initGuaranteeDragDrop() {
+            if (!cache.guaranteeUploadArea) return;
+            
+            // 点击上传区域
+            cache.guaranteeUploadArea.addEventListener('click', function() {
+                cache.guaranteeFileInput.click();
+            });
+            
+            // 拖拽事件
+            cache.guaranteeUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                cache.guaranteeUploadArea.classList.add('dragover');
+            });
+            
+            cache.guaranteeUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                cache.guaranteeUploadArea.classList.remove('dragover');
+            });
+            
+            cache.guaranteeUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                cache.guaranteeUploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleGuaranteeFile(files[0]);
+                }
+            });
+        }
+
+        // 处理文件选择
+        function handleGuaranteeFileSelect(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                handleGuaranteeFile(files[0]);
+            }
+        }
+
+        // 处理文件
+        function handleGuaranteeFile(file) {
+            // 验证文件类型
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('请上传PDF或图片格式的文件', 'error');
+                return;
+            }
+            
+            // 验证文件大小（10MB）
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('文件大小不能超过10MB', 'error');
+                return;
+            }
+            
+            // 显示文件预览
+            cache.guaranteePreviewFilename.textContent = file.name;
+            cache.guaranteePreviewFilesize.textContent = formatFileSize(file.size);
+            cache.guaranteeFilePreview.classList.remove('hidden');
+            
+            // 检查表单是否有效
+            checkGuaranteeUploadFormValid();
+        }
+
+        // 移除文件
+        function removeGuaranteeFile() {
+            cache.guaranteeFileInput.value = '';
+            cache.guaranteeFilePreview.classList.add('hidden');
+            checkGuaranteeUploadFormValid();
+        }
+
+        // 检查上传表单是否有效
+        function checkGuaranteeUploadFormValid() {
+            const hasNumber = cache.guaranteeNumberInput && cache.guaranteeNumberInput.value.trim() !== '';
+            const hasStartDate = cache.guaranteeStartDate && cache.guaranteeStartDate.value !== '';
+            const hasEndDate = cache.guaranteeEndDate && cache.guaranteeEndDate.value !== '';
+            const hasFile = cache.guaranteeFilePreview && !cache.guaranteeFilePreview.classList.contains('hidden');
+            
+            cache.confirmUploadBtn.disabled = !(hasNumber && hasStartDate && hasEndDate && hasFile);
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        // 确认上传保函
+        function confirmUploadGuarantee() {
+            // 验证
+            if (!cache.guaranteeNumberInput.value.trim()) {
+                showNotification('请输入保函编号', 'error');
+                return;
+            }
+            
+            if (!cache.guaranteeStartDate.value) {
+                showNotification('请选择保函开始日期', 'error');
+                return;
+            }
+            
+            if (!cache.guaranteeEndDate.value) {
+                showNotification('请选择保函结束日期', 'error');
+                return;
+            }
+            
+            if (cache.guaranteeFilePreview.classList.contains('hidden')) {
+                showNotification('请上传保函文件', 'error');
+                return;
+            }
+            
+            // 模拟上传过程
+            showNotification('正在上传保函...', 'info');
+            
+            setTimeout(function() {
+                // 更新订单数据
+                if (orderData[currentOrderId]) {
+                    orderData[currentOrderId].guaranteeId = cache.guaranteeNumberInput.value.trim();
+                    orderData[currentOrderId].status = 'issued';
+                }
+                
+                // 更新列表状态
+                updateOrderListStatus(currentOrderId);
+                
+                // 关闭弹窗
+                closeUploadGuaranteeModal();
+                
+                // 显示成功通知
+                showNotification('保函上传成功，已开函！', 'success');
+            }, 1500);
+        }
+
+        // 更新列表中订单状态
+        function updateOrderListStatus(orderId) {
+            const order = orderData[orderId];
+            const rows = document.querySelectorAll('.table-row');
+            
+            rows.forEach(function(row) {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell && firstCell.textContent.trim() === orderId) {
+                    // 更新保函编号
+                    const guaranteeIdCell = row.querySelector('td:nth-child(2)');
+                    if (guaranteeIdCell && order) {
+                        guaranteeIdCell.textContent = order.guaranteeId;
+                    }
+                    
+                    // 更新状态标签
+                    const statusCell = row.querySelector('td:nth-child(8)');
+                    if (statusCell) {
+                        const badge = statusCell.querySelector('.badge');
+                        if (badge) {
+                            badge.textContent = '已开函';
+                            badge.className = 'badge bg-green-100 text-success';
+                        }
+                    }
+                    
+                    // 更新操作按钮
+                    const actionCell = row.querySelector('td:last-child');
+                    if (actionCell) {
+                        actionCell.innerHTML = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                            <button class="text-warning hover:text-yellow-600" onclick="downloadGuarantee('${orderId}')">
+                                <i class="fa fa-download mr-1"></i>下载
+                            </button>
+                        `;
+                    }
+                }
+            });
+        }
+
+        // 复用通知元素
+        let notificationTimeout;
         function showNotification(message, type = 'info') {
+            // 清除之前的通知
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+            }
+            
             const notification = document.createElement('div');
             notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
             notification.innerHTML = `
@@ -528,16 +903,24 @@
             `;
             document.body.appendChild(notification);
             
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                setTimeout(() => notification.remove(), 500);
+            notificationTimeout = setTimeout(() => {
+                notification.style.transition = 'opacity 0.3s ease';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
             }, 3000);
         }
 
-        // 点击模态框外部关闭
-        document.getElementById('guarantee-detail-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
+        // 事件委托，减少监听器
+        document.addEventListener('click', function(e) {
+            if (cache.guaranteeModal && e.target === cache.guaranteeModal) {
                 closeGuaranteeDetailModal();
+            }
+            if (cache.uploadGuaranteeModal && e.target === cache.uploadGuaranteeModal) {
+                closeUploadGuaranteeModal();
             }
         });
     </script>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 发票管理</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', system-ui, '-apple-system', 'BlinkMacSystemFont', sans-serif;
+        }
+        .sidebar-link {
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+        }
+        .table-row {
+            transition: background-color 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .submenu {
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+        }
+        .submenu.hidden {
+            max-height: 0;
+        }
+        .submenu:not(.hidden) {
+            max-height: 200px;
+        }
+        /* 优化渲染性能 */
+        .sidebar-link, .stat-card, .table-row {
+            will-change: auto;
+        }
+        .modal-overlay {
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            animation: scaleIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .notification {
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.2s ease;
+        }
+        .upload-area:hover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.03);
+        }
+        .upload-area.dragover {
+            border-color: #004B93;
+            background-color: rgba(0, 75, 147, 0.08);
+        }
+        .upload-file-preview {
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-university text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">金融机构端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu">
+                        <a href="金融机构端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="金融机构端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                        <a href="金融机构端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 发票管理 -->
+                <div class="menu-group">
+                    <a href="金融机构端_发票管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700">
+                        <i class="fa fa-file-text w-5 text-center mr-3 text-primary"></i>
+                        <span class="font-medium">发票管理</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        金
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">中国建设银行</p>
+                        <p class="text-xs text-gray-500">金融机构管理员</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">发票管理</h2>
+                        <p class="text-sm text-gray-500 mt-1">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                        <p class="text-xs text-blue-500 mt-1">在此页面可以查看和管理保函订单的发票申请，包括开具发票、查看详情等操作</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索筛选区 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同名称</label>
+                            <input type="text" id="search-contract-name" placeholder="请输入工程施工合同名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">订单编号</label>
+                            <input type="text" id="search-order-no" placeholder="请输入订单编号" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">发票类型</label>
+                            <select id="search-invoice-type" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部类型</option>
+                                <option value="general">增值税普通发票</option>
+                                <option value="special">增值税专用发票</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
+                            <select id="search-status" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部状态</option>
+                                <option value="issued">已开具</option>
+                                <option value="processing">处理中</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <div class="flex space-x-3">
+                                <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors" onclick="searchInvoices()">
+                                    <i class="fa fa-search mr-2"></i>搜索
+                                </button>
+                                <button class="px-6 py-2 border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors" onclick="resetSearch()">
+                                    <i class="fa fa-refresh mr-2"></i>重置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 发票列表 -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 mb-6">
+                    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fa fa-file-text text-primary mr-2"></i>
+                            发票申请列表
+                        </h3>
+                        <p class="text-sm text-gray-500">共 <span class="font-bold text-primary">6</span> 条记录</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-gray-50 text-gray-600">
+                                    <th class="px-6 py-3 text-left font-medium">发票申请编号</th>
+                                    <th class="px-6 py-3 text-left font-medium">订单编号</th>
+                                    <th class="px-6 py-3 text-left font-medium">工程施工合同名称</th>
+                                    <th class="px-6 py-3 text-left font-medium">发票类型</th>
+                                    <th class="px-6 py-3 text-left font-medium">金额</th>
+                                    <th class="px-6 py-3 text-left font-medium">申请时间</th>
+                                    <th class="px-6 py-3 text-left font-medium">状态</th>
+                                    <th class="px-6 py-3 text-left font-medium">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 text-gray-700 font-medium">FP202604100001</td>
+                                    <td class="px-6 py-4 text-gray-700">FJ202603150001</td>
+                                    <td class="px-6 py-4 text-gray-700">福州市地铁2号线延伸工程</td>
+                                    <td class="px-6 py-4 text-gray-700">增值税普通发票</td>
+                                    <td class="px-6 py-4 text-gray-700 font-bold">¥100,000.00</td>
+                                    <td class="px-6 py-4 text-gray-700">2026-04-10 14:30</td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-green-100 text-green-700">已开具</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('FP202604100001')">
+                                            <i class="fa fa-eye mr-1"></i> 查看
+                                        </button>
+                                        <button class="text-success hover:text-green-700 transition-colors" onclick="downloadInvoice('FP202604100001')">
+                                            <i class="fa fa-download mr-1"></i> 下载
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 text-gray-700 font-medium">FP202604050002</td>
+                                    <td class="px-6 py-4 text-gray-700">FJ202603160002</td>
+                                    <td class="px-6 py-4 text-gray-700">厦门市翔安机场快速路南段工程</td>
+                                    <td class="px-6 py-4 text-gray-700">增值税专用发票</td>
+                                    <td class="px-6 py-4 text-gray-700 font-bold">¥500,000.00</td>
+                                    <td class="px-6 py-4 text-gray-700">2026-04-05 09:15</td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-green-100 text-green-700">已开具</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('FP202604050002')">
+                                            <i class="fa fa-eye mr-1"></i> 查看
+                                        </button>
+                                        <button class="text-success hover:text-green-700 transition-colors" onclick="downloadInvoice('FP202604050002')">
+                                            <i class="fa fa-download mr-1"></i> 下载
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 text-gray-700 font-medium">FP202604010003</td>
+                                    <td class="px-6 py-4 text-gray-700">FJ202603170003</td>
+                                    <td class="px-6 py-4 text-gray-700">泉州市晋江下游防洪岸线生态治理</td>
+                                    <td class="px-6 py-4 text-gray-700">增值税普通发票</td>
+                                    <td class="px-6 py-4 text-gray-700 font-bold">¥300,000.00</td>
+                                    <td class="px-6 py-4 text-gray-700">2026-04-01 16:45</td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-yellow-100 text-yellow-700">处理中</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('FP202604010003')">
+                                            <i class="fa fa-eye mr-1"></i> 查看
+                                        </button>
+                                        <button class="text-success hover:text-green-700 transition-colors" onclick="issueInvoice('FP202604010003')">
+                                            <i class="fa fa-check-circle mr-1"></i> 开具
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 text-gray-700 font-medium">FP202603280004</td>
+                                    <td class="px-6 py-4 text-gray-700">FJ202603180004</td>
+                                    <td class="px-6 py-4 text-gray-700">漳州市古雷港经济开发区基础设施</td>
+                                    <td class="px-6 py-4 text-gray-700">增值税专用发票</td>
+                                    <td class="px-6 py-4 text-gray-700 font-bold">¥200,000.00</td>
+                                    <td class="px-6 py-4 text-gray-700">2026-03-28 11:20</td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-green-100 text-green-700">已开具</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('FP202603280004')">
+                                            <i class="fa fa-eye mr-1"></i> 查看
+                                        </button>
+                                        <button class="text-success hover:text-green-700 transition-colors" onclick="downloadInvoice('FP202603280004')">
+                                            <i class="fa fa-download mr-1"></i> 下载
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 text-gray-700 font-medium">FP202603250005</td>
+                                    <td class="px-6 py-4 text-gray-700">FJ202603190005</td>
+                                    <td class="px-6 py-4 text-gray-700">宁德市新能源产业园基础设施</td>
+                                    <td class="px-6 py-4 text-gray-700">增值税普通发票</td>
+                                    <td class="px-6 py-4 text-gray-700 font-bold">¥150,000.00</td>
+                                    <td class="px-6 py-4 text-gray-700">2026-03-25 15:45</td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-green-100 text-green-700">已开具</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('FP202603250005')">
+                                            <i class="fa fa-eye mr-1"></i> 查看
+                                        </button>
+                                        <button class="text-success hover:text-green-700 transition-colors" onclick="downloadInvoice('FP202603250005')">
+                                            <i class="fa fa-download mr-1"></i> 下载
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="p-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="text-sm text-gray-500">
+                            显示 1-5 条，共 6 条
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-400 hover:border-primary hover:text-primary transition-colors">
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-white font-medium">1</button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-600 hover:border-primary hover:text-primary transition-colors">2</button>
+                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-400 hover:border-primary hover:text-primary transition-colors">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 发票详情弹窗 -->
+    <div id="invoice-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto modal-content">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">发票详情</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeInvoiceDetailModal()">
+                    <i class="fa fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- 发票基本信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">发票信息</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">发票申请编号</p>
+                            <p class="font-medium text-gray-900" id="detail-invoice-no">FP202604100001</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">订单编号</p>
+                            <p class="font-medium text-gray-900" id="detail-order-no">FJ202603150001</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">发票类型</p>
+                            <p class="font-medium text-gray-900" id="detail-invoice-type">增值税普通发票</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">状态</p>
+                            <span class="badge bg-green-100 text-green-700" id="detail-status">已开具</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 订单信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">订单信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">工程施工合同名称</p>
+                            <p class="font-medium text-gray-900" id="detail-project-name">福州市地铁2号线延伸工程</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保函编号</p>
+                            <p class="font-medium text-gray-900" id="detail-guarantee-no">BG202603150001</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 金额信息 -->
+                <div class="bg-blue-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-primary mb-4">金额信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">发票金额</p>
+                            <p class="font-bold text-lg text-gray-900" id="detail-amount">¥100,000.00</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">税额</p>
+                            <p class="font-medium text-gray-900" id="detail-tax">¥6,000.00</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">价税合计</p>
+                            <p class="font-bold text-lg text-primary" id="detail-total">¥106,000.00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 发票抬头信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">发票抬头信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">发票抬头</p>
+                            <p class="font-medium text-gray-900" id="detail-title">福建省建设工程有限公司</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">纳税人识别号</p>
+                            <p class="font-medium text-gray-900" id="detail-tax-id">91350000XXXXXXXXXX</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">地址电话</p>
+                            <p class="font-medium text-gray-900" id="detail-address">福建省福州市XX区XX路XX号 0591-88888888</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">开户行及账号</p>
+                            <p class="font-medium text-gray-900" id="detail-bank">中国建设银行福州市XX支行 6227XXXXXXXXXXXX</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 邮寄信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">邮寄信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">收件人</p>
+                            <p class="font-medium text-gray-900" id="detail-receiver">张三</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">联系电话</p>
+                            <p class="font-medium text-gray-900" id="detail-phone">13800138000</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">邮寄地址</p>
+                            <p class="font-medium text-gray-900" id="detail-post-address">福建省福州市XX区XX路XX号XX大厦XX室</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 申请信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">申请信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">申请时间</p>
+                            <p class="font-medium text-gray-900" id="detail-apply-time">2026-04-10 14:30:00</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">开具时间</p>
+                            <p class="font-medium text-gray-900" id="detail-issue-time">2026-04-11 10:00:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end p-6 border-t border-gray-100 space-x-3">
+                <button class="px-6 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeInvoiceDetailModal()">
+                    关闭
+                </button>
+                <button id="issue-btn" class="px-6 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors hidden" onclick="issueInvoiceFromDetail()">
+                    <i class="fa fa-check-circle mr-1"></i> 开具发票
+                </button>
+                <button id="download-btn" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                    <i class="fa fa-download mr-1"></i> 下载发票
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知提示 -->
+    <div id="notification" class="fixed top-4 right-4 bg-white rounded-lg shadow-xl border border-gray-100 p-4 max-w-sm z-50 hidden notification">
+        <div class="flex items-start">
+            <div id="notification-icon" class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fa fa-check text-green-600"></i>
+            </div>
+            <div class="flex-1">
+                <h4 id="notification-title" class="font-medium text-gray-900">操作成功</h4>
+                <p id="notification-message" class="text-sm text-gray-600 mt-1">发票已成功开具</p>
+            </div>
+            <button class="text-gray-400 hover:text-gray-600 ml-2" onclick="closeNotification()">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 开具发票弹窗 -->
+    <div id="issue-invoice-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">开具发票</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeIssueInvoiceModal()">
+                    <i class="fa fa-times text-lg"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- 发票信息 -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fa fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">发票信息</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">发票申请编号</p>
+                            <p class="font-medium text-gray-900" id="issue-invoice-no">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">订单编号</p>
+                            <p class="font-medium text-gray-900" id="issue-order-no">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">项目名称</p>
+                            <p class="font-medium text-gray-900" id="issue-project-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">开票金额</p>
+                            <p class="font-bold text-primary" id="issue-amount">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上传发票文件 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">
+                        上传发票文件 <span class="text-red-500">*</span>
+                    </label>
+                    <div id="upload-area" class="upload-area rounded-xl p-8 text-center cursor-pointer">
+                        <input type="file" id="invoice-file-input" class="hidden" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFileSelect(event)">
+                        <i class="fa fa-cloud-upload text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-700 font-medium mb-1">点击或拖拽上传发票文件</p>
+                        <p class="text-sm text-gray-500">支持PDF、JPG、JPEG、PNG格式，文件大小不超过10MB</p>
+                    </div>
+                    <!-- 文件预览 -->
+                    <div id="file-preview" class="mt-4 hidden">
+                        <div class="upload-file-preview rounded-lg p-4 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-pdf-o text-red-500 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800" id="preview-filename">-</p>
+                                    <p class="text-xs text-gray-500" id="preview-filesize">-</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-500 transition-colors" onclick="removeFile()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 备注 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">备注</label>
+                    <textarea id="issue-remark" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none" rows="3" placeholder="请输入备注信息（选填）"></textarea>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeIssueInvoiceModal()">
+                        取消
+                    </button>
+                    <button id="confirm-issue-btn" class="px-6 py-2.5 bg-success text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onclick="confirmIssueInvoice()" disabled>
+                        <i class="fa fa-check-circle mr-1"></i> 确认开具
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 缓存DOM元素
+        const cache = {};
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 预缓存常用元素
+            cache.todayDate = document.getElementById('today-date');
+            cache.invoiceDetailModal = document.getElementById('invoice-detail-modal');
+            cache.notification = document.getElementById('notification');
+            cache.notificationIcon = document.getElementById('notification-icon');
+            cache.notificationTitle = document.getElementById('notification-title');
+            cache.notificationMessage = document.getElementById('notification-message');
+            cache.detailInvoiceNo = document.getElementById('detail-invoice-no');
+            cache.detailOrderNo = document.getElementById('detail-order-no');
+            cache.detailInvoiceType = document.getElementById('detail-invoice-type');
+            cache.detailStatus = document.getElementById('detail-status');
+            cache.detailProjectName = document.getElementById('detail-project-name');
+            cache.detailGuaranteeNo = document.getElementById('detail-guarantee-no');
+            cache.detailAmount = document.getElementById('detail-amount');
+            cache.detailTax = document.getElementById('detail-tax');
+            cache.detailTotal = document.getElementById('detail-total');
+            cache.detailTitle = document.getElementById('detail-title');
+            cache.detailTaxId = document.getElementById('detail-tax-id');
+            cache.detailAddress = document.getElementById('detail-address');
+            cache.detailBank = document.getElementById('detail-bank');
+            cache.detailReceiver = document.getElementById('detail-receiver');
+            cache.detailPhone = document.getElementById('detail-phone');
+            cache.detailPostAddress = document.getElementById('detail-post-address');
+            cache.detailApplyTime = document.getElementById('detail-apply-time');
+            cache.detailIssueTime = document.getElementById('detail-issue-time');
+            cache.issueBtn = document.getElementById('issue-btn');
+            cache.downloadBtn = document.getElementById('download-btn');
+            cache.searchContractName = document.getElementById('search-contract-name');
+            cache.searchOrderNo = document.getElementById('search-order-no');
+            cache.searchInvoiceType = document.getElementById('search-invoice-type');
+            cache.searchStatus = document.getElementById('search-status');
+            // 开具发票相关
+            cache.issueInvoiceModal = document.getElementById('issue-invoice-modal');
+            cache.issueInvoiceNo = document.getElementById('issue-invoice-no');
+            cache.issueOrderNo = document.getElementById('issue-order-no');
+            cache.issueProjectName = document.getElementById('issue-project-name');
+            cache.issueAmount = document.getElementById('issue-amount');
+            cache.uploadArea = document.getElementById('upload-area');
+            cache.invoiceFileInput = document.getElementById('invoice-file-input');
+            cache.filePreview = document.getElementById('file-preview');
+            cache.previewFilename = document.getElementById('preview-filename');
+            cache.previewFilesize = document.getElementById('preview-filesize');
+            cache.issueRemark = document.getElementById('issue-remark');
+            cache.confirmIssueBtn = document.getElementById('confirm-issue-btn');
+            
+            // 初始化拖拽上传
+            initDragDrop();
+            
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            if (cache.todayDate) {
+                cache.todayDate.textContent = dateStr;
+            }
+        });
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu && icon) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        // 搜索发票
+        function searchInvoices() {
+            const contractName = cache.searchContractName.value.toLowerCase();
+            const orderNo = cache.searchOrderNo.value.toLowerCase();
+            const invoiceType = cache.searchInvoiceType.value;
+            const status = cache.searchStatus.value;
+            
+            const rows = document.querySelectorAll('.table-row');
+            rows.forEach(row => {
+                const rowContractName = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                const rowOrderNo = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                const rowInvoiceType = row.querySelector('td:nth-child(4)').textContent;
+                const rowStatus = row.querySelector('td:nth-child(7) span').textContent;
+                
+                let match = true;
+                
+                if (contractName && !rowContractName.includes(contractName)) {
+                    match = false;
+                }
+                if (orderNo && !rowOrderNo.includes(orderNo)) {
+                    match = false;
+                }
+                if (invoiceType && 
+                    !((invoiceType === 'general' && rowInvoiceType.includes('普通')) || 
+                      (invoiceType === 'special' && rowInvoiceType.includes('专用')))) {
+                    match = false;
+                }
+                if (status && 
+                    !((status === 'issued' && rowStatus.includes('已开具')) || 
+                      (status === 'processing' && rowStatus.includes('处理中')))) {
+                    match = false;
+                }
+                
+                row.style.display = match ? '' : 'none';
+            });
+        }
+
+        // 重置搜索条件
+        function resetSearch() {
+            cache.searchContractName.value = '';
+            cache.searchOrderNo.value = '';
+            cache.searchInvoiceType.value = '';
+            cache.searchStatus.value = '';
+            
+            // 显示所有行
+            const rows = document.querySelectorAll('.table-row');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+
+        // 发票详情数据
+        const invoiceData = {
+            'FP202604100001': {
+                invoiceNo: 'FP202604100001',
+                orderNo: 'FJ202603150001',
+                invoiceType: '增值税普通发票',
+                status: '已开具',
+                statusClass: 'bg-green-100 text-green-700',
+                projectName: '福州市地铁2号线延伸工程',
+                guaranteeNo: 'BG202603150001',
+                amount: '¥100,000.00',
+                tax: '¥6,000.00',
+                total: '¥106,000.00',
+                title: '福建省建设工程有限公司',
+                taxId: '91350000XXXXXXXXXX',
+                address: '福建省福州市XX区XX路XX号 0591-88888888',
+                bank: '中国建设银行福州市XX支行 6227XXXXXXXXXXXX',
+                receiver: '张三',
+                phone: '13800138000',
+                postAddress: '福建省福州市XX区XX路XX号XX大厦XX室',
+                applyTime: '2026-04-10 14:30:00',
+                issueTime: '2026-04-11 10:00:00'
+            },
+            'FP202604050002': {
+                invoiceNo: 'FP202604050002',
+                orderNo: 'FJ202603160002',
+                invoiceType: '增值税专用发票',
+                status: '已开具',
+                statusClass: 'bg-green-100 text-green-700',
+                projectName: '厦门市翔安机场快速路南段工程',
+                guaranteeNo: 'BG202603160002',
+                amount: '¥500,000.00',
+                tax: '¥30,000.00',
+                total: '¥530,000.00',
+                title: '福建省建设工程有限公司',
+                taxId: '91350000XXXXXXXXXX',
+                address: '福建省福州市XX区XX路XX号 0591-88888888',
+                bank: '中国建设银行福州市XX支行 6227XXXXXXXXXXXX',
+                receiver: '李四',
+                phone: '13900139000',
+                postAddress: '福建省厦门市XX区XX路XX号XX大厦XX室',
+                applyTime: '2026-04-05 09:15:00',
+                issueTime: '2026-04-06 11:30:00'
+            },
+            'FP202604010003': {
+                invoiceNo: 'FP202604010003',
+                orderNo: 'FJ202603170003',
+                invoiceType: '增值税普通发票',
+                status: '处理中',
+                statusClass: 'bg-yellow-100 text-yellow-700',
+                projectName: '泉州市晋江下游防洪岸线生态治理',
+                guaranteeNo: 'BG202603170003',
+                amount: '¥300,000.00',
+                tax: '¥18,000.00',
+                total: '¥318,000.00',
+                title: '福建省建设工程有限公司',
+                taxId: '91350000XXXXXXXXXX',
+                address: '福建省福州市XX区XX路XX号 0591-88888888',
+                bank: '中国建设银行福州市XX支行 6227XXXXXXXXXXXX',
+                receiver: '王五',
+                phone: '13700137000',
+                postAddress: '福建省泉州市XX区XX路XX号XX大厦XX室',
+                applyTime: '2026-04-01 16:45:00',
+                issueTime: '--'
+            },
+            'FP202603280004': {
+                invoiceNo: 'FP202603280004',
+                orderNo: 'FJ202603180004',
+                invoiceType: '增值税专用发票',
+                status: '已开具',
+                statusClass: 'bg-green-100 text-green-700',
+                projectName: '漳州市古雷港经济开发区基础设施',
+                guaranteeNo: 'BG202603180004',
+                amount: '¥200,000.00',
+                tax: '¥12,000.00',
+                total: '¥212,000.00',
+                title: '福建省建设工程有限公司',
+                taxId: '91350000XXXXXXXXXX',
+                address: '福建省福州市XX区XX路XX号 0591-88888888',
+                bank: '中国建设银行福州市XX支行 6227XXXXXXXXXXXX',
+                receiver: '赵六',
+                phone: '13600136000',
+                postAddress: '福建省漳州市XX区XX路XX号XX大厦XX室',
+                applyTime: '2026-03-28 11:20:00',
+                issueTime: '2026-03-29 14:00:00'
+            },
+            'FP202603250005': {
+                invoiceNo: 'FP202603250005',
+                orderNo: 'FJ202603190005',
+                invoiceType: '增值税普通发票',
+                status: '已开具',
+                statusClass: 'bg-green-100 text-green-700',
+                projectName: '宁德市新能源产业园基础设施',
+                guaranteeNo: 'BG202603190005',
+                amount: '¥150,000.00',
+                tax: '¥9,000.00',
+                total: '¥159,000.00',
+                title: '福建省建设工程有限公司',
+                taxId: '91350000XXXXXXXXXX',
+                address: '福建省福州市XX区XX路XX号 0591-88888888',
+                bank: '中国建设银行福州市XX支行 6227XXXXXXXXXXXX',
+                receiver: '孙七',
+                phone: '13500135000',
+                postAddress: '福建省宁德市XX区XX路XX号XX大厦XX室',
+                applyTime: '2026-03-25 15:45:00',
+                issueTime: '2026-03-26 09:30:00'
+            }
+        };
+
+        let currentInvoiceNo = '';
+
+        // 查看发票详情
+        function showInvoiceDetail(invoiceNo) {
+            currentInvoiceNo = invoiceNo;
+            const data = invoiceData[invoiceNo] || invoiceData['FP202604100001'];
+            
+            // 更新详情弹窗内容
+            cache.detailInvoiceNo.textContent = data.invoiceNo;
+            cache.detailOrderNo.textContent = data.orderNo;
+            cache.detailInvoiceType.textContent = data.invoiceType;
+            cache.detailStatus.textContent = data.status;
+            cache.detailStatus.className = 'badge ' + data.statusClass;
+            cache.detailProjectName.textContent = data.projectName;
+            cache.detailGuaranteeNo.textContent = data.guaranteeNo;
+            cache.detailAmount.textContent = data.amount;
+            cache.detailTax.textContent = data.tax;
+            cache.detailTotal.textContent = data.total;
+            cache.detailTitle.textContent = data.title;
+            cache.detailTaxId.textContent = data.taxId;
+            cache.detailAddress.textContent = data.address;
+            cache.detailBank.textContent = data.bank;
+            cache.detailReceiver.textContent = data.receiver;
+            cache.detailPhone.textContent = data.phone;
+            cache.detailPostAddress.textContent = data.postAddress;
+            cache.detailApplyTime.textContent = data.applyTime;
+            cache.detailIssueTime.textContent = data.issueTime;
+
+            // 显示或隐藏按钮
+            if (data.status === '处理中') {
+                cache.issueBtn.style.display = 'inline-flex';
+                cache.downloadBtn.style.display = 'none';
+            } else {
+                cache.issueBtn.style.display = 'none';
+                cache.downloadBtn.style.display = 'inline-flex';
+            }
+            
+            // 显示弹窗
+            cache.invoiceDetailModal.classList.remove('hidden');
+        }
+
+        // 关闭发票详情弹窗
+        function closeInvoiceDetailModal() {
+            cache.invoiceDetailModal.classList.add('hidden');
+        }
+
+        // 开具发票
+        function issueInvoice(invoiceNo) {
+            showNotification('发票已成功开具', 'success');
+        }
+
+        // 从详情页开具发票
+        function issueInvoiceFromDetail() {
+            const today = new Date();
+            const timeStr = today.getFullYear() + '-' + 
+                String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(today.getDate()).padStart(2, '0') + ' ' +
+                String(today.getHours()).padStart(2, '0') + ':' +
+                String(today.getMinutes()).padStart(2, '0') + ':' +
+                String(today.getSeconds()).padStart(2, '0');
+            
+            cache.detailIssueTime.textContent = timeStr;
+            cache.detailStatus.textContent = '已开具';
+            cache.detailStatus.className = 'badge bg-green-100 text-green-700';
+            
+            cache.issueBtn.style.display = 'none';
+            cache.downloadBtn.style.display = 'inline-flex';
+            
+            showNotification('发票已成功开具', 'success');
+        }
+
+        // 下载发票
+        function downloadInvoice(invoiceNo) {
+            showNotification('正在下载发票', 'info');
+        }
+
+        // 显示通知
+        let notificationTimeout;
+        function showNotification(message, type = 'success') {
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+            }
+            
+            // 设置通知类型
+            if (type === 'success') {
+                cache.notificationIcon.className = 'w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
+                cache.notificationIcon.innerHTML = '<i class="fa fa-check text-green-600"></i>';
+                cache.notificationTitle.textContent = '操作成功';
+            } else if (type === 'error') {
+                cache.notificationIcon.className = 'w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
+                cache.notificationIcon.innerHTML = '<i class="fa fa-times text-red-600"></i>';
+                cache.notificationTitle.textContent = '操作失败';
+            } else if (type === 'info') {
+                cache.notificationIcon.className = 'w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
+                cache.notificationIcon.innerHTML = '<i class="fa fa-info text-blue-600"></i>';
+                cache.notificationTitle.textContent = '提示信息';
+            }
+            
+            cache.notificationMessage.textContent = message;
+            cache.notification.classList.remove('hidden');
+            
+            // 3秒后自动关闭
+            notificationTimeout = setTimeout(() => {
+                closeNotification();
+            }, 3000);
+        }
+
+        // 关闭通知
+        function closeNotification() {
+            cache.notification.classList.add('hidden');
+        }
+
+        // 点击模态框外部关闭 - 使用事件委托
+        document.addEventListener('click', function(e) {
+            if (cache.invoiceDetailModal && e.target === cache.invoiceDetailModal) {
+                closeInvoiceDetailModal();
+            }
+            if (cache.issueInvoiceModal && e.target === cache.issueInvoiceModal) {
+                closeIssueInvoiceModal();
+            }
+        });
+
+        // 开具发票 - 从列表点击
+        function issueInvoice(invoiceNo) {
+            openIssueInvoiceModal(invoiceNo);
+        }
+
+        // 从详情页开具发票
+        function issueInvoiceFromDetail() {
+            closeInvoiceDetailModal();
+            openIssueInvoiceModal(currentInvoiceNo);
+        }
+
+        // 打开开具发票弹窗
+        function openIssueInvoiceModal(invoiceNo) {
+            currentInvoiceNo = invoiceNo;
+            const data = invoiceData[invoiceNo] || invoiceData['FP202604100001'];
+            
+            // 填充发票信息
+            cache.issueInvoiceNo.textContent = data.invoiceNo;
+            cache.issueOrderNo.textContent = data.orderNo;
+            cache.issueProjectName.textContent = data.projectName;
+            cache.issueAmount.textContent = data.total;
+            
+            // 重置表单
+            resetIssueForm();
+            
+            // 显示弹窗
+            cache.issueInvoiceModal.classList.remove('hidden');
+        }
+
+        // 关闭开具发票弹窗
+        function closeIssueInvoiceModal() {
+            cache.issueInvoiceModal.classList.add('hidden');
+            resetIssueForm();
+        }
+
+        // 重置开具发票表单
+        function resetIssueForm() {
+            cache.invoiceFileInput.value = '';
+            cache.filePreview.classList.add('hidden');
+            cache.issueRemark.value = '';
+            cache.confirmIssueBtn.disabled = true;
+        }
+
+        // 初始化拖拽上传
+        function initDragDrop() {
+            if (!cache.uploadArea) return;
+            
+            // 点击上传区域
+            cache.uploadArea.addEventListener('click', function() {
+                cache.invoiceFileInput.click();
+            });
+            
+            // 拖拽事件
+            cache.uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                cache.uploadArea.classList.add('dragover');
+            });
+            
+            cache.uploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                cache.uploadArea.classList.remove('dragover');
+            });
+            
+            cache.uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                cache.uploadArea.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+        }
+
+        // 处理文件选择
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        // 处理文件
+        function handleFile(file) {
+            // 验证文件类型
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('请上传PDF或图片格式的文件', 'error');
+                return;
+            }
+            
+            // 验证文件大小（10MB）
+            if (file.size > 10 * 1024 * 1024) {
+                showNotification('文件大小不能超过10MB', 'error');
+                return;
+            }
+            
+            // 显示文件预览
+            cache.previewFilename.textContent = file.name;
+            cache.previewFilesize.textContent = formatFileSize(file.size);
+            cache.filePreview.classList.remove('hidden');
+            
+            // 启用确认按钮
+            cache.confirmIssueBtn.disabled = false;
+        }
+
+        // 移除文件
+        function removeFile() {
+            cache.invoiceFileInput.value = '';
+            cache.filePreview.classList.add('hidden');
+            cache.confirmIssueBtn.disabled = true;
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        // 确认开具发票
+        function confirmIssueInvoice() {
+            // 验证文件是否已上传
+            if (!cache.previewFilename || cache.previewFilename.textContent === '-') {
+                showNotification('请上传发票文件', 'error');
+                return;
+            }
+            
+            // 模拟开票过程
+            showNotification('正在开具发票...', 'info');
+            
+            setTimeout(function() {
+                // 更新发票数据状态
+                if (invoiceData[currentInvoiceNo]) {
+                    invoiceData[currentInvoiceNo].status = '已开具';
+                    invoiceData[currentInvoiceNo].statusClass = 'bg-green-100 text-green-700';
+                    
+                    const today = new Date();
+                    invoiceData[currentInvoiceNo].issueTime = today.getFullYear() + '-' + 
+                        String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(today.getDate()).padStart(2, '0') + ' ' +
+                        String(today.getHours()).padStart(2, '0') + ':' +
+                        String(today.getMinutes()).padStart(2, '0') + ':' +
+                        String(today.getSeconds()).padStart(2, '0');
+                }
+                
+                // 更新列表状态
+                updateInvoiceListStatus(currentInvoiceNo);
+                
+                // 关闭弹窗
+                closeIssueInvoiceModal();
+                
+                // 显示成功通知
+                showNotification('发票开具成功！', 'success');
+            }, 1000);
+        }
+
+        // 更新列表中发票状态
+        function updateInvoiceListStatus(invoiceNo) {
+            const rows = document.querySelectorAll('.table-row');
+            rows.forEach(function(row) {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell && firstCell.textContent.trim() === invoiceNo) {
+                    // 更新状态标签
+                    const statusCell = row.querySelector('td:nth-child(7)');
+                    if (statusCell) {
+                        const badge = statusCell.querySelector('.badge');
+                        if (badge) {
+                            badge.textContent = '已开具';
+                            badge.className = 'badge bg-green-100 text-green-700';
+                        }
+                    }
+                    
+                    // 更新操作按钮
+                    const actionCell = row.querySelector('td:last-child');
+                    if (actionCell) {
+                        const buttons = actionCell.querySelectorAll('button');
+                        if (buttons.length > 0) {
+                            // 替换开具按钮为下载按钮
+                            const newHTML = `
+                                <button class="text-primary hover:text-blue-700 mr-3 transition-colors" onclick="showInvoiceDetail('${invoiceNo}')">
+                                    <i class="fa fa-eye mr-1"></i> 查看
+                                </button>
+                                <button class="text-success hover:text-green-700 transition-colors" onclick="downloadInvoice('${invoiceNo}')">
+                                    <i class="fa fa-download mr-1"></i> 下载
+                                </button>
+                            `;
+                            actionCell.innerHTML = newHTML;
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

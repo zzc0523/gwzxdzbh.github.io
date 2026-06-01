@@ -107,7 +107,7 @@
             <div class="flex justify-between h-16">
                 <!-- 左侧：Logo 和 导航菜单 -->
                 <div class="flex items-center space-x-10">
-                    <a href="供应商端_保函订单.html" class="flex items-center space-x-3 group">
+                    <a href="供应商端_保函申请.html" class="flex items-center space-x-3 group">
                         <div class="w-9 h-9 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
                             <i class="fa fa-bolt text-white text-xl"></i>
                         </div>
@@ -118,7 +118,7 @@
                     </a>
                     
                     <div class="hidden md:flex items-center h-full">
-                        <a href="保函申请.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
+                        <a href="供应商端_保函申请.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
                             保函申请
                         </a>
                         <a href="供应商端_保函订单.html" class="nav-link active flex items-center h-full px-5 text-sm font-medium transition-colors">
@@ -128,10 +128,10 @@
                         <a href="供应商端_保函验真.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
                             保函验真
                         </a>
-                        <a href="保函续保.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
+                        <a href="供应商端_保函续保.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
                             保函续保
                         </a>
-                        <a href="发票申请.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
+                        <a href="供应商端_发票管理.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
                             发票管理
                         </a>
                     </div>
@@ -191,6 +191,18 @@
                             </select>
                         </div>
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">保函类型</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部类型</option>
+                                <option value="bid">投标保函</option>
+                                <option value="performance">履约保函</option>
+                                <option value="quality">结清款保函</option>
+                                <option value="advance">预付款保函</option>
+                                <option value="wage">工资保函</option>
+                                <option value="other">其他保函</option>
+                            </select>
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">申请日期</label>
                             <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
@@ -237,8 +249,10 @@
                                     </th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">订单编号</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函编号</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函类型</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程施工合同金额（元）</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">担保金额</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">担保期限</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">状态</th>
@@ -258,10 +272,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202604150001</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">履约保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">福州市地铁5号线延长线工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">福州市地铁集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥10,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥500,000</span>
@@ -303,10 +323,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202603280003</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">结清款保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门新机场配套工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门翔业集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥6,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥300,000</span>
@@ -342,10 +368,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202602150002</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">履约保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">泉州湾大桥养护工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">泉州市交通集团有限责任公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥4,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥200,000</span>
@@ -387,10 +419,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202604100004</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">投标保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市城市快速路工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市城市建设投资集团</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥8,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥400,000</span>
@@ -426,10 +464,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202512200005</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">预付款保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">漳州港码头扩建工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">漳州港务局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥16,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥800,000</span>
@@ -465,10 +509,16 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202604150006</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">履约保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市木兰溪防洪工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市水利局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥4,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥200,000</span>
@@ -511,6 +561,9 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门市地铁集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥20,000,000.00</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm font-bold text-gray-900">¥1,000,000</span>
@@ -609,6 +662,10 @@
                                         <p class="text-lg font-medium text-gray-900" id="modal-party-a-name">福州市地铁集团有限公司</p>
                                     </div>
                                     <div>
+                                        <p class="text-sm text-gray-500 mb-1">工程施工合同金额（元）</p>
+                                        <p class="text-lg font-bold text-primary" id="modal-contract-amount">¥10,000,000.00</p>
+                                    </div>
+                                    <div>
                                         <p class="text-sm text-gray-500 mb-1">工程质量保证金金额（元）</p>
                                         <p class="text-lg font-bold text-primary" id="modal-deposit-amount">¥500,000.00</p>
                                     </div>
@@ -646,6 +703,10 @@
                                     <div>
                                         <p class="text-sm text-gray-500 mb-1">保函编号</p>
                                         <p class="text-lg font-medium text-gray-900" id="modal-guarantee-id">BH202604150001</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">保函类型</p>
+                                        <p class="text-lg font-medium text-gray-900" id="modal-guarantee-type">履约保函</p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-500 mb-1">担保金额</p>
@@ -1093,6 +1154,7 @@
             const orderData = {
                 'BH202604150001': {
                     guaranteeId: 'BH202604150001',
+                    guaranteeType: '履约保函',
                     projectName: '福州市地铁5号线延长线工程',
                     amount: '¥500,000',
                     term: '2026-04-15 ~ 2028-04-14',
@@ -1114,6 +1176,7 @@
                     contractCode: 'XM2026040001',
                     partyAUnit: '福州市地铁集团有限公司',
                     partyAName: '福州市地铁集团有限公司',
+                    contractAmount: '¥10,000,000.00',
                     depositAmount: '¥500,000.00',
                     depositStartDate: '2026-04-15',
                     depositEndDate: '2028-04-14',
@@ -1124,6 +1187,7 @@
                 },
                 'BH202603280003': {
                     guaranteeId: 'BH202603280003',
+                    guaranteeType: '结清款保函',
                     projectName: '厦门新机场配套工程',
                     amount: '¥300,000',
                     term: '2026-03-28 ~ 2026-05-28',
@@ -1144,6 +1208,7 @@
                     contractCode: 'XM2026030003',
                     partyAUnit: '厦门市翔安区建设局',
                     partyAName: '厦门市翔安区建设局',
+                    contractAmount: '¥6,000,000.00',
                     depositAmount: '¥300,000.00',
                     depositStartDate: '2026-03-28',
                     depositEndDate: '2026-05-28',
@@ -1154,6 +1219,7 @@
                 },
                 'BH202602150002': {
                     guaranteeId: 'BH202602150002',
+                    guaranteeType: '履约保函',
                     projectName: '泉州湾大桥养护工程',
                     amount: '¥200,000',
                     term: '2026-02-15 ~ 2027-02-14',
@@ -1175,6 +1241,7 @@
                     contractCode: 'XM2026020002',
                     partyAUnit: '泉州市交通局',
                     partyAName: '泉州市交通局',
+                    contractAmount: '¥4,000,000.00',
                     depositAmount: '¥200,000.00',
                     depositStartDate: '2026-02-15',
                     depositEndDate: '2027-02-14',
@@ -1185,6 +1252,7 @@
                 },
                 'BH202604100004': {
                     guaranteeId: 'BH202604100004',
+                    guaranteeType: '投标保函',
                     projectName: '莆田市城市快速路工程',
                     amount: '¥400,000',
                     term: '2026-04-10 ~ 2026-10-10',
@@ -1205,6 +1273,7 @@
                     contractCode: 'XM2026040004',
                     partyAUnit: '莆田市住建局',
                     partyAName: '莆田市住建局',
+                    contractAmount: '¥8,000,000.00',
                     depositAmount: '¥400,000.00',
                     depositStartDate: '2026-04-10',
                     depositEndDate: '2026-10-10',
@@ -1215,6 +1284,7 @@
                 },
                 'BH202512200005': {
                     guaranteeId: 'BH202512200005',
+                    guaranteeType: '预付款保函',
                     projectName: '漳州港码头扩建工程',
                     amount: '¥800,000',
                     term: '2025-12-20 ~ 2026-03-20',
@@ -1236,6 +1306,7 @@
                     contractCode: 'XM2025120005',
                     partyAUnit: '漳州市港务局',
                     partyAName: '漳州市港务局',
+                    contractAmount: '¥16,000,000.00',
                     depositAmount: '¥800,000.00',
                     depositStartDate: '2025-12-20',
                     depositEndDate: '2026-03-20',
@@ -1246,6 +1317,7 @@
                 },
                 'BH202604150006': {
                     guaranteeId: 'BH202604150006',
+                    guaranteeType: '履约保函',
                     projectName: '莆田市木兰溪防洪工程',
                     amount: '¥200,000',
                     term: '2026-04-15 ~ 2026-10-15',
@@ -1265,6 +1337,7 @@
                     contractCode: 'XM2026040006',
                     partyAUnit: '莆田市水利局',
                     partyAName: '莆田市水利局',
+                    contractAmount: '¥4,000,000.00',
                     depositAmount: '¥200,000.00',
                     depositStartDate: '2026-04-15',
                     depositEndDate: '2026-10-15',
@@ -1294,6 +1367,7 @@
                     contractCode: 'XM2026030007',
                     partyAUnit: '厦门市地铁集团有限公司',
                     partyAName: '厦门市地铁集团有限公司',
+                    contractAmount: '¥20,000,000.00',
                     depositAmount: '¥1,000,000.00',
                     depositStartDate: '2026-03-10',
                     depositEndDate: '2028-03-09',
@@ -1309,6 +1383,7 @@
 
             // 更新模态框内容
             document.getElementById('modal-guarantee-id').textContent = data.guaranteeId;
+            document.getElementById('modal-guarantee-type').textContent = data.guaranteeType || '';
             document.getElementById('modal-project-name').textContent = data.projectName;
             document.getElementById('modal-amount').textContent = data.amount;
             document.getElementById('modal-term').textContent = data.term;
@@ -1320,6 +1395,7 @@
             document.getElementById('modal-contract-code').textContent = data.contractCode || '';
             document.getElementById('modal-party-a-unit').textContent = data.partyAUnit || '';
             document.getElementById('modal-party-a-name').textContent = data.partyAName || '';
+            document.getElementById('modal-contract-amount').textContent = data.contractAmount || '';
             document.getElementById('modal-deposit-amount').textContent = data.depositAmount || '';
             document.getElementById('modal-deposit-start').textContent = data.depositStartDate || '';
             document.getElementById('modal-deposit-end').textContent = data.depositEndDate || '';

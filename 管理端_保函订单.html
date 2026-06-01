@@ -176,26 +176,9 @@
                             <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
                             <span class="font-medium">保函理赔</span>
                         </a>
-                    </div>
-                </div>
-                
-                <!-- 系统管理 -->
-                <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('system')">
-                        <div class="flex items-center">
-                            <i class="fa fa-cog w-5 text-center mr-3"></i>
-                            <span class="font-medium">系统管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="system-icon"></i>
-                    </button>
-                    <div id="system-submenu" class="submenu">
-                        <a href="管理端_角色管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-users w-5 text-center mr-3"></i>
-                            <span class="font-medium">角色管理</span>
-                        </a>
-                        <a href="管理端_组织与人员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
-                            <span class="font-medium">组织与人员管理</span>
+                        <a href="管理端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
                         </a>
                     </div>
                 </div>
@@ -258,7 +241,21 @@
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入工程施工合同名称">
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程地址</label>
+                            <div class="flex space-x-2">
+                                <select id="province-select" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">请选择省</option>
+                                </select>
+                                <select id="city-select" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">请选择市</option>
+                                </select>
+                                <select id="district-select" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option value="">请选择区</option>
+                                </select>
+                            </div>
+                        </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">工程合同甲方单位（发包人）</label>
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入甲方单位名称">
@@ -268,7 +265,7 @@
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部类型</option>
                                 <option value="performance">履约保函</option>
-                                <option value="quality">质量保函</option>
+                                <option value="quality">结清款保函</option>
                                 <option value="advance">预付款保函</option>
                             </select>
                         </div>
@@ -309,6 +306,8 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程地址</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同金额（元）</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函金额</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函类型</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
@@ -322,8 +321,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁1号线配套工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁集团有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省福州市鼓楼区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥3,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥150,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">生效中</span>
                                     </td>
@@ -342,8 +343,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门市环岛路扩建工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场建设指挥部</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省厦门市翔安区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥4,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">生效中</span>
                                     </td>
@@ -362,8 +365,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市高速公路连接线工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通运输局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省泉州市丰泽区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥6,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥300,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-gray-100 text-gray-500">已过期</span>
                                     </td>
@@ -379,8 +384,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604150006</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">莆田市木兰溪防洪工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">莆田市水利局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省莆田市城厢区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥4,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-orange-100 text-orange-700">待续保</span>
                                     </td>
@@ -446,12 +453,16 @@
                         <p class="text-lg font-medium text-gray-900" id="detail-party-a">福州市地铁集团有限公司</p>
                     </div>
                     <div>
+                        <p class="text-sm text-gray-500 mb-1">工程施工合同金额（元）</p>
+                        <p class="text-lg font-bold text-primary" id="detail-contract-amount">¥3,000,000.00</p>
+                    </div>
+                    <div>
                         <p class="text-sm text-gray-500 mb-1">供应商</p>
                         <p class="text-lg font-medium text-gray-900" id="detail-supplier">福州建筑工程有限公司</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">保函类型</p>
-                        <p class="text-lg font-medium text-gray-900" id="detail-guarantee-type">质量保函</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-guarantee-type">结清款保函</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">保函金额</p>
@@ -487,6 +498,133 @@
             const today = new Date();
             const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
             document.getElementById('today-date').textContent = dateStr;
+
+            // 省市区数据
+            const regionData = {
+                '福建省': {
+                    '福州市': ['鼓楼区', '台江区', '仓山区', '晋安区', '马尾区', '长乐区'],
+                    '厦门市': ['思明区', '湖里区', '集美区', '海沧区', '同安区', '翔安区'],
+                    '泉州市': ['鲤城区', '丰泽区', '洛江区', '泉港区', '石狮市', '晋江市'],
+                    '莆田市': ['城厢区', '涵江区', '荔城区', '秀屿区'],
+                    '漳州市': ['芗城区', '龙文区', '龙海区', '长泰区'],
+                    '宁德市': ['蕉城区', '福安市', '福鼎市'],
+                    '三明市': ['梅列区', '三元区'],
+                    '南平市': ['延平区', '建阳区'],
+                    '龙岩市': ['新罗区', '永定区']
+                },
+                '浙江省': {
+                    '杭州市': ['上城区', '下城区', '西湖区', '拱墅区', '滨江区'],
+                    '宁波市': ['海曙区', '江北区', '北仑区', '镇海区'],
+                    '温州市': ['鹿城区', '龙湾区', '瓯海区'],
+                    '嘉兴市': ['南湖区', '秀洲区'],
+                    '湖州市': ['吴兴区', '南浔区'],
+                    '绍兴市': ['越城区', '柯桥区', '上虞区'],
+                    '金华市': ['婺城区', '金东区'],
+                    '衢州市': ['柯城区', '衢江区'],
+                    '舟山市': ['定海区', '普陀区'],
+                    '台州市': ['椒江区', '黄岩区', '路桥区'],
+                    '丽水市': ['莲都区']
+                },
+                '江苏省': {
+                    '南京市': ['玄武区', '秦淮区', '鼓楼区', '建邺区', '栖霞区'],
+                    '苏州市': ['姑苏区', '虎丘区', '吴中区', '相城区', '吴江区'],
+                    '无锡市': ['梁溪区', '锡山区', '惠山区'],
+                    '常州市': ['天宁区', '钟楼区', '新北区'],
+                    '镇江市': ['京口区', '润州区', '丹徒区'],
+                    '扬州市': ['广陵区', '邗江区', '江都区'],
+                    '泰州市': ['海陵区', '高港区', '姜堰区'],
+                    '南通市': ['崇川区', '通州区', '海门区'],
+                    '盐城市': ['亭湖区', '盐都区'],
+                    '淮安市': ['淮安区', '淮阴区', '清江浦区'],
+                    '宿迁市': ['宿城区', '宿豫区'],
+                    '连云港市': ['连云区', '海州区'],
+                    '徐州市': ['云龙区', '鼓楼区', '泉山区']
+                },
+                '广东省': {
+                    '广州市': ['天河区', '越秀区', '海珠区', '白云区', '黄埔区'],
+                    '深圳市': ['福田区', '罗湖区', '南山区', '宝安区', '龙岗区'],
+                    '珠海市': ['香洲区', '斗门区', '金湾区'],
+                    '佛山市': ['禅城区', '南海区', '顺德区', '三水区'],
+                    '东莞市': ['莞城街道', '南城街道', '东城街道'],
+                    '中山市': ['石岐街道', '东区街道', '西区街道'],
+                    '惠州市': ['惠城区', '惠阳区', '博罗县'],
+                    '江门市': ['蓬江区', '江海区', '新会区'],
+                    '湛江市': ['赤坎区', '霞山区', '坡头区'],
+                    '汕头市': ['金平区', '龙湖区', '澄海区'],
+                    '揭阳市': ['榕城区', '揭东区'],
+                    '潮州市': ['湘桥区', '潮安区'],
+                    '肇庆市': ['端州区', '鼎湖区'],
+                    '韶关市': ['浈江区', '武江区'],
+                    '梅州市': ['梅江区', '梅县区'],
+                    '汕尾市': ['城区', '海丰县'],
+                    '河源市': ['源城区'],
+                    '阳江市': ['江城区', '阳东区'],
+                    '清远市': ['清城区', '清新区'],
+                    '云浮市': ['云城区', '云安区']
+                },
+                '北京市': {
+                    '北京市': ['东城区', '西城区', '朝阳区', '海淀区', '丰台区', '石景山区', '通州区', '顺义区', '昌平区', '大兴区']
+                },
+                '上海市': {
+                    '上海市': ['黄浦区', '徐汇区', '长宁区', '静安区', '普陀区', '虹口区', '杨浦区', '闵行区', '宝山区', '嘉定区']
+                },
+                '天津市': {
+                    '天津市': ['和平区', '河东区', '河西区', '南开区', '河北区', '红桥区', '东丽区', '西青区', '津南区', '北辰区']
+                },
+                '重庆市': {
+                    '重庆市': ['渝中区', '大渡口区', '江北区', '沙坪坝区', '九龙坡区', '南岸区', '北碚区', '万盛区', '双桥区']
+                }
+            };
+
+            const provinceSelect = document.getElementById('province-select');
+            const citySelect = document.getElementById('city-select');
+            const districtSelect = document.getElementById('district-select');
+
+            if (provinceSelect) {
+                // 初始化省份选项
+                Object.keys(regionData).forEach(province => {
+                    const option = document.createElement('option');
+                    option.value = province;
+                    option.textContent = province;
+                    provinceSelect.appendChild(option);
+                });
+
+                // 省份变化时更新城市
+                provinceSelect.addEventListener('change', function() {
+                    const selectedProvince = this.value;
+                    
+                    // 清空城市和区县
+                    citySelect.innerHTML = '<option value="">请选择市</option>';
+                    districtSelect.innerHTML = '<option value="">请选择区</option>';
+                    
+                    if (selectedProvince) {
+                        Object.keys(regionData[selectedProvince]).forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city;
+                            option.textContent = city;
+                            citySelect.appendChild(option);
+                        });
+                    }
+                });
+
+                // 城市变化时更新区县
+                citySelect.addEventListener('change', function() {
+                    const selectedProvince = provinceSelect.value;
+                    const selectedCity = this.value;
+                    
+                    // 清空区县
+                    districtSelect.innerHTML = '<option value="">请选择区</option>';
+                    
+                    if (selectedProvince && selectedCity) {
+                        regionData[selectedProvince][selectedCity].forEach(district => {
+                            const option = document.createElement('option');
+                            option.value = district;
+                            option.textContent = district;
+                            districtSelect.appendChild(option);
+                        });
+                    }
+                });
+            }
         });
 
         function toggleMenu(menuId) {

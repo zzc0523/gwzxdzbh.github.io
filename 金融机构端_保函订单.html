@@ -225,7 +225,7 @@
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部类型</option>
                                 <option value="performance">履约保函</option>
-                                <option value="quality">质量保函</option>
+                                <option value="quality">结清款保函</option>
                                 <option value="advance">预付款保函</option>
                             </select>
                         </div>
@@ -265,6 +265,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同金额（元）</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函金额</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函类型</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
@@ -278,8 +279,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁1号线配套工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁集团有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥3,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥150,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
                                     </td>
@@ -298,8 +300,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门市环岛路扩建工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场建设指挥部</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥4,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">已开函</span>
                                     </td>
@@ -318,8 +321,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市高速公路连接线工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通运输局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥6,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥300,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
                                     </td>
@@ -338,8 +342,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604150006</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">莆田市木兰溪防洪工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">莆田市水利局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥4,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">结清款保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">已开函</span>
                                     </td>
@@ -408,12 +413,16 @@
                         <p class="text-lg font-medium text-gray-900" id="detail-party-a">福州市地铁集团有限公司</p>
                     </div>
                     <div>
+                        <p class="text-sm text-gray-500 mb-1">工程施工合同金额（元）</p>
+                        <p class="text-lg font-bold text-primary" id="detail-contract-amount">¥3,000,000.00</p>
+                    </div>
+                    <div>
                         <p class="text-sm text-gray-500 mb-1">供应商</p>
                         <p class="text-lg font-medium text-gray-900" id="detail-supplier">福州建筑工程有限公司</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">保函类型</p>
-                        <p class="text-lg font-medium text-gray-900" id="detail-guarantee-type">质量保函</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-guarantee-type">结清款保函</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">保函金额</p>
@@ -557,6 +566,7 @@
                 guaranteeId: '',
                 contractName: '福州市地铁1号线配套工程',
                 partyA: '福州市地铁集团有限公司',
+                contractAmount: '¥3,000,000.00',
                 amount: '¥150,000',
                 status: 'pending'
             },
@@ -565,6 +575,7 @@
                 guaranteeId: 'FJ202604100002',
                 contractName: '厦门市环岛路扩建工程',
                 partyA: '厦门新机场建设指挥部',
+                contractAmount: '¥4,000,000.00',
                 amount: '¥200,000',
                 status: 'issued'
             },
@@ -573,6 +584,7 @@
                 guaranteeId: '',
                 contractName: '泉州市高速公路连接线工程',
                 partyA: '泉州市交通运输局',
+                contractAmount: '¥6,000,000.00',
                 amount: '¥300,000',
                 status: 'pending'
             },
@@ -581,6 +593,7 @@
                 guaranteeId: 'FJ202604150006',
                 contractName: '莆田市木兰溪防洪工程',
                 partyA: '莆田市水利局',
+                contractAmount: '¥4,000,000.00',
                 amount: '¥200,000',
                 status: 'issued'
             }

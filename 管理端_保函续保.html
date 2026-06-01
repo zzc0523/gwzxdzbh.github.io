@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 保函续保</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,75,147,0.15);
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .submenu {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .submenu.hidden {
+            max-height: 0;
+        }
+        .submenu:not(.hidden) {
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-cogs text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">管理端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 金融机构管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
+                        <div class="flex items-center">
+                            <i class="fa fa-bank w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
+                    </button>
+                    <div id="financial-institution-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 产品管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
+                        <div class="flex items-center">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
+                    </button>
+                    <div id="product-submenu" class="submenu">
+                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 平台管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
+                        <div class="flex items-center">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">平台管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
+                    </button>
+                    <div id="platform-submenu" class="submenu">
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级平台管理</span>
+                        </a>
+                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级管理员管理</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu">
+                        <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函验真</span>
+                        </a>
+                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                        <a href="管理端_保函续保.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        管
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">保函续保</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                        <p class="text-xs text-blue-500 mt-1">查看全平台的保函续保申请</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索筛选 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">申请编号</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入申请编号">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">原保函编号</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入原保函编号">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同名称</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入工程施工合同名称">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">金融机构</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部金融机构</option>
+                                <option value="ccb">中国建设银行</option>
+                                <option value="icbc">中国工商银行</option>
+                                <option value="abc">中国农业银行</option>
+                                <option value="boc">中国银行</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
+                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="">全部状态</option>
+                                <option value="pending">待处理</option>
+                                <option value="processed">已处理</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mt-4 space-x-3">
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-refresh mr-2"></i>重置
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <i class="fa fa-search mr-2"></i>查询
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 续保申请记录列表 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fa fa-list text-primary mr-2"></i>
+                            续保申请记录
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">原保函编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">金融机构</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">续保期限</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">续保保费</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请时间</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XB202604150001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202601150001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁2号线延伸工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">6个月</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">¥500</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 10:30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="showRenewalDetail('XB202604150001')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XB202604100001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202601010001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁1号线配套工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">3个月</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">¥375</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10 14:30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-green-700">已处理</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="showRenewalDetail('XB202604100001')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-success hover:text-green-600" onclick="downloadNewGuarantee('XB202604100001')">
+                                            <i class="fa fa-download mr-1"></i>下载
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XB202604050002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202601020002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门市翔安隧道工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国工商银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">6个月</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">¥1,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05 09:15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-yellow-100 text-yellow-700">待处理</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="showRenewalDetail('XB202604050002')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">XB202604010003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">FJ202601030003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市晋江大桥扩建工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国农业银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">12个月</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-bold">¥1,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-01 16:45</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-green-700">已处理</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="showRenewalDetail('XB202604010003')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-success hover:text-green-600" onclick="downloadNewGuarantee('XB202604010003')">
+                                            <i class="fa fa-download mr-1"></i>下载
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 分页 -->
+                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+                        <div class="text-sm text-gray-700">
+                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">4</span> 条，共 <span class="font-medium">12</span> 条
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                                <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 续保申请详情模态框 -->
+    <div id="renewal-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900">续保申请详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeRenewalDetailModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- 申请信息 -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">申请信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">申请编号</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-application-id">XB202604150001</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">申请时间</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-application-time">2026-04-15 10:30</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">金融机构</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-financial-institution">中国建设银行</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">状态</p>
+                            <p class="text-lg font-medium" id="detail-status"><span class="badge bg-yellow-100 text-yellow-700">待审核</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 原保函信息 -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">原保函信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">原保函编号</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-old-guarantee-id">FJ202601150001</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-project-name">福州市地铁2号线延伸工程</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">原担保金额</p>
+                            <p class="text-lg font-bold text-primary" id="detail-old-amount">¥150,000</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">原担保期限</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-old-term">2026-01-15 ~ 2026-07-15</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 续保信息 -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">续保信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">续保期限</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-renew-term">6个月</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">续保后到期日</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-new-end-date">2027-01-15</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">续保保费</p>
+                            <p class="text-lg font-bold text-primary" id="detail-renew-premium">¥500</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">支付方式</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-payment-method">企业账户转账</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 材料信息 -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">材料信息</h4>
+                    
+                    <!-- 基础材料 -->
+                    <div class="mb-4">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">基础材料</h5>
+                        <div class="space-y-2" id="detail-basic-materials">
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-pdf-o text-red-500 mr-3"></i>
+                                    <span class="text-sm text-gray-700">更新的营业执照.pdf</span>
+                                </div>
+                                <button class="text-primary hover:text-secondary text-sm" onclick="downloadMaterial('更新的营业执照.pdf')">
+                                    <i class="fa fa-download mr-1"></i>下载
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-pdf-o text-red-500 mr-3"></i>
+                                    <span class="text-sm text-gray-700">法人身份证明.pdf</span>
+                                </div>
+                                <button class="text-primary hover:text-secondary text-sm" onclick="downloadMaterial('法人身份证明.pdf')">
+                                    <i class="fa fa-download mr-1"></i>下载
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 项目材料 -->
+                    <div>
+                        <h5 class="text-md font-medium text-gray-700 mb-3">项目材料</h5>
+                        <div class="space-y-2" id="detail-project-materials">
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-pdf-o text-red-500 mr-3"></i>
+                                    <span class="text-sm text-gray-700">原保函扫描件.pdf</span>
+                                </div>
+                                <button class="text-primary hover:text-secondary text-sm" onclick="downloadMaterial('原保函扫描件.pdf')">
+                                    <i class="fa fa-download mr-1"></i>下载
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fa fa-file-word-o text-blue-500 mr-3"></i>
+                                    <span class="text-sm text-gray-700">项目合同及补充协议.docx</span>
+                                </div>
+                                <button class="text-primary hover:text-secondary text-sm" onclick="downloadMaterial('项目合同及补充协议.docx')">
+                                    <i class="fa fa-download mr-1"></i>下载
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 备注 -->
+                <div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-4">备注</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-700" id="detail-remark">项目按计划推进，申请续保</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex items-center justify-end space-x-4">
+                <button id="download-guarantee-btn" class="px-6 py-2 bg-success text-white rounded-lg hover:bg-green-600 transition-colors hidden">
+                    <i class="fa fa-download mr-2"></i>下载新保函
+                </button>
+                <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeRenewalDetailModal()">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 缓存DOM元素
+        let cache = {};
+
+        // 续保申请记录数据
+        const recordData = {
+            'XB202604150001': {
+                applicationId: 'XB202604150001',
+                oldGuaranteeId: 'FJ202601150001',
+                projectName: '福州市地铁2号线延伸工程',
+                financialInstitution: '中国建设银行',
+                renewTerm: '6个月',
+                renewPremium: '¥500',
+                applicationTime: '2026-04-15 10:30',
+                status: '待处理',
+                oldAmount: '¥150,000',
+                oldTerm: '2026-01-15 ~ 2026-07-15',
+                newEndDate: '2027-01-15',
+                paymentMethod: '企业账户转账',
+                basicMaterials: '更新的营业执照.pdf、法人身份证明.pdf',
+                projectMaterials: '原保函扫描件.pdf、项目合同及补充协议.docx',
+                remark: '项目按计划推进，申请续保'
+            },
+            'XB202604100001': {
+                applicationId: 'XB202604100001',
+                oldGuaranteeId: 'FJ202601010001',
+                projectName: '福州市地铁1号线配套工程',
+                financialInstitution: '中国建设银行',
+                renewTerm: '3个月',
+                renewPremium: '¥375',
+                applicationTime: '2026-04-10 14:30',
+                status: '已处理',
+                oldAmount: '¥150,000',
+                oldTerm: '2026-01-01 ~ 2026-04-01',
+                newEndDate: '2026-07-01',
+                paymentMethod: '企业账户转账',
+                basicMaterials: '更新的营业执照.pdf、法人身份证明.pdf',
+                projectMaterials: '原保函扫描件.pdf、项目合同及补充协议.docx',
+                remark: '项目按计划推进，申请续保'
+            },
+            'XB202604050002': {
+                applicationId: 'XB202604050002',
+                oldGuaranteeId: 'FJ202601020002',
+                projectName: '厦门市翔安隧道工程',
+                financialInstitution: '中国工商银行',
+                renewTerm: '6个月',
+                renewPremium: '¥1,000',
+                applicationTime: '2026-04-05 09:15',
+                status: '待处理',
+                oldAmount: '¥200,000',
+                oldTerm: '2026-01-02 ~ 2026-07-02',
+                newEndDate: '2027-01-02',
+                paymentMethod: '企业账户转账',
+                basicMaterials: '更新的营业执照.pdf、法人身份证明.pdf',
+                projectMaterials: '原保函扫描件.pdf、项目合同及补充协议.docx',
+                remark: '项目按计划推进，申请续保'
+            },
+            'XB202604010003': {
+                applicationId: 'XB202604010003',
+                oldGuaranteeId: 'FJ202601030003',
+                projectName: '泉州市晋江大桥扩建工程',
+                financialInstitution: '中国农业银行',
+                renewTerm: '12个月',
+                renewPremium: '¥1,000',
+                applicationTime: '2026-04-01 16:45',
+                status: '已处理',
+                oldAmount: '¥300,000',
+                oldTerm: '2026-01-03 ~ 2026-04-03',
+                newEndDate: '2027-04-03',
+                paymentMethod: '企业账户转账',
+                basicMaterials: '更新的营业执照.pdf、法人身份证明.pdf',
+                projectMaterials: '原保函扫描件.pdf、项目合同及补充协议.docx',
+                remark: '项目按计划推进，申请续保'
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化缓存
+            initCache();
+
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            if (cache.todayDate) {
+                cache.todayDate.textContent = dateStr;
+            }
+        });
+
+        // 初始化缓存
+        function initCache() {
+            cache.todayDate = document.getElementById('today-date');
+            cache.renewalModal = document.getElementById('renewal-detail-modal');
+            cache.detailApplicationId = document.getElementById('detail-application-id');
+            cache.detailApplicationTime = document.getElementById('detail-application-time');
+            cache.detailStatus = document.getElementById('detail-status');
+            cache.detailOldGuaranteeId = document.getElementById('detail-old-guarantee-id');
+            cache.detailProjectName = document.getElementById('detail-project-name');
+            cache.detailOldAmount = document.getElementById('detail-old-amount');
+            cache.detailOldTerm = document.getElementById('detail-old-term');
+            cache.detailRenewTerm = document.getElementById('detail-renew-term');
+            cache.detailNewEndDate = document.getElementById('detail-new-end-date');
+            cache.detailRenewPremium = document.getElementById('detail-renew-premium');
+            cache.detailFinancialInstitution = document.getElementById('detail-financial-institution');
+            cache.detailRemark = document.getElementById('detail-remark');
+            cache.downloadBtn = document.getElementById('download-guarantee-btn');
+        }
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu && icon) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        // 显示续保申请详情模态框
+        function showRenewalDetail(applicationId) {
+            // 获取记录数据
+            const data = recordData[applicationId] || recordData['XB202604150001'];
+            
+            // 确定状态样式
+            const statusClass = data.status === '待处理' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700';
+
+            // 更新模态框内容
+            if (cache.detailApplicationId) cache.detailApplicationId.textContent = data.applicationId;
+            if (cache.detailApplicationTime) cache.detailApplicationTime.textContent = data.applicationTime;
+            if (cache.detailStatus) cache.detailStatus.innerHTML = `<span class="badge ${statusClass}">${data.status}</span>`;
+            if (cache.detailOldGuaranteeId) cache.detailOldGuaranteeId.textContent = data.oldGuaranteeId;
+            if (cache.detailProjectName) cache.detailProjectName.textContent = data.projectName;
+            if (cache.detailOldAmount) cache.detailOldAmount.textContent = data.oldAmount;
+            if (cache.detailOldTerm) cache.detailOldTerm.textContent = data.oldTerm;
+            if (cache.detailRenewTerm) cache.detailRenewTerm.textContent = data.renewTerm;
+            if (cache.detailNewEndDate) cache.detailNewEndDate.textContent = data.newEndDate;
+            if (cache.detailRenewPremium) cache.detailRenewPremium.textContent = data.renewPremium;
+            if (cache.detailFinancialInstitution) cache.detailFinancialInstitution.textContent = data.financialInstitution;
+            if (cache.detailRemark) cache.detailRemark.textContent = data.remark;
+
+            // 显示或隐藏操作按钮
+            cache.downloadBtn.style.display = 'none';
+
+            // 根据状态显示不同的按钮
+            if (data.status === '已处理') {
+                cache.downloadBtn.style.display = 'block';
+                // 添加下载按钮的点击事件
+                cache.downloadBtn.onclick = function() {
+                    downloadNewGuarantee(applicationId);
+                };
+            }
+
+            // 显示模态框
+            if (cache.renewalModal) {
+                cache.renewalModal.classList.remove('hidden');
+            }
+        }
+
+        function closeRenewalDetailModal() {
+            if (cache.renewalModal) {
+                cache.renewalModal.classList.add('hidden');
+            }
+        }
+
+        function downloadMaterial(filename) {
+            // 模拟下载操作
+            alert('正在下载: ' + filename);
+        }
+
+        // 下载新保函
+        function downloadNewGuarantee(applicationId) {
+            const data = recordData[applicationId] || recordData['XB202604150001'];
+            alert(`正在下载新保函文件：新保函_${data.oldGuaranteeId}.pdf`);
+        }
+    </script>
+</body>
+</html>

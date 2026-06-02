@@ -194,7 +194,7 @@
                     </div>
                     <div class="flex items-center space-x-4">
                         <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddPlatformModal()">
-                            <i class="fa fa-plus mr-2"></i>新增管级平台
+                            <i class="fa fa-plus mr-2"></i>新增省级平台
                         </button>
                         <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
                             <i class="fa fa-bell-o text-xl"></i>
@@ -217,14 +217,14 @@
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平台名称">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">所属管份</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">所属省份</label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                <option value="">全部管份</option>
+                                <option value="">全部省份</option>
                                 <option value="beijing">北京市</option>
                                 <option value="shanghai">上海市</option>
-                                <option value="guangdong">广东管</option>
-                                <option value="zhejiang">浙江管</option>
-                                <option value="jiangsu">江苏管</option>
+                                <option value="guangdong">广东省</option>
+                                <option value="zhejiang">浙江省</option>
+                                <option value="jiangsu">江苏省</option>
                             </select>
                         </div>
                         <div>
@@ -250,15 +250,15 @@
                     </div>
                 </div>
 
-                <!-- 管级平台列表 -->
+                <!-- 省级平台列表 -->
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-gray-100 flex items-center justify-between">
                         <h3 class="text-lg font-bold text-gray-900 flex items-center">
                             <i class="fa fa-map text-primary mr-2"></i>
-                            管级平台列表
+                            省级平台列表
                         </h3>
                         <div class="flex items-center space-x-2 text-sm text-gray-500">
-                            <span>共 <strong class="text-primary">12</strong> 个管级平台</span>
+                            <span>共 <strong class="text-primary">12</strong> 个省级平台</span>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
@@ -266,7 +266,7 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平台名称</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">所属管份</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">所属省份</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平台负责人</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">联系电话</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
@@ -276,7 +276,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">北京市管级平台</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">北京市平台</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">北京市</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">张三</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138001</td>
@@ -297,7 +297,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">上海市管级平台</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">上海市平台</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">上海市</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">李四</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138002</td>
@@ -318,8 +318,8 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">广东管管级平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">广东管</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">广东省省级平台</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">广东省</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">王五</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-10</td>
@@ -339,8 +339,8 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">浙江管管级平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">浙江管</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">浙江省省级平台</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">浙江省</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">赵六</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138004</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
@@ -384,11 +384,11 @@
         </main>
     </div>
 
-    <!-- 新增管级平台模态框 -->
+    <!-- 新增省级平台模态框 -->
     <div id="add-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">新增管级平台</h3>
+                <h3 class="text-lg font-bold text-gray-900">新增省级平台</h3>
                 <button class="text-gray-400 hover:text-gray-600" onclick="closeAddPlatformModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
@@ -400,14 +400,14 @@
                         <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平台名称">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">所属管份 <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">所属省份 <span class="text-red-500">*</span></label>
                         <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                            <option value="">请选择管份</option>
+                            <option value="">请选择省份</option>
                             <option value="beijing">北京市</option>
                             <option value="shanghai">上海市</option>
-                            <option value="guangdong">广东管</option>
-                            <option value="zhejiang">浙江管</option>
-                            <option value="jiangsu">江苏管</option>
+                            <option value="guangdong">广东省</option>
+                            <option value="zhejiang">浙江省</option>
+                            <option value="jiangsu">江苏省</option>
                         </select>
                     </div>
                     <div>
@@ -443,11 +443,11 @@
         </div>
     </div>
 
-    <!-- 编辑管级平台模态框 -->
+    <!-- 编辑省级平台模态框 -->
     <div id="edit-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">编辑管级平台</h3>
+                <h3 class="text-lg font-bold text-gray-900">编辑省级平台</h3>
                 <button class="text-gray-400 hover:text-gray-600" onclick="closeEditPlatformModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
@@ -456,16 +456,16 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">平台名称 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="北京市管级平台" placeholder="请输入平台名称">
+                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="北京市省级平台" placeholder="请输入平台名称">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">所属管份 <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">所属省份 <span class="text-red-500">*</span></label>
                         <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                             <option value="beijing" selected>北京市</option>
                             <option value="shanghai">上海市</option>
-                            <option value="guangdong">广东管</option>
-                            <option value="zhejiang">浙江管</option>
-                            <option value="jiangsu">江苏管</option>
+                            <option value="guangdong">广东省</option>
+                            <option value="zhejiang">浙江省</option>
+                            <option value="jiangsu">江苏省</option>
                         </select>
                     </div>
                     <div>
@@ -501,7 +501,7 @@
         </div>
     </div>
 
-    <!-- 查看管级平台详情模态框 -->
+    <!-- 查看省级平台详情模态框 -->
     <div id="view-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -514,10 +514,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <p class="text-sm text-gray-500 mb-1">平台名称</p>
-                        <p class="text-lg font-medium text-gray-900">北京市管级平台</p>
+                        <p class="text-lg font-medium text-gray-900">北京市省级平台</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">所属管份</p>
+                        <p class="text-sm text-gray-500 mb-1">所属省份</p>
                         <p class="text-lg font-medium text-gray-900">北京市</p>
                     </div>
                     <div>
@@ -611,7 +611,7 @@
         }
 
         function addPlatform() {
-            showNotification('管级平台添加成功', 'success');
+            showNotification('省级平台添加成功', 'success');
             setTimeout(() => {
                 closeAddPlatformModal();
                 location.reload();
@@ -627,7 +627,7 @@
         }
 
         function updatePlatform() {
-            showNotification('管级平台更新成功', 'success');
+            showNotification('省级平台更新成功', 'success');
             setTimeout(() => {
                 closeEditPlatformModal();
                 location.reload();
@@ -643,8 +643,8 @@
         }
 
         function disablePlatform(id) {
-            if (confirm('确定要停用该管级平台吗？停用后将无法使用相关功能。')) {
-                showNotification('管级平台已停用', 'success');
+            if (confirm('确定要停用该省级平台吗？停用后将无法使用相关功能。')) {
+                showNotification('省级平台已停用', 'success');
                 setTimeout(() => {
                     location.reload();
                 }, 1500);
@@ -652,8 +652,8 @@
         }
 
         function enablePlatform(id) {
-            if (confirm('确定要启用该管级平台吗？')) {
-                showNotification('管级平台已启用', 'success');
+            if (confirm('确定要启用该省级平台吗？')) {
+                showNotification('省级平台已启用', 'success');
                 setTimeout(() => {
                     location.reload();
                 }, 1500);

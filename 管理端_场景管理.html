@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 场景管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-cog text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">管理端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 运营管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 active text-gray-700 w-full" onclick="toggleMenu('operation')">
+                        <div class="flex items-center">
+                            <i class="fa fa-line-chart w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">运营管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="operation-icon" style="transform: rotate(180deg);"></i>
+                    </button>
+                    <div id="operation-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                        <a href="管理端_验真地址管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">验真地址管理</span>
+                        </a>
+                        <a href="管理端_场景管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-sitemap w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">场景管理</span>
+                        </a>
+                        <a href="管理端_投保材料管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">投保材料管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 平台管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
+                        <div class="flex items-center">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">平台管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
+                    </button>
+                    <div id="platform-submenu" class="submenu hidden">
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级平台管理</span>
+                        </a>
+                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级管理员管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu hidden">
+                        <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函验真</span>
+                        </a>
+                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                        <a href="管理端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        管
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">场景管理</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索和筛选 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4 flex-1">
+                            <div class="flex items-center space-x-2 mr-6">
+                                <label class="text-sm font-medium text-gray-700">场景名称</label>
+                                <input type="text" class="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-64" placeholder="请输入场景名称">
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                <i class="fa fa-search mr-2"></i>查询
+                            </button>
+                            <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fa fa-refresh mr-2"></i>重置
+                            </button>
+                            <button class="p-2 text-gray-400 hover:text-primary transition-colors border border-gray-200 rounded-lg">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 mt-4">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddSceneModal()">
+                            <i class="fa fa-plus mr-2"></i>新增场景
+                        </button>
+                        <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors">
+                            <i class="fa fa-trash mr-2"></i>批量删除
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors border border-gray-200 rounded-lg ml-auto">
+                            <i class="fa fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 场景管理列表 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">场景名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">场景介绍</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="table-row">
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">履约保函</td>
+                                    <td class="px-4 py-4 max-w-xs truncate text-sm text-gray-700">为合同履行提供的担保，保证承包商按照合同约定履行义务。</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2026-06-01 10:30:00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <span class="badge bg-green-100 text-success">上架</span>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="editScene('1')">
+                                            编辑
+                                        </button>
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="configureScene('1')">
+                                            配置
+                                        </button>
+                                        <button class="text-warning hover:text-orange-600 mr-2 bg-warning text-white px-3 py-1 rounded hover:bg-orange-600 transition-colors" onclick="toggleSceneStatus('1', 'offline')">
+                                            下架
+                                        </button>
+                                        <button class="text-danger hover:text-red-600 bg-danger text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onclick="deleteScene('1')">
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">质量保函</td>
+                                    <td class="px-4 py-4 max-w-xs truncate text-sm text-gray-700">用于工程质量保证的保函申请</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2026-06-02 14:20:00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <span class="badge bg-gray-100 text-gray-700">下架</span>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="editScene('2')">
+                                            编辑
+                                        </button>
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="configureScene('2')">
+                                            配置
+                                        </button>
+                                        <button class="text-success hover:text-green-600 mr-2 bg-success text-white px-3 py-1 rounded hover:bg-green-600 transition-colors" onclick="toggleSceneStatus('2', 'online')">
+                                            上架
+                                        </button>
+                                        <button class="text-danger hover:text-red-600 bg-danger text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onclick="deleteScene('2')">
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 新增场景模态框 -->
+    <div id="add-scene-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">新增场景</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeAddSceneModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景名称 <span class="text-red-500">*</span></label>
+                        <input type="text" id="add-scene-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入场景名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景介绍 <span class="text-red-500">*</span></label>
+                        <textarea id="add-scene-intro" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入场景介绍"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeAddSceneModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addScene()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑场景模态框 -->
+    <div id="edit-scene-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">编辑场景</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditSceneModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景名称 <span class="text-red-500">*</span></label>
+                        <input type="text" id="edit-scene-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入场景名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景介绍 <span class="text-red-500">*</span></label>
+                        <textarea id="edit-scene-intro" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入场景介绍"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditSceneModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="saveScene()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 配置场景模态框 -->
+    <div id="configure-scene-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">场景配置</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeConfigureSceneModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 标签页导航 -->
+            <div class="border-b border-gray-200">
+                <nav class="flex space-x-8 px-6">
+                    <button id="tab-online" class="py-4 px-1 border-b-2 border-primary text-primary font-medium text-sm" onclick="switchTab('online')">
+                        线上投保字段材料配置
+                    </button>
+                    <button id="tab-offline" class="py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm" onclick="switchTab('offline')">
+                        线下投保字段材料配置
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="p-6">
+                <!-- 线上投保字段材料配置 -->
+                <div id="content-online" class="tab-content">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-md font-bold text-gray-800">线上投保字段材料配置</h4>
+                        <div class="flex space-x-3">
+                            <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-secondary transition-colors" onclick="selectAllOnlineFields()">
+                                <i class="fa fa-check-square mr-1"></i>全选
+                            </button>
+                            <button class="px-4 py-2 border border-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors" onclick="clearAllOnlineFields()">
+                                <i class="fa fa-square-o mr-1"></i>清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段分类</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">类型</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否需要</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">默认配置项</th>
+                                </tr>
+                            </thead>
+                            <tbody><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同甲方单位（发包人）</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-1" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-1" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同甲方企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-2" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-2" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">客服电话</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-3" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-3" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同签订日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-4" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-4" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同签订地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-5" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-5" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同编号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-6" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-6" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-7" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-7" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-8" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-8" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同金额（元）</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-9" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-9" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金金额（元）</td>
+    <td class="px-4 py-2 border border-gray-200">数值</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-10" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-10" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金起始日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-11" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-11" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金结束日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-12" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-12" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">项目地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-13" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-13" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">项目详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-14" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-14" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同起期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-15" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-15" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同止期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-16" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-16" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保起期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-17" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-17" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保止期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-18" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-18" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保期限（天）</td>
+    <td class="px-4 py-2 border border-gray-200">数值</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-19" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-19" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保有效期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-20" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-20" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-21" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-21" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-22" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-22" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业经营范围</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-23" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-23" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">营业执照有限期类型</td>
+    <td class="px-4 py-2 border border-gray-200">短期/长期</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-24" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-24" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">营业执照有效期截止日</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-25" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-25" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人行业</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-26" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-26" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人纳税人类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-27" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-27" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">企业类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-28" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-28" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业资质等级</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-29" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-29" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人姓名</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-30" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-30" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-31" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-31" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">身份证到期时间</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-32" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-32" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">税务登记地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-33" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-33" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">税务登记电话</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-34" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-34" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">开户行名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-35" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-35" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">银行账号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-36" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-36" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人姓名</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-37" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-37" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-38" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-38" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-39" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-39" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人手机号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-40" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-40" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人电子邮箱</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-41" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-41" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-42" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-42" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-43" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-43" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-44" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-44" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-45" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-45" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">项目合同</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-46" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-46" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业营业执照</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-47" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-47" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">资质证书</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-48" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-48" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（人像面）</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-49" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-49" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（国徽面）</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-50" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-50" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">审计报告</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-51" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-51" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">财务报表</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-52" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-52" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人营业执照照片</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-53" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-53" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">其他材料</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-field-54" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-field-54" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- 线下投保字段材料配置 -->
+                <div id="content-offline" class="tab-content hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-md font-bold text-gray-800">线下投保字段材料配置</h4>
+                        <div class="flex space-x-3">
+                            <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-secondary transition-colors" onclick="selectAllOfflineFields()">
+                                <i class="fa fa-check-square mr-1"></i>全选
+                            </button>
+                            <button class="px-4 py-2 border border-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors" onclick="clearAllOfflineFields()">
+                                <i class="fa fa-square-o mr-1"></i>清空
+                            </button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50">
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段分类</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">类型</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否需要</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">默认配置项</th>
+                                </tr>
+                            </thead>
+                            <tbody><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同甲方单位（发包人）</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-1" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-1" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同甲方企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-2" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-2" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">客服电话</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-3" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-3" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同签订日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-4" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-4" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同签订地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-5" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-5" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同编号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-6" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-6" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-7" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-7" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-8" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-8" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同金额（元）</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-9" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-9" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金金额（元）</td>
+    <td class="px-4 py-2 border border-gray-200">数值</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-10" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-10" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金起始日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-11" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-11" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">质量保证金结束日期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-12" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-12" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">项目地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-13" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-13" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">项目详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-14" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-14" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同起期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-15" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-15" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">合同信息</td>
+    <td class="px-4 py-2 border border-gray-200">合同止期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-16" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-16" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保起期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-17" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-17" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保止期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-18" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-18" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保期限（天）</td>
+    <td class="px-4 py-2 border border-gray-200">数值</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-19" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-19" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保信息</td>
+    <td class="px-4 py-2 border border-gray-200">担保有效期</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-20" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-20" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-21" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-21" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-22" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-22" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业经营范围</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-23" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-23" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">营业执照有限期类型</td>
+    <td class="px-4 py-2 border border-gray-200">短期/长期</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-24" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-24" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">营业执照有效期截止日</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-25" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-25" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人行业</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-26" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-26" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保人纳税人类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-27" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-27" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">企业类型</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-28" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-28" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业资质等级</td>
+    <td class="px-4 py-2 border border-gray-200">下拉框</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-29" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-29" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人姓名</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-30" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-30" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-31" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-31" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">身份证到期时间</td>
+    <td class="px-4 py-2 border border-gray-200">日期</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-32" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-32" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">税务登记地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-33" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-33" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">税务登记电话</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-34" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-34" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">开户行名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-35" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-35" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">银行账号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-36" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-36" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人姓名</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-37" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-37" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-38" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-38" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-39" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-39" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人手机号</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-40" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-40" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保人信息</td>
+    <td class="px-4 py-2 border border-gray-200">联系人电子邮箱</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-41" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-41" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人企业名称</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-42" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-42" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-43" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-43" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人地址</td>
+    <td class="px-4 py-2 border border-gray-200">省市区</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-44" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-44" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人详细地址</td>
+    <td class="px-4 py-2 border border-gray-200">文本</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-45" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-45" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">项目合同</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-46" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-46" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业营业执照</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-47" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-47" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">资质证书</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-48" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-48" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（人像面）</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-49" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-49" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（国徽面）</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-50" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-50" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">审计报告</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-51" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-51" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">财务报表</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-52" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-52" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">被保险人营业执照照片</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-53" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-53" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr><tr class="bg-gray-50">
+    <td class="px-4 py-2 border border-gray-200">投保材料</td>
+    <td class="px-4 py-2 border border-gray-200">其他材料</td>
+    <td class="px-4 py-2 border border-gray-200">文件</td>
+    <td class="px-4 py-2 border border-gray-200 ">否</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-54" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-field-54" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+</tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeConfigureSceneModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="saveSceneConfig()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 状态变更确认模态框 -->
+    <div id="toggle-status-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900" id="toggle-status-title">确认操作</h3>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700" id="toggle-status-message">确定要执行此操作吗？</p>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeToggleStatusModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="confirmToggleStatus()">
+                    <i class="fa fa-check mr-2"></i>确定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div id="delete-scene-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-bold text-gray-900">确认删除</h3>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700">确定要删除该场景吗？此操作不可恢复。</p>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeDeleteSceneModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors" onclick="confirmDeleteScene()">
+                    <i class="fa fa-check mr-2"></i>确定删除
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            document.getElementById('today-date').textContent = dateStr;
+        });
+
+        // 标签页切换
+        function switchTab(tab) {
+            // 更新标签页样式
+            const tabOnline = document.getElementById('tab-online');
+            const tabOffline = document.getElementById('tab-offline');
+            const contentOnline = document.getElementById('content-online');
+            const contentOffline = document.getElementById('content-offline');
+            
+            if (tab === 'online') {
+                tabOnline.classList.add('border-primary', 'text-primary');
+                tabOnline.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+                tabOffline.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+                tabOffline.classList.remove('border-primary', 'text-primary');
+                contentOnline.classList.remove('hidden');
+                contentOffline.classList.add('hidden');
+            } else {
+                tabOffline.classList.add('border-primary', 'text-primary');
+                tabOffline.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+                tabOnline.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+                tabOnline.classList.remove('border-primary', 'text-primary');
+                contentOffline.classList.remove('hidden');
+                contentOnline.classList.add('hidden');
+            }
+        }
+
+        // 线上字段全选
+        function selectAllOnlineFields() {
+            const radios = document.querySelectorAll('input[type="radio"][name^="online-field-"][value="yes"]');
+            radios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
+        // 线上字段清空
+        function clearAllOnlineFields() {
+            const radios = document.querySelectorAll('input[type="radio"][name^="online-field-"][value="no"]');
+            radios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
+        // 线下字段全选
+        function selectAllOfflineFields() {
+            const radios = document.querySelectorAll('input[type="radio"][name^="offline-field-"][value="yes"]');
+            radios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
+        // 线下字段清空
+        function clearAllOfflineFields() {
+            const radios = document.querySelectorAll('input[type="radio"][name^="offline-field-"][value="no"]');
+            radios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 新增场景相关函数
+        function openAddSceneModal() {
+            document.getElementById('add-scene-modal').classList.remove('hidden');
+        }
+
+        function closeAddSceneModal() {
+            document.getElementById('add-scene-modal').classList.add('hidden');
+        }
+
+        function addScene() {
+            const sceneName = document.getElementById('add-scene-name').value;
+            const sceneIntro = document.getElementById('add-scene-intro').value;
+
+            if (!sceneName || !sceneIntro) {
+                alert('请填写所有必填项！');
+                return;
+            }
+
+            alert('场景添加成功！');
+            closeAddSceneModal();
+        }
+
+        // 编辑场景相关函数
+        let currentEditSceneId = null;
+        function editScene(id) {
+            currentEditSceneId = id;
+            if (id === '1') {
+                document.getElementById('edit-scene-name').value = '工程投标';
+                document.getElementById('edit-scene-intro').value = '用于工程招投标场景的保函申请';
+            } else if (id === '2') {
+                document.getElementById('edit-scene-name').value = '质量保函';
+                document.getElementById('edit-scene-intro').value = '用于工程质量保证的保函申请';
+            }
+            document.getElementById('edit-scene-modal').classList.remove('hidden');
+        }
+
+        function closeEditSceneModal() {
+            document.getElementById('edit-scene-modal').classList.add('hidden');
+            currentEditSceneId = null;
+        }
+
+        function saveScene() {
+            const sceneName = document.getElementById('edit-scene-name').value;
+            const sceneIntro = document.getElementById('edit-scene-intro').value;
+
+            if (!sceneName || !sceneIntro) {
+                alert('请填写所有必填项！');
+                return;
+            }
+
+            alert('场景保存成功！');
+            closeEditSceneModal();
+        }
+
+        // 配置场景相关函数
+        let currentConfigSceneId = null;
+        function configureScene(id) {
+            currentConfigSceneId = id;
+            // 重置标签页为线上配置
+            switchTab('online');
+            document.getElementById('configure-scene-modal').classList.remove('hidden');
+        }
+
+        function closeConfigureSceneModal() {
+            document.getElementById('configure-scene-modal').classList.add('hidden');
+            currentConfigSceneId = null;
+        }
+
+        function saveSceneConfig() {
+            alert('场景配置保存成功！');
+            closeConfigureSceneModal();
+        }
+
+        // 状态变更相关函数
+        let currentToggleSceneId = null;
+        let currentToggleAction = null;
+        function toggleSceneStatus(id, action) {
+            currentToggleSceneId = id;
+            currentToggleAction = action;
+            const titleEl = document.getElementById('toggle-status-title');
+            const messageEl = document.getElementById('toggle-status-message');
+            if (action === 'offline') {
+                titleEl.textContent = '确认下架';
+                messageEl.textContent = '确定要下架该场景吗？';
+            } else {
+                titleEl.textContent = '确认上架';
+                messageEl.textContent = '确定要上架该场景吗？';
+            }
+            document.getElementById('toggle-status-modal').classList.remove('hidden');
+        }
+
+        function closeToggleStatusModal() {
+            document.getElementById('toggle-status-modal').classList.add('hidden');
+            currentToggleSceneId = null;
+            currentToggleAction = null;
+        }
+
+        function confirmToggleStatus() {
+            if (currentToggleAction === 'offline') {
+                alert('场景已下架！');
+            } else {
+                alert('场景已上架！');
+            }
+            closeToggleStatusModal();
+        }
+
+        // 删除场景相关函数
+        let currentDeleteSceneId = null;
+        function deleteScene(id) {
+            currentDeleteSceneId = id;
+            document.getElementById('delete-scene-modal').classList.remove('hidden');
+        }
+
+        function closeDeleteSceneModal() {
+            document.getElementById('delete-scene-modal').classList.add('hidden');
+            currentDeleteSceneId = null;
+        }
+
+        function confirmDeleteScene() {
+            alert('场景已删除！');
+            closeDeleteSceneModal();
+        }
+    </script>
+</body>
+</html>

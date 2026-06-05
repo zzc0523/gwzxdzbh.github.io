@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国网征信系统 - 投保材料管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#004B93',
+                        secondary: '#0066CC',
+                        accent: '#0099FF',
+                        success: '#00A854',
+                        warning: '#FF9800',
+                        danger: '#E53935',
+                        neutral: '#F5F7FA',
+                        'neutral-dark': '#2C3E50'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            background: linear-gradient(90deg, rgba(0,75,147,0.1) 0%, transparent 100%);
+        }
+        .sidebar-link.active {
+            background: linear-gradient(90deg, rgba(0,75,147,0.15) 0%, transparent 100%);
+            border-left: 3px solid #004B93;
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            background-color: rgba(0,75,147,0.03);
+        }
+        .form-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            background-color: white;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .form-checkbox:checked {
+            background-color: #004B93;
+            border-color: #004B93;
+        }
+        .form-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .form-checkbox:hover {
+            border-color: #004B93;
+        }
+        .form-checkbox:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,75,147,0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex h-screen">
+        <!-- 左侧边栏 -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+            <!-- Logo区域 -->
+            <div class="p-6 border-b border-gray-100 bg-gradient-to-r from-primary to-secondary">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
+                        <i class="fa fa-cog text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold text-lg">国网征信</h1>
+                        <p class="text-accent text-xs">管理端</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 导航菜单 -->
+            <nav class="flex-1 py-6">
+                <div class="px-4 mb-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
+                </div>
+                
+                <!-- 运营管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 active text-gray-700 w-full" onclick="toggleMenu('operation')">
+                        <div class="flex items-center">
+                            <i class="fa fa-line-chart w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">运营管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="operation-icon" style="transform: rotate(180deg);"></i>
+                    </button>
+                    <div id="operation-submenu" class="submenu">
+                        <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">金融机构接入</span>
+                        </a>
+                        <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
+                            <span class="font-medium">产品管理</span>
+                        </a>
+                        <a href="管理端_验真地址管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">验真地址管理</span>
+                        </a>
+                        <a href="管理端_场景管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
+                            <span class="font-medium">场景管理</span>
+                        </a>
+                        <a href="管理端_投保材料管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">投保材料管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 平台管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('platform')">
+                        <div class="flex items-center">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">平台管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
+                    </button>
+                    <div id="platform-submenu" class="submenu hidden">
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级平台管理</span>
+                        </a>
+                        <a href="管理端_省级管理员管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级管理员管理</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 保函管理 -->
+                <div class="menu-group">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('guarantee')">
+                        <div class="flex items-center">
+                            <i class="fa fa-shield w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函管理</span>
+                        </div>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                    </button>
+                    <div id="guarantee-submenu" class="submenu hidden">
+                        <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函订单</span>
+                        </a>
+                        <a href="管理端_保函验真.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函验真</span>
+                        </a>
+                        <a href="管理端_保函理赔.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-exclamation-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函理赔</span>
+                        </a>
+                        <a href="管理端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
+                            <span class="font-medium">保函续保</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <!-- 用户信息 -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold">
+                        管
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">系统管理员</p>
+                        <p class="text-xs text-gray-500">管理端</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- 顶部导航栏 -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">投保材料管理</h2>
+                        <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-bell-o text-xl"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区 -->
+            <div class="p-8">
+                <!-- 搜索和筛选 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4 flex-1">
+                            <div class="flex items-center space-x-2 mr-6">
+                                <label class="text-sm font-medium text-gray-700">材料名称</label>
+                                <input type="text" class="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-64" placeholder="请输入材料名称">
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                                <i class="fa fa-search mr-2"></i>查询
+                            </button>
+                            <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fa fa-refresh mr-2"></i>重置
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 mt-4">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddMaterialModal()">
+                            <i class="fa fa-plus mr-2"></i>新增材料
+                        </button>
+                        <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors">
+                            <i class="fa fa-trash mr-2"></i>批量删除
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 投保材料列表 -->
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">材料名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">支持格式</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">大小限制</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr class="table-row">
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">项目合同</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">PDF, DOC, DOCX</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">10MB</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2026-06-01 10:30:00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="editMaterial('1')">
+                                            编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-600 bg-danger text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onclick="deleteMaterial('1')">
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">营业执照</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">PDF, JPG, PNG</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">5MB</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2026-06-02 14:20:00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="editMaterial('2')">
+                                            编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-600 bg-danger text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onclick="deleteMaterial('2')">
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">法定代表人身份证</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">JPG, PNG</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2MB</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">2026-06-03 09:15:00</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-2 bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition-colors" onclick="editMaterial('3')">
+                                            编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-600 bg-danger text-white px-3 py-1 rounded hover:bg-red-600 transition-colors" onclick="deleteMaterial('3')">
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 新增材料模态框 -->
+    <div id="add-material-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">新增材料</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeAddMaterialModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">材料名称 <span class="text-red-500">*</span></label>
+                        <input type="text" id="add-material-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入材料名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">支持格式 <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-4 gap-3" id="add-material-formats">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="zip">
+                                <span class="text-sm text-gray-700">zip</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="rar">
+                                <span class="text-sm text-gray-700">rar</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="pdf">
+                                <span class="text-sm text-gray-700">pdf</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="jpg">
+                                <span class="text-sm text-gray-700">jpg</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="png">
+                                <span class="text-sm text-gray-700">png</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="gif">
+                                <span class="text-sm text-gray-700">gif</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="bmp">
+                                <span class="text-sm text-gray-700">bmp</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="doc">
+                                <span class="text-sm text-gray-700">doc</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="docx">
+                                <span class="text-sm text-gray-700">docx</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="xls">
+                                <span class="text-sm text-gray-700">xls</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="xlsx">
+                                <span class="text-sm text-gray-700">xlsx</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">大小限制 <span class="text-red-500">*</span></label>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" id="add-material-size" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入大小数值">
+                            <select id="add-material-unit" class="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="MB">MB</option>
+                                <option value="KB">KB</option>
+                                <option value="GB">GB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeAddMaterialModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addMaterial()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑材料模态框 -->
+    <div id="edit-material-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">编辑材料</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditMaterialModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">材料名称 <span class="text-red-500">*</span></label>
+                        <input type="text" id="edit-material-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入材料名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">支持格式 <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-4 gap-3" id="edit-material-formats">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="zip">
+                                <span class="text-sm text-gray-700">zip</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="rar">
+                                <span class="text-sm text-gray-700">rar</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="pdf">
+                                <span class="text-sm text-gray-700">pdf</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="jpg">
+                                <span class="text-sm text-gray-700">jpg</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="png">
+                                <span class="text-sm text-gray-700">png</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="gif">
+                                <span class="text-sm text-gray-700">gif</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="bmp">
+                                <span class="text-sm text-gray-700">bmp</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="doc">
+                                <span class="text-sm text-gray-700">doc</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="docx">
+                                <span class="text-sm text-gray-700">docx</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="xls">
+                                <span class="text-sm text-gray-700">xls</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary" value="xlsx">
+                                <span class="text-sm text-gray-700">xlsx</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">大小限制 <span class="text-red-500">*</span></label>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" id="edit-material-size" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入大小数值">
+                            <select id="edit-material-unit" class="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option value="MB">MB</option>
+                                <option value="KB">KB</option>
+                                <option value="GB">GB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditMaterialModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="saveMaterial()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div id="delete-material-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">删除确认</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeDeleteMaterialModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700 mb-6">确定要删除该材料吗？此操作不可恢复，请谨慎操作。</p>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeDeleteMaterialModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors" onclick="confirmDeleteMaterial()">
+                    <i class="fa fa-check mr-2"></i>确定删除
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
+            document.getElementById('today-date').textContent = dateStr;
+        });
+
+        function toggleMenu(menuId) {
+            const submenu = document.getElementById(menuId + '-submenu');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        let currentMaterialId = null;
+
+        function getSelectedFormats(containerId) {
+            const checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]`);
+            const selectedFormats = [];
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedFormats.push(checkbox.value);
+                }
+            });
+            return selectedFormats;
+        }
+
+        function setSelectedFormats(containerId, formats) {
+            const checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]`);
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = formats.includes(checkbox.value.toLowerCase());
+            });
+        }
+
+        function resetFormats(containerId) {
+            const checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]`);
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+        function openAddMaterialModal() {
+            resetFormats('add-material-formats');
+            document.getElementById('add-material-modal').classList.remove('hidden');
+        }
+
+        function closeAddMaterialModal() {
+            document.getElementById('add-material-modal').classList.add('hidden');
+        }
+
+        function addMaterial() {
+            const name = document.getElementById('add-material-name').value;
+            const formats = getSelectedFormats('add-material-formats');
+            const size = document.getElementById('add-material-size').value;
+            const unit = document.getElementById('add-material-unit').value;
+
+            if (!name || formats.length === 0 || !size) {
+                alert('请填写所有必填项！');
+                return;
+            }
+
+            showNotification('材料添加成功！', 'success');
+            setTimeout(() => {
+                closeAddMaterialModal();
+                location.reload();
+            }, 1500);
+        }
+
+        function editMaterial(id) {
+            currentMaterialId = id;
+            document.getElementById('edit-material-name').value = '项目合同';
+            resetFormats('edit-material-formats');
+            setSelectedFormats('edit-material-formats', ['pdf', 'doc', 'docx']);
+            document.getElementById('edit-material-size').value = '10';
+            document.getElementById('edit-material-unit').value = 'MB';
+            document.getElementById('edit-material-modal').classList.remove('hidden');
+        }
+
+        function closeEditMaterialModal() {
+            document.getElementById('edit-material-modal').classList.add('hidden');
+        }
+
+        function saveMaterial() {
+            const name = document.getElementById('edit-material-name').value;
+            const formats = getSelectedFormats('edit-material-formats');
+            const size = document.getElementById('edit-material-size').value;
+            const unit = document.getElementById('edit-material-unit').value;
+
+            if (!name || formats.length === 0 || !size) {
+                alert('请填写所有必填项！');
+                return;
+            }
+
+            showNotification('材料更新成功！', 'success');
+            setTimeout(() => {
+                closeEditMaterialModal();
+                location.reload();
+            }, 1500);
+        }
+
+        function deleteMaterial(id) {
+            currentMaterialId = id;
+            document.getElementById('delete-material-modal').classList.remove('hidden');
+        }
+
+        function closeDeleteMaterialModal() {
+            document.getElementById('delete-material-modal').classList.add('hidden');
+        }
+
+        function confirmDeleteMaterial() {
+            showNotification('材料删除成功！', 'success');
+            setTimeout(() => {
+                closeDeleteMaterialModal();
+                location.reload();
+            }, 1500);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

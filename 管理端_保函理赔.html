@@ -89,36 +89,35 @@
                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">功能菜单</span>
                 </div>
                 
-                <!-- 金融机构管理 -->
+                <!-- 运营管理 -->
                 <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('financial-institution')">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('operation')">
                         <div class="flex items-center">
-                            <i class="fa fa-bank w-5 text-center mr-3"></i>
-                            <span class="font-medium">金融机构管理</span>
+                            <i class="fa fa-line-chart w-5 text-center mr-3 text-primary"></i>
+                            <span class="font-medium">运营管理</span>
                         </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="financial-institution-icon"></i>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="operation-icon"></i>
                     </button>
-                    <div id="financial-institution-submenu" class="submenu">
+                    <div id="operation-submenu" class="submenu hidden">
                         <a href="管理端_金融机构接入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-plus-circle w-5 text-center mr-3"></i>
                             <span class="font-medium">金融机构接入</span>
                         </a>
-                    </div>
-                </div>
-                
-                <!-- 产品管理 -->
-                <div class="menu-group">
-                    <button class="sidebar-link flex items-center justify-between px-6 py-3 text-gray-600 w-full" onclick="toggleMenu('product')">
-                        <div class="flex items-center">
-                            <i class="fa fa-cubes w-5 text-center mr-3"></i>
-                            <span class="font-medium">产品管理</span>
-                        </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="product-icon"></i>
-                    </button>
-                    <div id="product-submenu" class="submenu">
                         <a href="管理端_产品管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-cubes w-5 text-center mr-3"></i>
                             <span class="font-medium">产品管理</span>
+                        </a>
+                        <a href="管理端_验真地址管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-check-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">验真地址管理</span>
+                        </a>
+                        <a href="管理端_场景管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-sitemap w-5 text-center mr-3"></i>
+                            <span class="font-medium">场景管理</span>
+                        </a>
+                        <a href="管理端_投保材料管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
+                            <span class="font-medium">投保材料管理</span>
                         </a>
                     </div>
                 </div>
@@ -132,7 +131,7 @@
                         </div>
                         <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon"></i>
                     </button>
-                    <div id="platform-submenu" class="submenu">
+                    <div id="platform-submenu" class="submenu hidden">
                         <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
                             <i class="fa fa-globe w-5 text-center mr-3"></i>
                             <span class="font-medium">省级平台管理</span>
@@ -143,15 +142,15 @@
                         </a>
                     </div>
                 </div>
-
+                
                 <!-- 保函管理 -->
                 <div class="menu-group">
-                    <button class="sidebar-link active flex items-center justify-between px-6 py-3 text-gray-700 w-full" onclick="toggleMenu('guarantee')">
+                    <button class="sidebar-link flex items-center justify-between px-6 py-3 active text-gray-700 w-full" onclick="toggleMenu('guarantee')">
                         <div class="flex items-center">
-                            <i class="fa fa-shield w-5 text-center mr-3 text-primary"></i>
+                            <i class="fa fa-shield w-5 text-center mr-3"></i>
                             <span class="font-medium">保函管理</span>
                         </div>
-                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon"></i>
+                        <i class="fa fa-angle-down text-xs transition-transform" id="guarantee-icon" style="transform: rotate(180deg);"></i>
                     </button>
                     <div id="guarantee-submenu" class="submenu">
                         <a href="管理端_保函订单.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
@@ -173,7 +172,6 @@
                     </div>
                 </div>
             </nav>
-
             <!-- 用户信息 -->
             <div class="p-4 border-t border-gray-100 bg-gray-50">
                 <div class="flex items-center space-x-3">

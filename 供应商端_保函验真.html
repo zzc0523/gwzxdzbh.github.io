@@ -114,6 +114,43 @@
         .qr-code {
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
+        /* 新样式 */
+        .header-angular {
+            position: relative;
+        }
+        .header-angular::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            background: linear-gradient(135deg, transparent 50%, #004B93 50%);
+        }
+        .tab-button {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            color: #004B93;
+            font-weight: 600;
+        }
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #004B93;
+        }
+        .institution-card {
+            transition: all 0.3s ease;
+        }
+        .institution-card:hover {
+            border-color: #004B93;
+            box-shadow: 0 4px 12px rgba(0, 75, 147, 0.15);
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -123,7 +160,7 @@
             <div class="flex justify-between h-16">
                 <!-- 左侧：Logo 和 导航菜单 -->
                 <div class="flex items-center space-x-10">
-                    <a href="供应商端_保函申请.html" class="flex items-center space-x-3 group">
+                    <a href="供应商端_保函产品.html" class="flex items-center space-x-3 group">
                         <div class="w-9 h-9 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
                             <i class="fa fa-bolt text-white text-xl"></i>
                         </div>
@@ -134,8 +171,8 @@
                     </a>
                     
                     <div class="hidden md:flex items-center h-full">
-                        <a href="供应商端_保函申请.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
-                            保函申请
+                        <a href="供应商端_保函产品.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
+                            保函产品
                         </a>
                         <a href="供应商端_保函订单.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
                             保函订单
@@ -172,334 +209,180 @@
     </nav>
 
     <!-- 主内容区 -->
-    <main class="flex-1 overflow-y-auto p-8">
-        <div class="max-w-screen-2xl mx-auto">
-            <!-- 页面标题 -->
-            <div class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-900">保函验真</h2>
-                <p class="text-sm text-gray-500 mt-1">验证保函的真实性和有效性</p>
+    <main class="flex-1 overflow-y-auto">
+        <!-- 页面头部 -->
+        <div class="header-angular bg-primary text-white py-8 px-8">
+            <h1 class="text-2xl font-bold">保函验真</h1>
+        </div>
+        
+        <!-- 标签页和搜索区 -->
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-screen-2xl mx-auto px-8">
+                <div class="flex items-center justify-between">
+                    <!-- 标签页 -->
+                    <div class="flex space-x-10">
+                        <button class="tab-button active py-4 text-base" onclick="switchInstitutionTab('all')">
+                            全部
+                        </button>
+                        <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('bank')">
+                            银行
+                        </button>
+                        <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('insurance')">
+                            保险公司
+                        </button>
+                        <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('guarantee')">
+                            担保公司
+                        </button>
+                    </div>
+                    
+                    <!-- 搜索框 -->
+                    <div class="flex items-center space-x-3">
+                        <span class="text-gray-600">金融机构</span>
+                        <input type="text" id="search-institution" placeholder="输入关键字搜索" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-64">
+                        <button class="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors" onclick="searchInstitutions()">
+                            查询
+                        </button>
+                    </div>
+                </div>
             </div>
-                <!-- 页面说明 -->
-                <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
-                    <div class="flex items-start">
-                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                            <i class="fa fa-info-circle text-primary text-sm"></i>
+        </div>
+        
+        <!-- 机构列表 -->
+        <div class="max-w-screen-2xl mx-auto px-8 py-8">
+            <!-- 机构卡片列表 -->
+            <div class="grid gap-6">
+                <!-- 机构卡片1 -->
+                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            <!-- Logo -->
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">福建易众融资担保有限公司</span>
+                            </div>
+                            <!-- 机构名称 -->
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">福建易众融资担保有限公司</h3>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-primary mb-1">操作说明</h3>
-                            <p class="text-xs text-gray-600">通过输入保函编号或上传PDF保函文件进行保函验真，系统将验证保函的真实性和有效性。</p>
-                        </div>
+                        <!-- 按钮 -->
+                        <button class="px-6 py-2 border border-primary text-primary rounded-md hover:bg-blue-50 transition-colors font-medium" onclick="openVerificationModal('福建易众融资担保有限公司')">
+                            立即验真
+                        </button>
                     </div>
                 </div>
-
-                <!-- 标签页切换 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100">
-                    <div class="border-b border-gray-200">
-                        <div class="flex">
-                            <button class="px-6 py-4 text-primary font-medium border-b-2 border-primary" onclick="switchTab('verification-query')">
-                                验真查询
-                            </button>
-                            <button class="px-6 py-4 text-gray-600 font-medium hover:text-primary" onclick="switchTab('verification-history')">
-                                验真历史
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- 验真查询 -->
-                    <div id="verification-query" class="tab-content p-6">
-                        <div class="bg-gray-50 rounded-lg p-8">
-                            <h3 class="text-lg font-bold text-gray-800 mb-6">验真查询</h3>
-                            
-                            <!-- 验真方式选择 -->
-                            <div class="mb-8">
-                                <div class="flex border-b border-gray-200">
-                                    <button id="tab-code" class="flex-1 py-4 px-6 text-center border-b-2 border-primary text-primary font-medium text-base">
-                                        <i class="fa fa-barcode mr-2"></i> 输入编号
-                                    </button>
-                                    <button id="tab-upload" class="flex-1 py-4 px-6 text-center text-gray-600 hover:text-primary font-medium text-base">
-                                        <i class="fa fa-upload mr-2"></i> 上传PDF
-                                    </button>
-                                </div>
+                
+                <!-- 机构卡片2 -->
+                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">中国建设银行</span>
                             </div>
-
-                            <!-- 输入编号验真 -->
-                            <div id="code-verification" class="space-y-6">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-3">保函编号 <span class="text-red-500">*</span></label>
-                                    <input type="text" id="guarantee-code" placeholder="请输入保函编号" class="w-full px-5 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                    <p class="text-xs text-gray-400 mt-2">保函编号通常为16-20位数字，可在保函文件上找到</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-3">被保证人</label>
-                                    <input type="text" id="guaranteed-person" placeholder="请输入被保证人名称" class="w-full px-5 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                    <p class="text-xs text-gray-400 mt-2">被保证人是指保函所担保的对象，通常为投标企业或承包商</p>
-                                </div>
-                                <button class="w-full py-4 text-base bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium" onclick="verifyByCode()">
-                                    <i class="fa fa-check-circle mr-2"></i> 验证保函
-                                </button>
-                            </div>
-
-                            <!-- 上传PDF验真 -->
-                            <div id="upload-verification" class="hidden">
-                                <div class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-12 text-center bg-white">
-                                    <i class="fa fa-file-pdf-o text-5xl text-gray-400 mb-6"></i>
-                                    <p class="text-base text-gray-600 mb-6">请上传保函PDF文件进行验真</p>
-                                    <div class="mb-6">
-                                        <input type="file" id="pdf-file" accept=".pdf" class="hidden" onchange="handleFileUpload(event)">
-                                        <label for="pdf-file" class="px-8 py-4 text-base border border-primary text-primary rounded-lg hover:bg-blue-50 transition-colors cursor-pointer font-medium">
-                                            <i class="fa fa-folder-open mr-2"></i> 选择文件
-                                        </label>
-                                    </div>
-                                    <div id="file-info" class="hidden p-5 bg-gray-50 rounded-lg">
-                                        <p class="text-sm text-gray-600" id="file-name">文件名：未选择文件</p>
-                                    </div>
-                                    <button class="w-full mt-6 py-4 text-base bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium" onclick="verifyByUpload()">
-                                        <i class="fa fa-check-circle mr-2"></i> 验证保函
-                                    </button>
-                                    <div class="mt-6 p-5 bg-gray-50 rounded-lg">
-                                        <p class="text-sm text-gray-500">
-                                            <i class="fa fa-info-circle mr-1"></i>
-                                            支持PDF格式文件，文件大小不超过10MB
-                                        </p>
-                                    </div>
-                                </div>
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">中国建设银行福建省分行</h3>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- 验真历史 -->
-                    <div id="verification-history" class="tab-content hidden">
-                        <div class="p-6 border-b border-gray-100">
-                            <p class="text-sm text-gray-500">共 <span class="font-bold text-primary">8</span> 条记录</p>
-                        </div>
-                        <div class="overflow-x-auto">
-                    <div class="p-6 border-b border-gray-100">
-                        <h3 class="text-lg font-bold text-gray-800">验真历史</h3>
-                        <p class="text-sm text-gray-500 mt-1">共 <span class="font-bold text-primary">8</span> 条记录</p>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr class="bg-gray-50 text-gray-600">
-                                    <th class="px-6 py-3 text-left font-medium">验真时间</th>
-                                    <th class="px-6 py-3 text-left font-medium">保函编号</th>
-                                    <th class="px-6 py-3 text-left font-medium">工程施工合同名称</th>
-                                    <th class="px-6 py-3 text-left font-medium">验证结果</th>
-                                    <th class="px-6 py-3 text-left font-medium">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 text-gray-700">2026-04-15 10:30</td>
-                                    <td class="px-6 py-4 text-gray-700 font-medium">FJ202603150001</td>
-                                    <td class="px-6 py-4 text-gray-700">福州市地铁2号线延伸工程</td>
-                                    <td class="px-6 py-4">
-                                        <span class="badge bg-green-100 text-green-700">验证成功</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-primary hover:text-blue-700 transition-colors" onclick="showVerificationHistoryDetail('FH202604150001')">
-                                            <i class="fa fa-eye mr-1"></i> 查看
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 text-gray-700">2026-04-14 16:45</td>
-                                    <td class="px-6 py-4 text-gray-700 font-medium">FJ202603160002</td>
-                                    <td class="px-6 py-4 text-gray-700">厦门市翔安机场快速路南段工程</td>
-                                    <td class="px-6 py-4">
-                                        <span class="badge bg-green-100 text-green-700">验证成功</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-primary hover:text-blue-700 transition-colors" onclick="showVerificationHistoryDetail('FH202604140002')">
-                                            <i class="fa fa-eye mr-1"></i> 查看
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 text-gray-700">2026-04-13 09:20</td>
-                                    <td class="px-6 py-4 text-gray-700 font-medium">FJ202603170003</td>
-                                    <td class="px-6 py-4 text-gray-700">泉州市晋江下游防洪岸线生态治理</td>
-                                    <td class="px-6 py-4">
-                                        <span class="badge bg-green-100 text-green-700">验证成功</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-primary hover:text-blue-700 transition-colors" onclick="showVerificationHistoryDetail('FH202604130003')">
-                                            <i class="fa fa-eye mr-1"></i> 查看
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 text-gray-700">2026-04-12 14:15</td>
-                                    <td class="px-6 py-4 text-gray-700 font-medium">FJ202600000000</td>
-                                    <td class="px-6 py-4 text-gray-700">-</td>
-                                    <td class="px-6 py-4">
-                                        <span class="badge bg-red-100 text-red-700">验证失败</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-primary hover:text-blue-700 transition-colors" onclick="showVerificationHistoryDetail('FH202604120004')">
-                                            <i class="fa fa-eye mr-1"></i> 查看
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 text-gray-700">2026-04-11 11:00</td>
-                                    <td class="px-6 py-4 text-gray-700 font-medium">FJ202603180004</td>
-                                    <td class="px-6 py-4 text-gray-700">漳州市古雷港经济开发区基础设施</td>
-                                    <td class="px-6 py-4">
-                                        <span class="badge bg-green-100 text-green-700">验证成功</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-primary hover:text-blue-700 transition-colors" onclick="showVerificationHistoryDetail('FH202604110005')">
-                                            <i class="fa fa-eye mr-1"></i> 查看
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="p-4 border-t border-gray-100 flex items-center justify-between">
-                        <div class="text-sm text-gray-500">
-                            显示 1-5 条，共 8 条
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-400 hover:border-primary hover:text-primary transition-colors">
-                                <i class="fa fa-angle-left"></i>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-white font-medium">1</button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-600 hover:border-primary hover:text-primary transition-colors">2</button>
-                            <button class="w-8 h-8 flex items-center justify-center rounded border border-gray-200 text-gray-400 hover:border-primary hover:text-primary transition-colors">
-                                <i class="fa fa-angle-right"></i>
-                            </button>
-                        </div>
+                        <button class="px-6 py-2 border border-primary text-primary rounded-md hover:bg-blue-50 transition-colors font-medium" onclick="openVerificationModal('中国建设银行福建省分行')">
+                            立即验真
+                        </button>
                     </div>
                 </div>
+                
+                <!-- 机构卡片3 -->
+                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">中国人民保险</span>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">中国人民财产保险股份有限公司福建省分公司</h3>
+                            </div>
+                        </div>
+                        <button class="px-6 py-2 border border-primary text-primary rounded-md hover:bg-blue-50 transition-colors font-medium" onclick="openVerificationModal('中国人民财产保险股份有限公司福建省分公司')">
+                            立即验真
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 温馨提示 -->
+            <div class="mt-8 text-center">
+                <p class="text-yellow-600 text-sm">
+                    <i class="fa fa-exclamation-circle mr-2"></i>
+                    温馨提示：只能用于查询自身保函，不得提供给第三方
+                </p>
+            </div>
         </div>
     </main>
 
-    <!-- 通知提示 -->
-    <div id="notification" class="fixed top-4 right-4 bg-white rounded-lg shadow-lg border border-gray-100 p-4 max-w-sm z-50 hidden">
-        <div class="flex items-start">
-            <div id="notification-icon" class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                <i class="fa fa-check text-green-600"></i>
-            </div>
-            <div class="flex-1">
-                <h4 id="notification-title" class="font-medium text-gray-900">操作成功</h4>
-                <p id="notification-message" class="text-sm text-gray-600 mt-1">验证完成</p>
-            </div>
-            <button class="text-gray-400 hover:text-gray-600 ml-2" onclick="closeNotification()">
-                <i class="fa fa-times"></i>
-            </button>
-        </div>
-    </div>
-    
-    <!-- 验真历史详情模态框 -->
-    <div id="verification-history-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <!-- 验真模态框 -->
+    <div id="verification-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full mx-4">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-xl font-bold text-gray-900">验真历史详情</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeVerificationHistoryDetailModal()">
-                    <i class="fa fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6 space-y-6">
-                <!-- 验真信息 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-4">验真信息</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">验真编号</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-history-id">FH202604150001</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">验真时间</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-verify-time">2026-04-15 10:30</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">验真方式</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-verify-method">输入编号</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">验证结果</p>
-                            <p class="text-lg font-medium" id="detail-verify-result"><span class="badge bg-green-100 text-green-700">验证成功</span></p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 保函信息 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-4">保函信息</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">保函编号</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-guarantee-id">FJ202603150001</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-project-name">福州市地铁2号线延伸工程</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">保函类型</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-guarantee-type">投标保函</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">担保金额</p>
-                            <p class="text-lg font-bold text-primary" id="detail-amount">¥100,000.00</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">有效期至</p>
-                            <p class="text-lg font-medium text-gray-900" id="detail-expiry-date">2026-06-15</p>
-                        </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">状态</p>
-                            <p class="text-lg font-medium text-green-600" id="detail-status">有效</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 验真详情 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-4">验真详情</h4>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">验真请求IP：</span>
-                                <span class="font-medium text-gray-900">192.168.1.100</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">验真设备：</span>
-                                <span class="font-medium text-gray-900">Windows 10 / Chrome 96.0</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">验真地点：</span>
-                                <span class="font-medium text-gray-900">福建省福州市</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 验证结果 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-800 mb-4">验证结果</h4>
-                    <div class="bg-green-50 p-4 rounded-lg border border-green-100">
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fa fa-check text-green-600"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-medium text-green-800">验证成功</h5>
-                                <p class="text-sm text-green-700 mt-1">该保函为真实有效，信息与系统记录一致。</p>
-                            </div>
-                        </div>
-                    </div>
+                <h3 class="text-lg font-bold text-gray-900">保函验真</h3>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600" id="modal-institution-name">福建易众融资担保有限公司</span>
+                    <button class="text-gray-400 hover:text-gray-600" onclick="closeVerificationModal()">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
                 </div>
             </div>
-            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-                <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeVerificationHistoryDetailModal()">
-                    关闭
-                </button>
-                <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
-                    <i class="fa fa-print mr-2"></i>打印结果
-                </button>
+            <div class="p-6">
+                <!-- 验真方式选择 -->
+                <div class="mb-8">
+                    <div class="flex border-b border-gray-200">
+                        <button id="modal-tab-code" class="flex-1 py-4 px-6 text-center border-b-2 border-primary text-primary font-medium text-base" onclick="switchModalTab('code')">
+                            <i class="fa fa-barcode mr-2"></i> 输入编号
+                        </button>
+                        <button id="modal-tab-upload" class="flex-1 py-4 px-6 text-center text-gray-600 hover:text-primary font-medium text-base" onclick="switchModalTab('upload')">
+                            <i class="fa fa-upload mr-2"></i> 上传PDF
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 输入编号验真 -->
+                <div id="modal-code-verification" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">保函编号 <span class="text-red-500">*</span></label>
+                        <input type="text" id="modal-guarantee-code" placeholder="请输入保函编号" class="w-full px-5 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        <p class="text-xs text-gray-400 mt-2">保函编号通常为16-20位数字，可在保函文件上找到</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">被保证人</label>
+                        <input type="text" id="modal-guaranteed-person" placeholder="请输入被保证人名称" class="w-full px-5 py-3 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        <p class="text-xs text-gray-400 mt-2">被保证人是指保函所担保的对象，通常为投标企业或承包商</p>
+                    </div>
+                    <button class="w-full py-4 text-base bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium" onclick="verifyByCode()">
+                        <i class="fa fa-check-circle mr-2"></i> 验证保函
+                    </button>
+                </div>
+
+                <!-- 上传PDF验真 -->
+                <div id="modal-upload-verification" class="hidden">
+                    <div class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-12 text-center bg-white">
+                        <i class="fa fa-file-pdf-o text-5xl text-gray-400 mb-6"></i>
+                        <p class="text-base text-gray-600 mb-6">请上传保函PDF文件进行验真</p>
+                        <div class="mb-6">
+                            <input type="file" id="modal-pdf-file" accept=".pdf" class="hidden" onchange="handleModalFileUpload(event)">
+                            <label for="modal-pdf-file" class="px-8 py-4 text-base border border-primary text-primary rounded-lg hover:bg-blue-50 transition-colors cursor-pointer font-medium">
+                                <i class="fa fa-folder-open mr-2"></i> 选择文件
+                            </label>
+                        </div>
+                        <div id="modal-file-info" class="hidden p-5 bg-gray-50 rounded-lg">
+                            <p class="text-sm text-gray-600" id="modal-file-name">文件名：未选择文件</p>
+                        </div>
+                        <button class="w-full mt-6 py-4 text-base bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium" onclick="verifyByUpload()">
+                            <i class="fa fa-check-circle mr-2"></i> 验证保函
+                        </button>
+                        <div class="mt-6 p-5 bg-gray-50 rounded-lg">
+                            <p class="text-sm text-gray-500">
+                                <i class="fa fa-info-circle mr-1"></i>
+                                支持PDF格式文件，文件大小不超过10MB
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -537,35 +420,35 @@
                     <div class="grid grid-cols-2 gap-6 pt-4 border-t border-gray-100">
                         <div>
                             <p class="text-sm text-gray-500 mb-2">保函编号</p>
-                            <p class="text-base text-gray-900" id="modal-guarantee-code">FJETG202603110001</p>
+                            <p class="text-base text-gray-900" id="result-modal-guarantee-code">FJETG202603110001</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">保函类型</p>
-                            <p class="text-base text-gray-900" id="modal-guarantee-type">投标保函</p>
+                            <p class="text-base text-gray-900" id="result-modal-guarantee-type">投标保函</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">保函金额</p>
-                            <p class="text-base text-gray-900" id="modal-guarantee-amount">¥100,000.00</p>
+                            <p class="text-base text-gray-900" id="result-modal-guarantee-amount">¥100,000.00</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">有效期起止日期</p>
-                            <p class="text-base text-gray-900" id="modal-valid-until">2026-03-11 至 2026-06-11</p>
+                            <p class="text-base text-gray-900" id="result-modal-valid-until">2026-03-11 至 2026-06-11</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">开立机构</p>
-                            <p class="text-base text-gray-900" id="modal-issuing-institution">中国建设银行福建省分行</p>
+                            <p class="text-base text-gray-900" id="result-modal-issuing-institution">福建易众融资担保有限公司</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">开立日期</p>
-                            <p class="text-base text-gray-900" id="modal-issue-date">2026-03-11</p>
+                            <p class="text-base text-gray-900" id="result-modal-issue-date">2026-03-11</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">被保证人</p>
-                            <p class="text-base text-gray-900" id="modal-guaranteed">福建某某建筑工程有限公司</p>
+                            <p class="text-base text-gray-900" id="result-modal-guaranteed">福建某某建筑工程有限公司</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-2">受益人</p>
-                            <p class="text-base text-gray-900" id="modal-beneficiary">福建省公共资源交易中心</p>
+                            <p class="text-base text-gray-900" id="result-modal-beneficiary">福建省公共资源交易中心</p>
                         </div>
                     </div>
                 </div>
@@ -585,7 +468,7 @@
                     <div class="bg-red-50 p-4 rounded-lg">
                         <p class="text-sm text-red-600">
                             <i class="fa fa-exclamation-circle mr-2"></i>
-                            未找到编号为 <span id="modal-error-code"></span> 的保函记录
+                            未找到编号为 <span id="result-modal-error-code"></span> 的保函记录
                         </p>
                     </div>
                 </div>
@@ -604,13 +487,11 @@
             </div>
             <div class="flex-1 overflow-auto p-8" id="print-content">
                 <div class="max-w-2xl mx-auto">
-                    <!-- 报告标题 -->
                     <div class="text-center mb-8">
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">电子保函验真报告</h2>
                         <p class="text-gray-500">Electronic Guarantee Verification Report</p>
                     </div>
                     
-                    <!-- 验证结果 -->
                     <div class="flex items-center justify-center mb-8">
                         <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
                             <i class="fa fa-check text-2xl text-green-500"></i>
@@ -621,10 +502,8 @@
                         <p class="text-gray-500">该保函为真实有效的电子保函</p>
                     </div>
                     
-                    <!-- 分割线 -->
                     <div class="border-t border-gray-200 mb-6"></div>
                     
-                    <!-- 保函信息表格 -->
                     <div class="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <p class="text-sm text-gray-500 mb-1">保函编号</p>
@@ -644,7 +523,7 @@
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-1">开立机构</p>
-                            <p class="text-base font-medium text-gray-900" id="print-issuing-institution">中国建设银行福建省分行</p>
+                            <p class="text-base font-medium text-gray-900" id="print-issuing-institution">福建易众融资担保有限公司</p>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500 mb-1">开立日期</p>
@@ -660,10 +539,8 @@
                         </div>
                     </div>
                     
-                    <!-- 分割线 -->
                     <div class="border-t border-gray-200 mb-6"></div>
                     
-                    <!-- 验真信息 -->
                     <div class="text-center">
                         <p class="text-sm text-gray-500 mb-1">验真时间</p>
                         <p class="text-base font-medium text-gray-900" id="print-verify-time">2026-05-14 10:30:00</p>
@@ -679,32 +556,100 @@
     </div>
 
     <script>
-        // 切换验真方式
-        document.getElementById('tab-code').addEventListener('click', function() {
-            document.getElementById('tab-code').classList.add('border-primary', 'text-primary', 'font-medium');
-            document.getElementById('tab-code').classList.remove('text-gray-600');
-            document.getElementById('tab-upload').classList.remove('border-primary', 'text-primary', 'font-medium');
-            document.getElementById('tab-upload').classList.add('text-gray-600');
-            document.getElementById('code-verification').classList.remove('hidden');
-            document.getElementById('upload-verification').classList.add('hidden');
-        });
+        // 切换机构标签页
+        function switchInstitutionTab(tab) {
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'text-primary');
+                btn.classList.add('text-gray-600');
+            });
+            
+            event.target.classList.add('active', 'text-primary');
+            event.target.classList.remove('text-gray-600');
+        }
 
-        document.getElementById('tab-upload').addEventListener('click', function() {
-            document.getElementById('tab-upload').classList.add('border-primary', 'text-primary', 'font-medium');
-            document.getElementById('tab-upload').classList.remove('text-gray-600');
-            document.getElementById('tab-code').classList.remove('border-primary', 'text-primary', 'font-medium');
-            document.getElementById('tab-code').classList.add('text-gray-600');
-            document.getElementById('upload-verification').classList.remove('hidden');
-            document.getElementById('code-verification').classList.add('hidden');
-        });
+        // 搜索机构
+        function searchInstitutions() {
+            const searchValue = document.getElementById('search-institution').value;
+            alert('搜索：' + searchValue);
+        }
+
+        // 打开验真模态框
+        function openVerificationModal(institutionName) {
+            document.getElementById('modal-institution-name').textContent = institutionName;
+            document.getElementById('verification-modal').classList.remove('hidden');
+        }
+
+        // 关闭验真模态框
+        function closeVerificationModal() {
+            document.getElementById('verification-modal').classList.add('hidden');
+        }
+
+        // 切换模态框标签页
+        function switchModalTab(tab) {
+            const codeTab = document.getElementById('modal-tab-code');
+            const uploadTab = document.getElementById('modal-tab-upload');
+            const codeContent = document.getElementById('modal-code-verification');
+            const uploadContent = document.getElementById('modal-upload-verification');
+
+            if (tab === 'code') {
+                codeTab.classList.add('border-primary', 'text-primary', 'font-medium');
+                codeTab.classList.remove('text-gray-600');
+                uploadTab.classList.remove('border-primary', 'text-primary', 'font-medium');
+                uploadTab.classList.add('text-gray-600');
+                codeContent.classList.remove('hidden');
+                uploadContent.classList.add('hidden');
+            } else {
+                uploadTab.classList.add('border-primary', 'text-primary', 'font-medium');
+                uploadTab.classList.remove('text-gray-600');
+                codeTab.classList.remove('border-primary', 'text-primary', 'font-medium');
+                codeTab.classList.add('text-gray-600');
+                uploadContent.classList.remove('hidden');
+                codeContent.classList.add('hidden');
+            }
+        }
 
         // 文件上传处理
-        function handleFileUpload(event) {
+        function handleModalFileUpload(event) {
             const file = event.target.files[0];
             if (file) {
-                document.getElementById('file-info').classList.remove('hidden');
-                document.getElementById('file-name').textContent = '文件名：' + file.name;
+                document.getElementById('modal-file-info').classList.remove('hidden');
+                document.getElementById('modal-file-name').textContent = '文件名：' + file.name;
             }
+        }
+
+        // 验证保函（编号）
+        function verifyByCode() {
+            const code = document.getElementById('modal-guarantee-code').value;
+            if (!code) {
+                alert('请输入保函编号');
+                return;
+            }
+
+            closeVerificationModal();
+            
+            setTimeout(() => {
+                if (code === 'FJ202603150001') {
+                    showSuccessVerificationResult();
+                } else {
+                    showErrorVerificationResult(code);
+                }
+            }, 500);
+        }
+
+        // 验证保函（上传）
+        function verifyByUpload() {
+            const fileInput = document.getElementById('modal-pdf-file');
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('请选择PDF文件');
+                return;
+            }
+
+            closeVerificationModal();
+            
+            setTimeout(() => {
+                showSuccessVerificationResult();
+            }, 500);
         }
 
         // 显示成功验证结果
@@ -718,29 +663,26 @@
         function showErrorVerificationResult(code) {
             document.getElementById('modal-error-result').classList.remove('hidden');
             document.getElementById('modal-success-result').classList.add('hidden');
-            document.getElementById('modal-error-code').textContent = code;
+            document.getElementById('result-modal-error-code').textContent = code;
             document.getElementById('verification-result-modal').classList.remove('hidden');
         }
 
         // 关闭验证结果模态框
         function closeVerificationResultModal() {
             document.getElementById('verification-result-modal').classList.add('hidden');
-            resetVerification();
         }
 
         // 打开打印预览
         function openPrintPreview() {
-            // 更新打印内容
-            document.getElementById('print-guarantee-code').textContent = document.getElementById('modal-guarantee-code').textContent;
-            document.getElementById('print-guarantee-type').textContent = document.getElementById('modal-guarantee-type').textContent;
-            document.getElementById('print-guarantee-amount').textContent = document.getElementById('modal-guarantee-amount').textContent;
-            document.getElementById('print-valid-until').textContent = document.getElementById('modal-valid-until').textContent;
-            document.getElementById('print-issuing-institution').textContent = document.getElementById('modal-issuing-institution').textContent;
-            document.getElementById('print-issue-date').textContent = document.getElementById('modal-issue-date').textContent;
-            document.getElementById('print-guaranteed').textContent = document.getElementById('modal-guaranteed').textContent;
-            document.getElementById('print-beneficiary').textContent = document.getElementById('modal-beneficiary').textContent;
+            document.getElementById('print-guarantee-code').textContent = document.getElementById('result-modal-guarantee-code').textContent;
+            document.getElementById('print-guarantee-type').textContent = document.getElementById('result-modal-guarantee-type').textContent;
+            document.getElementById('print-guarantee-amount').textContent = document.getElementById('result-modal-guarantee-amount').textContent;
+            document.getElementById('print-valid-until').textContent = document.getElementById('result-modal-valid-until').textContent;
+            document.getElementById('print-issuing-institution').textContent = document.getElementById('result-modal-issuing-institution').textContent;
+            document.getElementById('print-issue-date').textContent = document.getElementById('result-modal-issue-date').textContent;
+            document.getElementById('print-guaranteed').textContent = document.getElementById('result-modal-guaranteed').textContent;
+            document.getElementById('print-beneficiary').textContent = document.getElementById('result-modal-beneficiary').textContent;
             
-            // 设置当前时间为验真时间
             const now = new Date();
             const timeStr = now.getFullYear() + '-' + 
                            String(now.getMonth() + 1).padStart(2, '0') + '-' + 
@@ -750,7 +692,6 @@
                            String(now.getSeconds()).padStart(2, '0');
             document.getElementById('print-verify-time').textContent = timeStr;
             
-            // 显示打印预览弹窗
             document.getElementById('print-preview-modal').classList.remove('hidden');
         }
 
@@ -763,324 +704,6 @@
         function printReport() {
             window.print();
         }
-
-        // PDF验真功能
-        function verifyByUpload() {
-            const fileInput = document.getElementById('pdf-file');
-            if (!fileInput.files || !fileInput.files[0]) {
-                showNotification('请选择PDF文件', 'error');
-                return;
-            }
-            
-            const file = fileInput.files[0];
-            if (file.type !== 'application/pdf') {
-                showNotification('请上传PDF格式文件', 'error');
-                return;
-            }
-            
-            if (file.size > 10 * 1024 * 1024) {
-                showNotification('文件大小不能超过10MB', 'error');
-                return;
-            }
-            
-            // 模拟验真过程
-            showNotification('验证中，请稍候...', 'info');
-            
-            setTimeout(() => {
-                // 模拟验证成功
-                showSuccessVerificationResult();
-                showNotification('验证成功', 'success');
-            }, 1000);
-        }
-
-        // 验证保函
-        function verifyByCode() {
-            const code = document.getElementById('guarantee-code').value;
-            const verificationCode = document.getElementById('verification-code').value;
-            
-            if (!code) {
-                showNotification('请输入保函编号', 'error');
-                return;
-            }
-            
-            // 模拟验证
-            showNotification('验证中，请稍候...', 'info');
-            
-            setTimeout(() => {
-                if (code === 'FJ202603150001') {
-                    // 验证成功
-                    showSuccessVerificationResult();
-                    showNotification('验证成功', 'success');
-                } else {
-                    // 验证失败
-                    showErrorVerificationResult(code);
-                    showNotification('验证失败', 'error');
-                }
-            }, 1000);
-        }
-
-        // 重置验证
-        function resetVerification() {
-            document.getElementById('guarantee-code').value = '';
-            document.getElementById('verification-code').value = '';
-            document.getElementById('pdf-file').value = '';
-            document.getElementById('file-info').classList.add('hidden');
-        }
-
-        // 显示通知
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            const icon = document.getElementById('notification-icon');
-            const title = document.getElementById('notification-title');
-            const messageEl = document.getElementById('notification-message');
-            
-            // 设置通知类型
-            if (type === 'success') {
-                icon.className = 'w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
-                icon.innerHTML = '<i class="fa fa-check text-green-600"></i>';
-                title.textContent = '操作成功';
-            } else if (type === 'error') {
-                icon.className = 'w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
-                icon.innerHTML = '<i class="fa fa-times text-red-600"></i>';
-                title.textContent = '操作失败';
-            } else if (type === 'info') {
-                icon.className = 'w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0';
-                icon.innerHTML = '<i class="fa fa-info text-blue-600"></i>';
-                title.textContent = '提示信息';
-            }
-            
-            messageEl.textContent = message;
-            notification.classList.remove('hidden');
-            
-            // 3秒后自动关闭
-            setTimeout(() => {
-                closeNotification();
-            }, 3000);
-        }
-
-        // 关闭通知
-        function closeNotification() {
-            document.getElementById('notification').classList.add('hidden');
-        }
-
-        function toggleMenu(menuId) {
-            const submenu = document.getElementById(menuId + '-submenu');
-            const icon = document.getElementById(menuId + '-icon');
-            
-            if (submenu.classList.contains('hidden')) {
-                submenu.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                submenu.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-        
-        // 标签页切换
-        function switchTab(tabId) {
-            // 隐藏所有标签内容
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-            
-            // 显示选中的标签内容
-            document.getElementById(tabId).classList.remove('hidden');
-            
-            // 更新标签按钮样式
-            const buttons = document.querySelectorAll('.border-b-2');
-            buttons.forEach(btn => {
-                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
-                    btn.classList.add('border-primary', 'text-primary');
-                    btn.classList.remove('text-gray-600');
-                } else if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('switchTab')) {
-                    btn.classList.remove('border-primary', 'text-primary');
-                    btn.classList.add('text-gray-600');
-                }
-            });
-        }
-        
-        // 显示验真历史详情模态框
-        function showVerificationHistoryDetail(historyId) {
-            // 模拟根据验真编号获取历史数据
-            const historyData = {
-                'FH202604150001': {
-                    historyId: 'FH202604150001',
-                    verifyTime: '2026-04-15 10:30',
-                    verifyMethod: '输入编号',
-                    verifyResult: '验证成功',
-                    verifyResultClass: 'bg-green-100 text-green-700',
-                    guaranteeId: 'FJ202603150001',
-                    projectName: '福州市地铁2号线延伸工程',
-                    guaranteeType: '投标保函',
-                    amount: '¥100,000.00',
-                    expiryDate: '2026-06-15',
-                    status: '有效',
-                    statusClass: 'text-green-600',
-                    ip: '192.168.1.100',
-                    device: 'Windows 10 / Chrome 96.0',
-                    location: '福建省福州市',
-                    resultMessage: '该保函为真实有效，信息与系统记录一致。'
-                },
-                'FH202604140002': {
-                    historyId: 'FH202604140002',
-                    verifyTime: '2026-04-14 16:45',
-                    verifyMethod: '输入编号',
-                    verifyResult: '验证成功',
-                    verifyResultClass: 'bg-green-100 text-green-700',
-                    guaranteeId: 'FJ202603160002',
-                    projectName: '厦门市翔安机场快速路南段工程',
-                    guaranteeType: '履约保函',
-                    amount: '¥500,000.00',
-                    expiryDate: '2026-09-16',
-                    status: '有效',
-                    statusClass: 'text-green-600',
-                    ip: '192.168.1.101',
-                    device: 'MacOS / Safari 15.0',
-                    location: '福建省厦门市',
-                    resultMessage: '该保函为真实有效，信息与系统记录一致。'
-                },
-                'FH202604130003': {
-                    historyId: 'FH202604130003',
-                    verifyTime: '2026-04-13 09:20',
-                    verifyMethod: '上传PDF',
-                    verifyResult: '验证成功',
-                    verifyResultClass: 'bg-green-100 text-green-700',
-                    guaranteeId: 'FJ202603170003',
-                    projectName: '泉州市晋江下游防洪岸线生态治理',
-                    guaranteeType: '工程质量（结清款）保函',
-                    amount: '¥300,000.00',
-                    expiryDate: '2026-08-17',
-                    status: '有效',
-                    statusClass: 'text-green-600',
-                    ip: '192.168.1.102',
-                    device: 'Windows 11 / Edge 96.0',
-                    location: '福建省泉州市',
-                    resultMessage: '该保函为真实有效，信息与系统记录一致。'
-                },
-                'FH202604120004': {
-                    historyId: 'FH202604120004',
-                    verifyTime: '2026-04-12 14:15',
-                    verifyMethod: '输入编号',
-                    verifyResult: '验证失败',
-                    verifyResultClass: 'bg-red-100 text-red-700',
-                    guaranteeId: 'FJ202600000000',
-                    projectName: '-',
-                    guaranteeType: '-',
-                    amount: '-',
-                    expiryDate: '-',
-                    status: '-',
-                    statusClass: 'text-gray-600',
-                    ip: '192.168.1.103',
-                    device: 'Android / Chrome Mobile 96.0',
-                    location: '福建省福州市',
-                    resultMessage: '未找到编号为 FJ202600000000 的保函记录'
-                },
-                'FH202604110005': {
-                    historyId: 'FH202604110005',
-                    verifyTime: '2026-04-11 11:00',
-                    verifyMethod: '输入编号',
-                    verifyResult: '验证成功',
-                    verifyResultClass: 'bg-green-100 text-green-700',
-                    guaranteeId: 'FJ202603180004',
-                    projectName: '漳州市古雷港经济开发区基础设施',
-                    guaranteeType: '预付款保函',
-                    amount: '¥200,000.00',
-                    expiryDate: '2026-07-18',
-                    status: '有效',
-                    statusClass: 'text-green-600',
-                    ip: '192.168.1.104',
-                    device: 'Windows 10 / Firefox 95.0',
-                    location: '福建省漳州市',
-                    resultMessage: '该保函为真实有效，信息与系统记录一致。'
-                }
-            };
-
-            // 获取历史数据
-            const data = historyData[historyId] || historyData['FH202604150001'];
-
-            // 更新模态框内容
-            document.getElementById('detail-history-id').textContent = data.historyId;
-            document.getElementById('detail-verify-time').textContent = data.verifyTime;
-            document.getElementById('detail-verify-method').textContent = data.verifyMethod;
-            document.getElementById('detail-verify-result').innerHTML = `<span class="badge ${data.verifyResultClass}">${data.verifyResult}</span>`;
-            document.getElementById('detail-guarantee-id').textContent = data.guaranteeId;
-            document.getElementById('detail-project-name').textContent = data.projectName;
-            document.getElementById('detail-guarantee-type').textContent = data.guaranteeType;
-            document.getElementById('detail-amount').textContent = data.amount;
-            document.getElementById('detail-expiry-date').textContent = data.expiryDate;
-            document.getElementById('detail-status').textContent = data.status;
-            document.getElementById('detail-status').className = `text-lg font-medium ${data.statusClass}`;
-
-            // 更新验真详情
-            const detailContainer = document.querySelector('#verification-history-detail-modal .bg-gray-50 p-4');
-            if (detailContainer) {
-                detailContainer.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">验真请求IP：</span>
-                            <span class="font-medium text-gray-900">${data.ip}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">验真设备：</span>
-                            <span class="font-medium text-gray-900">${data.device}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600">验真地点：</span>
-                            <span class="font-medium text-gray-900">${data.location}</span>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 更新验证结果
-            const resultContainer = document.querySelector('#verification-history-detail-modal .bg-green-50');
-            if (resultContainer) {
-                let resultHtml = '';
-                if (data.verifyResult === '验证成功') {
-                    resultHtml = `
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fa fa-check text-green-600"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-medium text-green-800">验证成功</h5>
-                                <p class="text-sm text-green-700 mt-1">${data.resultMessage}</p>
-                            </div>
-                        </div>
-                    `;
-                    resultContainer.className = 'bg-green-50 p-4 rounded-lg border border-green-100';
-                } else {
-                    resultHtml = `
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                                <i class="fa fa-times text-red-600"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-medium text-red-800">验证失败</h5>
-                                <p class="text-sm text-red-700 mt-1">${data.resultMessage}</p>
-                            </div>
-                        </div>
-                    `;
-                    resultContainer.className = 'bg-red-50 p-4 rounded-lg border border-red-100';
-                }
-                resultContainer.innerHTML = resultHtml;
-            }
-
-            // 显示模态框
-            document.getElementById('verification-history-detail-modal').classList.remove('hidden');
-        }
-
-        // 关闭验真历史详情模态框
-        function closeVerificationHistoryDetailModal() {
-            document.getElementById('verification-history-detail-modal').classList.add('hidden');
-        }
-
-        // 点击模态框外部关闭
-        document.getElementById('verification-history-detail-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeVerificationHistoryDetailModal();
-            }
-        });
     </script>
 </body>
 </html>

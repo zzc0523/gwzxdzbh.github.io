@@ -107,7 +107,7 @@
             <div class="flex justify-between h-16">
                 <!-- 左侧：Logo 和 导航菜单 -->
                 <div class="flex items-center space-x-10">
-                    <a href="供应商端_保函申请.html" class="flex items-center space-x-3 group">
+                    <a href="供应商端_保函产品.html" class="flex items-center space-x-3 group">
                         <div class="w-9 h-9 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
                             <i class="fa fa-bolt text-white text-xl"></i>
                         </div>
@@ -118,8 +118,8 @@
                     </a>
                     
                     <div class="hidden md:flex items-center h-full">
-                        <a href="供应商端_保函申请.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
-                            保函申请
+                        <a href="供应商端_保函产品.html" class="nav-link flex items-center h-full px-5 text-sm font-medium text-gray-600 transition-colors">
+                            保函产品
                         </a>
                         <a href="供应商端_保函订单.html" class="nav-link active flex items-center h-full px-5 text-sm font-medium transition-colors">
                             保函订单
@@ -171,11 +171,11 @@
                             <input type="text" placeholder="请输入保函编号" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">工程施工合同名称</label>
-                            <input type="text" placeholder="请输入工程施工合同名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">合同名称</label>
+                            <input type="text" placeholder="请输入合同名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">工程合同甲方单位（发包人）</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">合同甲方单位（发包人）</label>
                             <input type="text" placeholder="请输入甲方单位名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                         <div>
@@ -196,7 +196,7 @@
                                 <option value="">全部类型</option>
                                 <option value="bid">投标保函</option>
                                 <option value="performance">履约保函</option>
-                                <option value="quality">工程质量（结清款）保函</option>
+                                <option value="quality">质量（结清款）保函</option>
                                 <option value="advance">预付款保函</option>
                                 <option value="wage">工资保函</option>
                                 <option value="other">其他保函</option>
@@ -250,9 +250,9 @@
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">订单编号</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函编号</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函类型</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程施工合同名称</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程合同甲方单位（发包人）</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">工程施工合同金额（元）</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同名称</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同金额（元）</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">担保金额</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">担保期限</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">状态</th>
@@ -323,7 +323,7 @@
                                         <span class="font-mono text-sm text-primary font-medium">BH202603280003</span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="text-sm text-gray-700">工程质量（结清款）保函</span>
+                                        <span class="text-sm text-gray-700">质量（结清款）保函</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门新机场配套工程</span>
@@ -622,152 +622,133 @@
                 </div>
 
                 <!-- 订单详情模态框 -->
-                <div id="order-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-                        <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                            <h3 class="text-xl font-bold text-gray-900">订单详情</h3>
+                <div id="order-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4 sm:p-6">
+                    <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl sm:max-w-4xl lg:max-w-5xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto">
+                        <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-900">订单详情</h3>
                             <button class="text-gray-400 hover:text-gray-600" onclick="closeOrderDetailModal()">
                                 <i class="fa fa-times text-xl"></i>
                             </button>
                         </div>
                         
-                        <!-- 标签页切换 -->
-                        <div class="flex border-b border-gray-200">
-                            <button id="tab-project" class="tab-btn px-6 py-3 font-medium text-primary border-b-2 border-primary bg-blue-50/30">
-                                项目信息
-                            </button>
-                            <button id="tab-guarantee" class="tab-btn px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700">
-                                保函信息
-                            </button>
-                        </div>
-                        
-                        <div class="p-6 space-y-6">
-                            <!-- 状态提示区域 -->
-                            <div id="status-info-container" class="status-info"></div>
-
-                            <!-- 项目信息标签页 -->
-                            <div id="project-info-content">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-4 sm:p-6 space-y-6 sm:space-y-8">
+                            <!-- 合同/项目信息 -->
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+                                    <span class="w-1 h-4 sm:h-5 bg-primary mr-2 rounded"></span>
+                                    合同/项目信息
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-project-name">福州市地铁5号线延长线工程</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同名称</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-project-name">福州市地铁5号线延长线工程</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同编号</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-contract-code">XM2026040001</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同编号</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-contract-code">XM2026040001</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程合同甲方单位（发包人）</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-party-a-unit">福州市地铁集团有限公司</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同甲方单位（发包人）</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-party-a-unit">福州市地铁集团有限公司</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程合同甲方企业名称</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-party-a-name">福州市地铁集团有限公司</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同甲方企业名称</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-party-a-name">福州市地铁集团有限公司</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同金额（元）</p>
-                                        <p class="text-lg font-bold text-primary" id="modal-contract-amount">¥10,000,000.00</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同金额（元）</p>
+                                        <p class="text-sm sm:text-base font-bold text-primary" id="modal-contract-amount">¥10,000,000.00</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程质量保证金金额（元）</p>
-                                        <p class="text-lg font-bold text-primary" id="modal-deposit-amount">¥500,000.00</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">质量保证金金额（元）</p>
+                                        <p class="text-sm sm:text-base font-bold text-primary" id="modal-deposit-amount">¥500,000.00</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程质量保证金起始日期</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-deposit-start">2026-04-15</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">质量保证金起始日期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-deposit-start">2026-04-15</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程质量保证金结束日期</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-deposit-end">2028-04-14</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">质量保证金结束日期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-deposit-end">2028-04-14</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程地址（省市区）</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-project-address">福建省福州市仓山区</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">项目地址（省市区）</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-project-address">福建省福州市仓山区</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程详细地址</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-project-detail-address">地铁5号线延长线施工现场</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">项目详细地址</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-project-detail-address">地铁5号线延长线施工现场</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">施工合同起期</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-contract-start">2026-04-15</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同起期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-contract-start">2026-04-15</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">施工合同止期</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-contract-end">2028-04-14</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">合同止期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-contract-end">2028-04-14</p>
                                     </div>
                                 </div>
                             </div>
                             
-                            <!-- 保函信息标签页 -->
-                            <div id="guarantee-info-content" class="hidden">
-                                <!-- 基本保函信息 -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- 保函信息 -->
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+                                    <span class="w-1 h-4 sm:h-5 bg-primary mr-2 rounded"></span>
+                                    保函信息
+                                </h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">保函编号</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-guarantee-id">BH202604150001</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">保函编号</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-guarantee-id">BH202604150001</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">保函类型</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-guarantee-type">履约保函</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">保函类型</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-guarantee-type">履约保函</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">担保金额</p>
-                                        <p class="text-lg font-bold text-primary" id="modal-amount">¥500,000</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">担保金额（元）</p>
+                                        <p class="text-sm sm:text-base font-bold text-primary" id="modal-amount">¥500,000</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">担保期限</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-term">2026-04-15 ~ 2028-04-14</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">开立日期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-open-date">2026-04-15</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">状态</p>
-                                        <p class="text-lg font-medium text-green-600" id="modal-status">有效</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">担保起始日期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-effective-date">2026-04-15</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">申请时间</p>
-                                        <p class="text-lg font-medium text-gray-900" id="modal-apply-time">2026-04-15 10:30</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">担保结束日期</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900" id="modal-expiry-date">2028-04-14</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">担保公司</p>
-                                        <p class="text-lg font-medium text-gray-900">中国工商银行</p>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">投保企业</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-insured-enterprise">中国建设银行</p>
                                     </div>
-                                </div>
-                                
-                                <!-- 审核意见 (仅审批不通过时显示) -->
-                                <div id="rejection-reason-section" class="mb-6 p-4 bg-red-50 rounded-lg border border-red-100 hidden">
-                                    <h4 class="text-md font-bold text-red-800 mb-2">审核意见</h4>
-                                    <p class="text-sm text-red-700" id="modal-rejection-reason">申请材料中营业执照复印件不清晰，请重新上传。</p>
-                                </div>
-                                
-                                <!-- 费用信息 -->
-                                <div id="fee-info-section">
-                                    <h4 class="text-lg font-bold text-gray-800 mb-4">费用信息</h4>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div>
-                                            <p class="text-sm text-gray-500 mb-1">保费金额</p>
-                                            <p class="text-lg font-bold text-primary">¥2,500</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500 mb-1">缴费状态</p>
-                                            <p class="text-lg font-medium fee-status text-green-600">已缴费</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500 mb-1">缴费时间</p>
-                                            <p class="text-lg font-medium fee-paid-time text-gray-900">2026-04-15 11:00</p>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm text-gray-500 mb-1">发票状态</p>
-                                            <p class="text-lg font-medium invoice-status text-yellow-600">未申请</p>
-                                        </div>
+                                    <div>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">受益人</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-beneficiary">中国建设银行</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">承保机构</p>
+                                        <p class="text-sm sm:text-base font-medium text-gray-900 break-words" id="modal-institution">中国建设银行</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">保费（元）</p>
+                                        <p class="text-sm sm:text-base font-bold text-primary" id="modal-premium">¥2,500</p>
+                                    </div>
+                                    <div class="sm:col-span-2 lg:col-span-1">
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-1">保函状态</p>
+                                        <p class="text-sm sm:text-base font-medium" id="modal-status">生效中</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6 border-t border-gray-200 flex justify-end space-x-3 action-buttons">
-                            <button class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeOrderDetailModal()">
+                        <div class="p-4 sm:p-6 border-t border-gray-200 flex flex-col-reverse sm:flex-row sm:justify-end space-y-3 space-y-reverse sm:space-y-0 sm:space-x-3 action-buttons">
+                            <button class="w-full sm:w-auto px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeOrderDetailModal()">
                                 关闭
                             </button>
-                            <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <button class="w-full sm:w-auto px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
                                 <i class="fa fa-download mr-2"></i>下载保函
                             </button>
                         </div>
@@ -793,7 +774,7 @@
                                         <p class="text-lg font-medium text-gray-900" id="renew-guarantee-id">BH202603280003</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
+                                        <p class="text-sm text-gray-500 mb-1">合同名称</p>
                                         <p class="text-lg font-medium text-gray-900" id="renew-project-name">厦门新机场配套工程</p>
                                     </div>
                                     <div>
@@ -952,7 +933,7 @@
                                         <p class="text-lg font-medium text-gray-900" id="cancel-guarantee-id">BH202604150001</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
+                                        <p class="text-sm text-gray-500 mb-1">合同名称</p>
                                         <p class="text-lg font-medium text-gray-900" id="cancel-project-name">福州市地铁5号线延长线工程</p>
                                     </div>
                                     <div>
@@ -1092,7 +1073,7 @@
                                         <p class="text-lg font-medium text-gray-900" id="invoice-guarantee-id">BH202604150001</p>
                                     </div>
                                     <div>
-                                        <p class="text-sm text-gray-500 mb-1">工程施工合同名称</p>
+                                        <p class="text-sm text-gray-500 mb-1">合同名称</p>
                                         <p class="text-lg font-medium text-gray-900" id="invoice-project-name">福州市地铁5号线延长线工程</p>
                                     </div>
                                     <div>
@@ -1186,11 +1167,20 @@
                     projectAddress: '福建省福州市仓山区',
                     projectDetailAddress: '地铁5号线延长线施工现场',
                     contractStartDate: '2026-04-15',
-                    contractEndDate: '2028-04-14'
+                    contractEndDate: '2028-04-14',
+                    // 保函信息字段
+                    openDate: '2026-04-15',
+                    effectiveDate: '2026-04-15',
+                    expiryDate: '2028-04-14',
+                    insuredEnterprise: '福建省建设工程有限公司',
+                    beneficiary: '福州市地铁集团有限公司',
+                    institution: '中国建设银行',
+                    premium: '¥2,500',
+                    guaranteeStatus: '生效中'
                 },
                 'BH202603280003': {
                     guaranteeId: 'BH202603280003',
-                    guaranteeType: '工程质量（结清款）保函',
+                    guaranteeType: '质量（结清款）保函',
                     projectName: '厦门新机场配套工程',
                     amount: '¥300,000',
                     term: '2026-03-28 ~ 2026-05-28',
@@ -1389,10 +1379,8 @@
             document.getElementById('modal-guarantee-type').textContent = data.guaranteeType || '';
             document.getElementById('modal-project-name').textContent = data.projectName;
             document.getElementById('modal-amount').textContent = data.amount;
-            document.getElementById('modal-term').textContent = data.term;
             document.getElementById('modal-status').textContent = data.status;
-            document.getElementById('modal-status').className = `text-lg font-medium ${data.statusClass}`;
-            document.getElementById('modal-apply-time').textContent = data.applyTime;
+            document.getElementById('modal-status').className = `text-base font-medium ${data.statusClass}`;
 
             // 更新项目信息
             document.getElementById('modal-contract-code').textContent = data.contractCode || '';
@@ -1406,6 +1394,18 @@
             document.getElementById('modal-project-detail-address').textContent = data.projectDetailAddress || '';
             document.getElementById('modal-contract-start').textContent = data.contractStartDate || '';
             document.getElementById('modal-contract-end').textContent = data.contractEndDate || '';
+
+            // 更新保函信息
+            document.getElementById('modal-open-date').textContent = data.openDate || '';
+            document.getElementById('modal-effective-date').textContent = data.effectiveDate || '';
+            document.getElementById('modal-expiry-date').textContent = data.expiryDate || '';
+            document.getElementById('modal-insured-enterprise').textContent = data.insuredEnterprise || '';
+            document.getElementById('modal-beneficiary').textContent = data.beneficiary || '';
+            document.getElementById('modal-institution').textContent = data.institution || '';
+            document.getElementById('modal-premium').textContent = data.premium || '';
+            if (data.guaranteeStatus) {
+                document.getElementById('modal-status').textContent = data.guaranteeStatus;
+            }
 
             // 更新审核意见显示
             const rejectionSection = document.getElementById('rejection-reason-section');
@@ -1445,209 +1445,7 @@
                 }
             }
 
-            // 更新状态提示和操作记录
-            const statusInfoContainer = document.getElementById('status-info-container');
-            const recordsContainer = document.getElementById('operation-records-container');
-            let infoHtml = '';
-            let recordsHtml = '';
 
-            // 根据新状态生成提示和记录
-            switch (data.status) {
-                case '申请中':
-                    infoHtml = `
-                        <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-spinner fa-spin text-indigo-600 text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-indigo-800">保函申请审核中</h5>
-                                    <p class="text-sm text-indigo-700">担保机构正在对您的申请进行在线审核，请耐心等待。</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 mr-3">
-                                <i class="fa fa-file-text-o text-gray-500 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">提交申请</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.applyTime}</p>
-                            </div>
-                        </div>`;
-                    break;
-                case '审批不通过':
-                    infoHtml = `
-                        <div class="p-4 bg-red-50 rounded-xl border border-red-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-times text-red-600 text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-red-800">审批未通过</h5>
-                                    <p class="text-sm text-red-700">您的保函申请未能通过审核，请查看下方审核意见并修改后重新提交。</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-red-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-red-100 mr-3">
-                                <i class="fa fa-times text-red-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">审批不通过</p>
-                                <p class="text-xs text-gray-500 mt-1">原因：${data.rejectionReason}</p>
-                                <p class="text-xs text-gray-400 mt-1">2026-04-16 14:20</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 mr-3">
-                                <i class="fa fa-file-text-o text-gray-500 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">提交申请</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.applyTime}</p>
-                            </div>
-                        </div>`;
-                    break;
-                case '待支付':
-                    infoHtml = `
-                        <div class="p-4 bg-orange-50 rounded-xl border border-orange-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-credit-card text-orange-600 text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-orange-800">等待支付保费</h5>
-                                    <p class="text-sm text-orange-700">审核已通过，请尽快完成保费缴纳以生成保函。</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-green-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-3">
-                                <i class="fa fa-check text-green-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">审批通过</p>
-                                <p class="text-xs text-gray-400 mt-1">2026-04-15 15:30</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 mr-3">
-                                <i class="fa fa-file-text-o text-gray-500 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">提交申请</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.applyTime}</p>
-                            </div>
-                        </div>`;
-                    break;
-                case '已支付':
-                    infoHtml = `
-                        <div class="p-4 bg-green-50 rounded-xl border border-green-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-check text-green-600 text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-green-800">保费已支付</h5>
-                                    <p class="text-sm text-green-700">保费已缴纳成功，系统正在生成电子保函，请稍后刷新。</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-green-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-3">
-                                <i class="fa fa-credit-card text-green-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">支付成功</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.feePaidTime}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-3 bg-green-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-3">
-                                <i class="fa fa-check text-green-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">审批通过</p>
-                                <p class="text-xs text-gray-400 mt-1">2026-03-28 15:30</p>
-                            </div>
-                        </div>`;
-                    break;
-                case '已出函':
-                    infoHtml = `
-                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-shield text-primary text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-blue-800">保函已开具</h5>
-                                    <p class="text-sm text-blue-700">您的电子保函已正式生成，您可以随时下载或进行验真。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-blue-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 mr-3">
-                                <i class="fa fa-shield text-primary text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">保函已出函</p>
-                                <p class="text-xs text-gray-400 mt-1">2026-04-15 16:00</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-3 bg-green-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-green-100 mr-3">
-                                <i class="fa fa-credit-card text-green-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">支付成功</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.feePaidTime}</p>
-                            </div>
-                        </div>`;
-                    break;
-                case '已撤销':
-                    infoHtml = `
-                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                                    <i class="fa fa-ban text-gray-500 text-lg"></i>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-gray-800">订单已撤销</h5>
-                                    <p class="text-sm text-gray-600">该订单已成功撤销，相关流程已终止。</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recordsHtml = `
-                        <div class="flex items-start p-3 bg-gray-100 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 mr-3">
-                                <i class="fa fa-ban text-gray-600 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">申请撤销</p>
-                                <p class="text-xs text-gray-400 mt-1">2026-03-11 10:00</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start p-3 bg-gray-50 rounded-lg">
-                            <div class="w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 mr-3">
-                                <i class="fa fa-file-text-o text-gray-500 text-xs"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm font-medium text-gray-900">提交申请</p>
-                                <p class="text-xs text-gray-400 mt-1">${data.applyTime}</p>
-                            </div>
-                        </div>`;
-                    break;
-            }
-
-            if (statusInfoContainer) statusInfoContainer.innerHTML = infoHtml;
-            if (recordsContainer) recordsContainer.innerHTML = recordsHtml;
 
             // 更新操作按钮
             const actionButtonsEl = document.querySelector('#order-detail-modal .action-buttons');
@@ -1710,24 +1508,7 @@
         setupModalOutsideClick('verify-modal', closeVerifyModal);
         setupModalOutsideClick('invoice-modal', closeInvoiceModal);
 
-        // 标签页切换功能
-        document.getElementById('tab-project').addEventListener('click', function() {
-            document.getElementById('project-info-content').classList.remove('hidden');
-            document.getElementById('guarantee-info-content').classList.add('hidden');
-            document.getElementById('tab-project').classList.add('text-primary', 'border-b-2', 'border-primary', 'bg-blue-50/30');
-            document.getElementById('tab-project').classList.remove('text-gray-500', 'border-transparent');
-            document.getElementById('tab-guarantee').classList.remove('text-primary', 'border-b-2', 'border-primary', 'bg-blue-50/30');
-            document.getElementById('tab-guarantee').classList.add('text-gray-500', 'border-transparent');
-        });
 
-        document.getElementById('tab-guarantee').addEventListener('click', function() {
-            document.getElementById('guarantee-info-content').classList.remove('hidden');
-            document.getElementById('project-info-content').classList.add('hidden');
-            document.getElementById('tab-guarantee').classList.add('text-primary', 'border-b-2', 'border-primary', 'bg-blue-50/30');
-            document.getElementById('tab-guarantee').classList.remove('text-gray-500', 'border-transparent');
-            document.getElementById('tab-project').classList.remove('text-primary', 'border-b-2', 'border-primary', 'bg-blue-50/30');
-            document.getElementById('tab-project').classList.add('text-gray-500', 'border-transparent');
-        });
 
         // 显示续保模态框
         function showRenewModal(guaranteeId) {

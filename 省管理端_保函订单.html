@@ -103,10 +103,6 @@
                             <i class="fa fa-list w-5 text-center mr-3"></i>
                             <span class="font-medium">合同列表</span>
                         </a>
-                        <a href="省管理端_合同数据导入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-upload w-5 text-center mr-3"></i>
-                            <span class="font-medium">合同数据导入</span>
-                        </a>
                     </div>
                 </div>
                 
@@ -255,7 +251,7 @@
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">订单编号</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden">订单编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合同编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合同名称</th>
@@ -264,13 +260,15 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合同金额（元）</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函金额</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函类型</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">担保期限</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">承保机构</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604150001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden">DD202604150001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202604150001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604150001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市地铁5号线延长线工程</td>
@@ -279,6 +277,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥10,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥500,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2028-06-01</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行福建分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">生效中</span>
                                     </td>
@@ -295,7 +295,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202603280003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden">DD202603280003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603280003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202603280003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场配套工程</td>
@@ -304,6 +304,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥7,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥350,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-28 ~ 2028-05-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国工商银行厦门分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">生效中</span>
                                     </td>
@@ -320,7 +322,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202602150002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden">DD202602150002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202602150002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202602150002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州湾大桥养护工程</td>
@@ -329,6 +331,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥2,400,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥120,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-02-15 ~ 2028-04-14</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国农业银行泉州分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-gray-100 text-gray-500">已过期</span>
                                     </td>
@@ -345,7 +349,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202601100001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden">DD202601100001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202601100001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202601100001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州港码头扩建工程</td>
@@ -354,6 +358,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥5,600,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥280,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-01-10 ~ 2028-03-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国银行漳州分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-gray-100 text-gray-500">已过期</span>
                                     </td>
@@ -370,7 +376,7 @@
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604150006</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 hidden">DD202604150006</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202604150006</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604150006</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">莆田市木兰溪防洪工程</td>
@@ -379,6 +385,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥4,000,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2028-06-01</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">招商银行莆田分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-orange-100 text-orange-700">待续保</span>
                                     </td>
@@ -415,133 +423,219 @@
     </div>
 
     <!-- 保函详情模态框 -->
-    <div id="guarantee-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+    <div id="guarantee-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4 sm:p-6">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
                 <h3 class="text-lg font-bold text-gray-900">订单详情</h3>
                 <button class="text-gray-400 hover:text-gray-600" onclick="closeGuaranteeDetailModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
-            <div class="p-6 space-y-8">
+            <div class="p-4 sm:p-6 space-y-6 sm:space-y-6 overflow-y-auto flex-1">
                 <!-- 合同/项目信息 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                        <span class="w-1 h-5 bg-primary mr-2 rounded"></span>
-                        合同/项目信息
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">合同/项目信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同名称</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-contract-name">福州市地铁5号线延长线工程</p>
+                            <p class="text-xs text-gray-500 mb-1">合同名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-name">福州市地铁5号线延长线工程</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同编号</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-contract-id">XM2026040001</p>
+                            <p class="text-xs text-gray-500 mb-1">合同编号：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-id">XM2026040001</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同甲方单位（发包人）</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-party-a">福州市地铁集团有限公司</p>
+                            <p class="text-xs text-gray-500 mb-1">合同甲方单位（发包人）：</p>
+                            <p class="font-medium text-gray-900" id="detail-party-a">福州市地铁集团有限公司</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同甲方企业名称</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-party-a-name">福州市地铁集团有限公司</p>
+                            <p class="text-xs text-gray-500 mb-1">合同甲方企业名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-party-a-name">福州市地铁集团有限公司</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同金额（元）</p>
-                            <p class="text-base font-bold text-primary" id="detail-contract-amount">¥10,000,000.00</p>
+                            <p class="text-xs text-gray-500 mb-1">合同金额（元）：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-amount">¥10,000,000.00</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">质量保证金金额（元）</p>
-                            <p class="text-base font-bold text-primary" id="detail-deposit-amount">¥500,000.00</p>
+                            <p class="text-xs text-gray-500 mb-1">质量保证金金额（元）：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-amount">¥500,000.00</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">质量保证金起始日期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-deposit-start">2026-04-15</p>
+                            <p class="text-xs text-gray-500 mb-1">质量保证金起始日期：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-start">2026-04-15</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">质量保证金结束日期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-deposit-end">2028-04-14</p>
+                            <p class="text-xs text-gray-500 mb-1">质量保证金结束日期：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-end">2028-04-14</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">项目地址（省市区）</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-project-address">福建省福州市仓山区</p>
+                            <p class="text-xs text-gray-500 mb-1">项目地址（省市区）：</p>
+                            <p class="font-medium text-gray-900" id="detail-project-address">福建省福州市仓山区</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">项目详细地址</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-project-detail-address">地铁5号线延长线施工现场</p>
+                            <p class="text-xs text-gray-500 mb-1">项目详细地址：</p>
+                            <p class="font-medium text-gray-900" id="detail-project-detail-address">地铁5号线延长线施工现场</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同起期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-contract-start">2026-04-15</p>
+                            <p class="text-xs text-gray-500 mb-1">合同起期：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-start">2026-04-15</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">合同止期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-contract-end">2028-04-14</p>
+                            <p class="text-xs text-gray-500 mb-1">合同止期：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-end">2028-04-14</p>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 保函信息 -->
-                <div>
-                    <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                        <span class="w-1 h-5 bg-primary mr-2 rounded"></span>
-                        保函信息
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 投保信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">投保信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">保函编号</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-guarantee-id">BH202604150001</p>
+                            <p class="text-xs text-gray-500 mb-1">担保起期：</p>
+                            <p class="font-medium text-gray-900" id="detail-effective-date">2026-04-15</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">保函类型</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-guarantee-type">履约保函</p>
+                            <p class="text-xs text-gray-500 mb-1">担保止期：</p>
+                            <p class="font-medium text-gray-900" id="detail-expiry-date">2028-06-01</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">担保金额（元）</p>
-                            <p class="text-base font-bold text-primary" id="detail-amount">¥500,000</p>
+                            <p class="text-xs text-gray-500 mb-1">担保期限：</p>
+                            <p class="font-medium text-gray-900" id="detail-term">778天</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">开立日期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-open-date">2026-04-15</p>
+                            <p class="text-xs text-gray-500 mb-1">承保机构：</p>
+                            <p class="font-medium text-gray-900" id="detail-financial-institution">中国建设银行福建分行</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 投保人信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">投保人信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">企业名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-insured-enterprise">福建省建设工程有限公司</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">担保起始日期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-effective-date">2026-04-15</p>
+                            <p class="text-xs text-gray-500 mb-1">统一社会信用代码：</p>
+                            <p class="font-medium text-gray-900" id="detail-credit-code">91350000MA34K8XG9Y</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">担保结束日期</p>
-                            <p class="text-base font-medium text-gray-900" id="detail-expiry-date">2028-04-14</p>
+                            <p class="text-xs text-gray-500 mb-1">经办人姓名：</p>
+                            <p class="font-medium text-gray-900" id="detail-contact-name">张三</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">投保企业</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-insured-enterprise">福建省建设工程有限公司</p>
+                            <p class="text-xs text-gray-500 mb-1">经办人手机号：</p>
+                            <p class="font-medium text-gray-900" id="detail-contact-phone">13800000000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 投保材料 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-sm font-bold text-gray-700">投保材料</h4>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-sm" onclick="downloadAllMaterials()">
+                            <i class="fa fa-download mr-1"></i>一键下载
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs text-gray-500 mb-1">投保企业营业执照：</p>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm" onclick="previewMaterial('license')" title="预览">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 text-sm" onclick="downloadMaterial('license')" title="下载">
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="font-medium text-gray-900" id="detail-license-file">营业执照_扫描件.pdf</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">受益人</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-beneficiary">福州市地铁集团有限公司</p>
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs text-gray-500 mb-1">项目合同：</p>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm" onclick="previewMaterial('contract')" title="预览">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 text-sm" onclick="downloadMaterial('contract')" title="下载">
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="font-medium text-gray-900" id="detail-contract-file">项目合同_福州市地铁5号线延长线工程.pdf</p>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">承保机构</p>
-                            <p class="text-base font-medium text-gray-900 break-words" id="detail-financial-institution">中国建设银行</p>
+                        <div id="detail-other-file-1-section">
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs text-gray-500 mb-1">其他材料1：</p>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm" onclick="previewMaterial('other1')" title="预览">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 text-sm" onclick="downloadMaterial('other1')" title="下载">
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="font-medium text-gray-900" id="detail-other-file-1">补充说明.pdf</p>
                         </div>
-                        <div>
-                            <p class="text-sm text-gray-500 mb-1">保费（元）</p>
-                            <p class="text-base font-bold text-primary" id="detail-premium">¥2,500</p>
-                        </div>
-                        <div class="md:col-span-2 lg:col-span-1">
-                            <p class="text-sm text-gray-500 mb-1">保函状态</p>
-                            <p class="text-base font-medium" id="detail-status">生效中</p>
+                        <div id="detail-other-file-2-section">
+                            <div class="flex items-center justify-between">
+                                <p class="text-xs text-gray-500 mb-1">其他材料2：</p>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm" onclick="previewMaterial('other2')" title="预览">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 text-sm" onclick="downloadMaterial('other2')" title="下载">
+                                        <i class="fa fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="font-medium text-gray-900" id="detail-other-file-2">其他材料.zip</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+            <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end space-x-3">
                 <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeGuaranteeDetailModal()">
                     关闭
                 </button>
                 <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="downloadGuaranteeModal()">
                     <i class="fa fa-download mr-2"></i>下载保函
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 材料预览模态框 -->
+    <div id="preview-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4 sm:p-6">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900" id="preview-title">材料预览</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closePreviewModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-4 sm:p-6 flex-1 overflow-auto">
+                <div class="mb-4 flex items-center justify-between">
+                    <p class="text-sm text-gray-600" id="preview-file-name">文件名</p>
+                    <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors text-sm" onclick="downloadCurrentPreviewFile()">
+                        <i class="fa fa-download mr-1"></i>下载
+                    </button>
+                </div>
+                <div id="preview-content" class="min-h-[400px]">
+                </div>
+            </div>
+            
+            <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end">
+                <button class="px-6 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closePreviewModal()">
+                    关闭
                 </button>
             </div>
         </div>
@@ -571,6 +665,10 @@
                         <input type="text" id="claim-guarantee-amount" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函金额" readonly>
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">受益人 <span class="text-red-500">*</span></label>
+                        <input type="text" id="claim-beneficiary" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入受益人" readonly>
+                    </div>
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">理赔金额 <span class="text-red-500">*</span></label>
                         <input type="number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔金额">
                     </div>
@@ -578,7 +676,7 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">理赔联系人 <span class="text-red-500">*</span></label>
                         <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔联系人姓名">
                     </div>
-                    <div>
+                    <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">理赔联系电话 <span class="text-red-500">*</span></label>
                         <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔联系电话">
                     </div>
@@ -659,6 +757,15 @@
             }
         });
 
+        // 投保材料相关变量
+        let currentOrderData = null;
+        const materialFileMap = {
+            'license': { id: 'detail-license-file', name: '营业执照' },
+            'contract': { id: 'detail-contract-file', name: '项目合同' },
+            'other1': { id: 'detail-other-file-1', name: '其他材料1' },
+            'other2': { id: 'detail-other-file-2', name: '其他材料2' }
+        };
+
         function viewGuaranteeDetail(guaranteeId) {
             const guaranteeData = {
                 'BH202604150001': {
@@ -680,11 +787,19 @@
                     status: '生效中',
                     openDate: '2026-04-15',
                     effectiveDate: '2026-04-15',
-                    expiryDate: '2028-04-14',
+                    expiryDate: '2028-06-01',
+                    term: '778天',
                     insuredEnterprise: '福建省建设工程有限公司',
+                    creditCode: '91350000MA34K8XG9Y',
+                    contactName: '张三',
+                    contactPhone: '13800000000',
                     beneficiary: '福州市地铁集团有限公司',
-                    financialInstitution: '中国建设银行',
-                    premium: '¥2,500'
+                    financialInstitution: '中国建设银行福建分行',
+                    premium: '¥2,500',
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_福州市地铁5号线延长线工程.pdf',
+                    otherFile1: '补充说明.pdf',
+                    otherFile2: '其他材料.zip'
                 },
                 'BH202603280003': {
                     id: 'BH202603280003',
@@ -706,10 +821,18 @@
                     openDate: '2026-03-28',
                     effectiveDate: '2026-03-28',
                     expiryDate: '2026-07-28',
+                    term: '120天',
                     insuredEnterprise: '厦门市市政工程有限公司',
+                    creditCode: '91350000XXXXXXXXXX',
+                    contactName: '李四',
+                    contactPhone: '13900000000',
                     beneficiary: '厦门新机场建设指挥部',
                     financialInstitution: '中国工商银行',
-                    premium: '¥1,750'
+                    premium: '¥1,750',
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_厦门新机场配套工程.pdf',
+                    otherFile1: '补充说明.pdf',
+                    otherFile2: ''
                 },
                 'BH202602150002': {
                     id: 'BH202602150002',
@@ -731,10 +854,18 @@
                     openDate: '2026-02-15',
                     effectiveDate: '2026-02-15',
                     expiryDate: '2026-04-15',
+                    term: '60天',
                     insuredEnterprise: '泉州市交通工程有限公司',
+                    creditCode: '91350000XXXXXXXXXX',
+                    contactName: '王五',
+                    contactPhone: '13700000000',
                     beneficiary: '泉州市交通运输局',
                     financialInstitution: '中国农业银行',
-                    premium: '¥600'
+                    premium: '¥600',
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_泉州湾大桥养护工程.pdf',
+                    otherFile1: '',
+                    otherFile2: ''
                 },
                 'BH202601100001': {
                     id: 'BH202601100001',
@@ -756,10 +887,18 @@
                     openDate: '2026-01-10',
                     effectiveDate: '2026-01-10',
                     expiryDate: '2026-04-10',
+                    term: '90天',
                     insuredEnterprise: '漳州市港口工程有限公司',
+                    creditCode: '91350000XXXXXXXXXX',
+                    contactName: '钱七',
+                    contactPhone: '13500000000',
                     beneficiary: '漳州市港口管理局',
                     financialInstitution: '中国银行',
-                    premium: '¥1,400'
+                    premium: '¥1,400',
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_漳州港码头扩建工程.pdf',
+                    otherFile1: '',
+                    otherFile2: ''
                 },
                 'BH202604150006': {
                     id: 'BH202604150006',
@@ -781,14 +920,23 @@
                     openDate: '2026-04-15',
                     effectiveDate: '2026-04-15',
                     expiryDate: '2026-10-15',
+                    term: '180天',
                     insuredEnterprise: '莆田市水利工程有限公司',
+                    creditCode: '91350000XXXXXXXXXX',
+                    contactName: '孙八',
+                    contactPhone: '13400000000',
                     beneficiary: '莆田市水利局',
                     financialInstitution: '中国建设银行',
-                    premium: '¥1,000'
+                    premium: '¥1,000',
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_莆田市木兰溪防洪工程.pdf',
+                    otherFile1: '补充说明.pdf',
+                    otherFile2: ''
                 }
             };
 
             const data = guaranteeData[guaranteeId] || guaranteeData['BH202604150001'];
+            currentOrderData = data;
             
             // 更新合同/项目信息
             document.getElementById('detail-contract-name').textContent = data.contractName;
@@ -804,33 +952,198 @@
             document.getElementById('detail-contract-start').textContent = data.contractStart;
             document.getElementById('detail-contract-end').textContent = data.contractEnd;
 
-            // 更新保函信息
-            document.getElementById('detail-guarantee-id').textContent = data.id;
-            document.getElementById('detail-guarantee-type').textContent = data.type;
-            document.getElementById('detail-amount').textContent = data.amount;
-            document.getElementById('detail-open-date').textContent = data.openDate;
+            // 更新投保信息
             document.getElementById('detail-effective-date').textContent = data.effectiveDate;
             document.getElementById('detail-expiry-date').textContent = data.expiryDate;
-            document.getElementById('detail-insured-enterprise').textContent = data.insuredEnterprise;
-            document.getElementById('detail-beneficiary').textContent = data.beneficiary;
+            document.getElementById('detail-term').textContent = data.term;
             document.getElementById('detail-financial-institution').textContent = data.financialInstitution;
-            document.getElementById('detail-premium').textContent = data.premium;
-            document.getElementById('detail-status').textContent = data.status;
+
+            // 更新投保人信息
+            document.getElementById('detail-insured-enterprise').textContent = data.insuredEnterprise;
+            document.getElementById('detail-credit-code').textContent = data.creditCode;
+            document.getElementById('detail-contact-name').textContent = data.contactName;
+            document.getElementById('detail-contact-phone').textContent = data.contactPhone;
+
+            // 更新投保材料
+            document.getElementById('detail-license-file').textContent = data.licenseFile;
+            document.getElementById('detail-contract-file').textContent = data.contractFile;
             
-            // 设置状态样式
-            let statusClass = 'text-base font-medium';
-            if (data.status === '生效中') {
-                statusClass += ' text-success';
-            } else if (data.status === '已过期') {
-                statusClass += ' text-gray-500';
-            } else if (data.status === '待续保') {
-                statusClass += ' text-orange-600';
+            const otherFile1Section = document.getElementById('detail-other-file-1-section');
+            const otherFile2Section = document.getElementById('detail-other-file-2-section');
+            
+            if (data.otherFile1) {
+                otherFile1Section.classList.remove('hidden');
+                document.getElementById('detail-other-file-1').textContent = data.otherFile1;
             } else {
-                statusClass += ' text-warning';
+                otherFile1Section.classList.add('hidden');
             }
-            document.getElementById('detail-status').className = statusClass;
+            
+            if (data.otherFile2) {
+                otherFile2Section.classList.remove('hidden');
+                document.getElementById('detail-other-file-2').textContent = data.otherFile2;
+            } else {
+                otherFile2Section.classList.add('hidden');
+            }
             
             document.getElementById('guarantee-detail-modal').classList.remove('hidden');
+        }
+
+        // 预览材料
+        function previewMaterial(materialType) {
+            const material = materialFileMap[materialType];
+            const fileName = document.getElementById(material.id).textContent;
+            
+            if (!fileName || fileName.trim() === '') {
+                showNotification('暂无该材料文件', 'warning');
+                return;
+            }
+
+            // 更新预览模态框
+            document.getElementById('preview-title').textContent = material.name + '预览';
+            document.getElementById('preview-file-name').textContent = fileName;
+            
+            // 根据文件类型显示不同的预览内容
+            const previewContent = document.getElementById('preview-content');
+            const fileExt = fileName.split('.').pop().toLowerCase();
+            
+            if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExt)) {
+                // 图片预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-image-o text-6xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500">图片文件预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (['pdf'].includes(fileExt)) {
+                // PDF预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-pdf-o text-6xl text-red-400 mb-4"></i>
+                            <p class="text-gray-500">PDF文件预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (['zip', 'rar'].includes(fileExt)) {
+                // 压缩文件预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-archive-o text-6xl text-yellow-400 mb-4"></i>
+                            <p class="text-gray-500">压缩文件预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (['doc', 'docx'].includes(fileExt)) {
+                // Word文档预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-word-o text-6xl text-blue-400 mb-4"></i>
+                            <p class="text-gray-500">Word文档预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (['xls', 'xlsx'].includes(fileExt)) {
+                // Excel文档预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-excel-o text-6xl text-green-400 mb-4"></i>
+                            <p class="text-gray-500">Excel文档预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // 其他文件预览
+                previewContent.innerHTML = `
+                    <div class="flex items-center justify-center h-full bg-gray-100 rounded-lg">
+                        <div class="text-center p-8">
+                            <i class="fa fa-file-o text-6xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500">文件预览</p>
+                            <p class="text-sm text-gray-400 mt-2">${fileName}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 显示预览模态框
+            document.getElementById('preview-modal').classList.remove('hidden');
+        }
+
+        // 关闭预览模态框
+        function closePreviewModal() {
+            document.getElementById('preview-modal').classList.add('hidden');
+        }
+
+        // 从预览模态框下载当前文件
+        function downloadCurrentPreviewFile() {
+            const fileName = document.getElementById('preview-file-name').textContent;
+            showNotification(`正在下载：${fileName}`, 'info');
+            
+            setTimeout(() => {
+                showNotification('文件下载成功', 'success');
+            }, 1000);
+        }
+
+        // 下载单个材料
+        function downloadMaterial(materialType) {
+            const material = materialFileMap[materialType];
+            const fileName = document.getElementById(material.id).textContent;
+            
+            if (!fileName || fileName.trim() === '') {
+                showNotification('暂无该材料文件', 'warning');
+                return;
+            }
+
+            // 模拟下载
+            showNotification(`正在下载：${fileName}`, 'info');
+            
+            setTimeout(() => {
+                showNotification(`${material.name}下载成功`, 'success');
+            }, 1000);
+        }
+
+        // 一键下载所有材料
+        function downloadAllMaterials() {
+            showNotification('正在准备下载所有材料...', 'info');
+            
+            let downloadedCount = 0;
+            const materials = [];
+            
+            // 检查哪些材料有文件
+            for (const [type, material] of Object.entries(materialFileMap)) {
+                const fileName = document.getElementById(material.id).textContent;
+                if (fileName && fileName.trim() !== '') {
+                    materials.push({ type, ...material, fileName });
+                }
+            }
+            
+            if (materials.length === 0) {
+                showNotification('暂无投保材料可下载', 'warning');
+                return;
+            }
+            
+            // 模拟批量下载
+            materials.forEach((material, index) => {
+                setTimeout(() => {
+                    downloadedCount++;
+                    showNotification(`正在下载：${material.fileName} (${downloadedCount}/${materials.length})`, 'info');
+                    
+                    if (downloadedCount === materials.length) {
+                        setTimeout(() => {
+                            showNotification(`所有${materials.length}个材料下载成功`, 'success');
+                        }, 500);
+                    }
+                }, index * 800);
+            });
         }
 
         function closeGuaranteeDetailModal() {
@@ -851,22 +1164,26 @@
                 'BH202604150001': {
                     id: 'BH202604150001',
                     contractName: '福州市地铁5号线延长线工程',
-                    amount: '¥500,000'
+                    amount: '¥500,000',
+                    beneficiary: '福州市地铁集团有限公司'
                 },
                 'BH202603280003': {
                     id: 'BH202603280003',
                     contractName: '厦门新机场配套工程',
-                    amount: '¥350,000'
+                    amount: '¥350,000',
+                    beneficiary: '厦门新机场建设指挥部'
                 },
                 'BH202602150002': {
                     id: 'BH202602150002',
                     contractName: '泉州湾大桥养护工程',
-                    amount: '¥120,000'
+                    amount: '¥120,000',
+                    beneficiary: '泉州市交通运输局'
                 },
                 'BH202601100001': {
                     id: 'BH202601100001',
                     contractName: '漳州港码头扩建工程',
-                    amount: '¥280,000'
+                    amount: '¥280,000',
+                    beneficiary: '漳州市港口管理局'
                 }
             };
 
@@ -875,6 +1192,7 @@
                 document.getElementById('claim-guarantee-id').value = data.id;
                 document.getElementById('claim-contract-name').value = data.contractName;
                 document.getElementById('claim-guarantee-amount').value = data.amount;
+                document.getElementById('claim-beneficiary').value = data.beneficiary;
                 document.getElementById('claim-modal').classList.remove('hidden');
             }
         }

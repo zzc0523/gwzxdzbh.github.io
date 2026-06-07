@@ -103,10 +103,6 @@
                             <i class="fa fa-list w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">合同列表</span>
                         </a>
-                        <a href="省管理端_合同数据导入.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-upload w-5 text-center mr-3"></i>
-                            <span class="font-medium">合同数据导入</span>
-                        </a>
                     </div>
                 </div>
                 
@@ -239,6 +235,14 @@
                             <i class="fa fa-file-text-o text-primary mr-2"></i>
                             合同列表
                         </h3>
+                        <div class="flex items-center space-x-3">
+                            <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="openImportHistoryModal()">
+                                <i class="fa fa-history mr-2"></i>导入历史
+                            </button>
+                            <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openImportModal()">
+                                <i class="fa fa-upload mr-2"></i>导入合同
+                            </button>
+                        </div>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -269,6 +273,12 @@
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202604150001')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="editContract('HT202604150001')">
+                                            <i class="fa fa-edit mr-1"></i>编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-700" onclick="deleteContract('HT202604150001')">
+                                            <i class="fa fa-trash mr-1"></i>删除
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr class="table-row">
@@ -283,6 +293,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202603280003')">
                                             <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="editContract('HT202603280003')">
+                                            <i class="fa fa-edit mr-1"></i>编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-700" onclick="deleteContract('HT202603280003')">
+                                            <i class="fa fa-trash mr-1"></i>删除
                                         </button>
                                     </td>
                                 </tr>
@@ -299,6 +315,12 @@
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202602150002')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="editContract('HT202602150002')">
+                                            <i class="fa fa-edit mr-1"></i>编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-700" onclick="deleteContract('HT202602150002')">
+                                            <i class="fa fa-trash mr-1"></i>删除
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr class="table-row">
@@ -313,6 +335,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewContractDetail('HT202601100001')">
                                             <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="editContract('HT202601100001')">
+                                            <i class="fa fa-edit mr-1"></i>编辑
+                                        </button>
+                                        <button class="text-danger hover:text-red-700" onclick="deleteContract('HT202601100001')">
+                                            <i class="fa fa-trash mr-1"></i>删除
                                         </button>
                                     </td>
                                 </tr>
@@ -429,6 +457,370 @@
                 <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeContractDetailModal()">
                     关闭
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑合同模态框 -->
+    <div id="edit-contract-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">编辑合同</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditContractModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同编号 <span class="text-danger">*</span></label>
+                        <input type="text" id="edit-contract-id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同名称 <span class="text-danger">*</span></label>
+                        <input type="text" id="edit-contract-name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入合同名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同甲方单位（发包人） <span class="text-danger">*</span></label>
+                        <input type="text" id="edit-party-a" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入合同甲方单位">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同甲方企业名称</label>
+                        <input type="text" id="edit-party-a-name" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入合同甲方企业名称">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同类型</label>
+                        <select id="edit-contract-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">请选择合同类型</option>
+                            <option value="地铁工程">地铁工程</option>
+                            <option value="市政工程">市政工程</option>
+                            <option value="房建工程">房建工程</option>
+                            <option value="交通工程">交通工程</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">供应商</label>
+                        <input type="text" id="edit-supplier" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入供应商">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同金额（元） <span class="text-danger">*</span></label>
+                        <input type="number" id="edit-contract-amount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入合同金额">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">质量保证金金额（元）</label>
+                        <input type="number" id="edit-deposit-amount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入质量保证金金额">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">质量保证金起始日期</label>
+                        <input type="date" id="edit-deposit-start" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">质量保证金结束日期</label>
+                        <input type="date" id="edit-deposit-end" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">项目地址（省市区）</label>
+                        <input type="text" id="edit-project-address" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入项目地址">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">项目详细地址</label>
+                        <input type="text" id="edit-project-detail-address" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入项目详细地址">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同起期 <span class="text-danger">*</span></label>
+                        <input type="date" id="edit-contract-start" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">合同止期 <span class="text-danger">*</span></label>
+                        <input type="date" id="edit-contract-end" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditContractModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="saveContract()">
+                    <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除合同确认模态框 -->
+    <div id="delete-contract-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full mx-4">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">删除合同</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeDeleteContractModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-700 mb-4">确定要删除合同 <span class="font-bold text-primary" id="delete-contract-id"></span> 吗？此操作不可恢复。</p>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="text-red-700 text-sm">
+                        <i class="fa fa-exclamation-triangle mr-2"></i>
+                        删除合同后，相关的保函申请和理赔记录也会受到影响，请谨慎操作。
+                    </p>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeDeleteContractModal()">
+                    取消
+                </button>
+                <button class="px-4 py-2 bg-danger text-white rounded-lg hover:bg-red-700 transition-colors" onclick="confirmDeleteContract()">
+                    <i class="fa fa-trash mr-2"></i>确认删除
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 合同导入模态框 -->
+    <div id="import-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full mx-4">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">合同数据导入</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeImportModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="text-center mb-8">
+                    <p class="text-gray-600 mb-6">支持Excel模板导入合同数据，用于保函申请数据回显；支持已有数据的修改</p>
+                    
+                    <!-- 上传区域 -->
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 mb-6" id="modal-upload-area">
+                        <div class="text-center">
+                            <i class="fa fa-file-excel-o text-4xl text-success mb-4"></i>
+                            <p class="text-gray-600 mb-2">点击或拖拽文件到此处上传</p>
+                            <p class="text-sm text-gray-500 mb-4">支持 .xlsx 格式文件，单个文件不超过5MB</p>
+                            <input type="file" id="modal-file-upload" class="hidden" accept=".xlsx">
+                            <button class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="document.getElementById('modal-file-upload').click()">
+                                <i class="fa fa-browse mr-2"></i>选择文件
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 模板下载 -->
+                    <div class="flex justify-center">
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="downloadTemplate()">
+                            <i class="fa fa-download mr-2"></i>下载Excel模板
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 上传文件信息 -->
+                <div class="border-t border-gray-200 pt-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-4">上传文件信息</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-600">文件名：</span>
+                            <span class="font-medium text-gray-900" id="modal-file-name">未选择文件</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-600">文件大小：</span>
+                            <span class="font-medium text-gray-900" id="modal-file-size">0 KB</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">状态：</span>
+                            <span class="font-medium text-gray-900" id="modal-file-status">未上传</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-6 py-3 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeImportModal()">
+                    取消
+                </button>
+                <button class="px-6 py-3 bg-success text-white rounded-lg hover:bg-green-600 transition-colors" onclick="modalImportData()">
+                    <i class="fa fa-check mr-2"></i>开始导入
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入历史模态框 -->
+    <div id="import-history-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-5xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">导入历史</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeImportHistoryModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">导入时间</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">文件名</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">导入数量</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">成功数量</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">失败数量</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 14:30:00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">合同数据-20260415.xlsx</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">100</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-success">98</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-danger">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge bg-green-100 text-success">导入成功</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('1')">
+                                        <i class="fa fa-eye mr-1"></i>查看
+                                    </button>
+                                    <button class="text-warning hover:text-yellow-600" onclick="downloadErrorLog('1')">
+                                        <i class="fa fa-download mr-1"></i>错误日志
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-14 09:15:00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">合同数据-20260414.xlsx</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">50</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-success">50</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-danger">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge bg-green-100 text-success">导入成功</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('2')">
+                                        <i class="fa fa-eye mr-1"></i>查看
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-13 16:45:00</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">合同数据-20260413.xlsx</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">80</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-success">0</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-danger">80</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="badge bg-red-100 text-danger">导入失败</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('3')">
+                                        <i class="fa fa-eye mr-1"></i>查看
+                                    </button>
+                                    <button class="text-warning hover:text-yellow-600" onclick="downloadErrorLog('3')">
+                                        <i class="fa fa-download mr-1"></i>错误日志
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 分页 -->
+                <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between mt-4">
+                    <div class="text-sm text-gray-700">
+                        显示 <span class="font-medium">1</span> 到 <span class="font-medium">3</span> 条，共 <span class="font-medium">15</span> 条
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">4</button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">5</button>
+                        <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeImportHistoryModal()">
+                    关闭
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入详情模态框 -->
+    <div id="import-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">导入详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeImportDetailModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">导入时间</p>
+                        <p class="text-lg font-medium text-gray-900">2026-04-15 14:30:00</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">文件名</p>
+                        <p class="text-lg font-medium text-gray-900">合同数据-20260415.xlsx</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">导入数量</p>
+                        <p class="text-lg font-medium text-gray-900">100</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">成功数量</p>
+                        <p class="text-lg font-medium text-success">98</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">失败数量</p>
+                        <p class="text-lg font-medium text-danger">2</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">状态</p>
+                        <p class="text-lg font-medium text-success">导入成功</p>
+                    </div>
+                </div>
+                
+                <!-- 失败记录 -->
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-gray-800 mb-3">失败记录</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border border-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">行号</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">合同编号</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">错误信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-3 border-b">5</td>
+                                    <td class="px-4 py-3 border-b">HT202604001</td>
+                                    <td class="px-4 py-3 border-b text-danger">合同金额格式错误</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">12</td>
+                                    <td class="px-4 py-3">HT202604008</td>
+                                    <td class="px-4 py-3 text-danger">供应商不存在</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- 操作 -->
+                <div class="flex justify-end">
+                    <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors mr-3" onclick="downloadErrorLog('1')">
+                        <i class="fa fa-download mr-2"></i>下载错误日志
+                    </button>
+                    <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeImportDetailModal()">
+                        关闭
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -579,6 +971,275 @@
         document.getElementById('contract-detail-modal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeContractDetailModal();
+            }
+        });
+
+        // 合同数据（用于编辑）
+        const editContractData = {
+            'HT202604150001': {
+                id: 'HT202604150001',
+                name: '福州市地铁5号线延长线工程',
+                partyA: '福州市地铁集团有限公司',
+                partyAName: '福州市地铁集团有限公司',
+                supplier: '福建省建设工程有限公司',
+                contractAmount: '5000000',
+                depositAmount: '500000',
+                contractType: '地铁工程',
+                depositStart: '2026-04-15',
+                depositEnd: '2027-04-15',
+                projectAddress: '福建省福州市仓山区',
+                projectDetailAddress: '福州市仓山区盖山镇地铁5号线延长线',
+                contractStart: '2026-04-15',
+                contractEnd: '2026-10-15'
+            },
+            'HT202603280003': {
+                id: 'HT202603280003',
+                name: '厦门新机场配套工程',
+                partyA: '厦门新机场建设指挥部',
+                partyAName: '厦门新机场建设指挥部',
+                supplier: '厦门市市政工程有限公司',
+                contractAmount: '3500000',
+                depositAmount: '350000',
+                contractType: '市政工程',
+                depositStart: '2026-03-28',
+                depositEnd: '2027-03-28',
+                projectAddress: '福建省厦门市翔安区',
+                projectDetailAddress: '厦门市翔安区新机场建设工地',
+                contractStart: '2026-03-28',
+                contractEnd: '2026-07-28'
+            },
+            'HT202602150002': {
+                id: 'HT202602150002',
+                name: '泉州湾大桥养护工程',
+                partyA: '泉州市交通运输局',
+                partyAName: '泉州市交通运输局',
+                supplier: '泉州市交通工程有限公司',
+                contractAmount: '1200000',
+                depositAmount: '120000',
+                contractType: '交通工程',
+                depositStart: '2026-02-15',
+                depositEnd: '2027-02-15',
+                projectAddress: '福建省泉州市丰泽区',
+                projectDetailAddress: '泉州市丰泽区泉州湾大桥',
+                contractStart: '2026-02-15',
+                contractEnd: '2026-04-15'
+            },
+            'HT202601100001': {
+                id: 'HT202601100001',
+                name: '漳州港码头扩建工程',
+                partyA: '漳州市港口管理局',
+                partyAName: '漳州市港口管理局',
+                supplier: '漳州市港口工程有限公司',
+                contractAmount: '2800000',
+                depositAmount: '280000',
+                contractType: '交通工程',
+                depositStart: '2026-01-10',
+                depositEnd: '2027-01-10',
+                projectAddress: '福建省漳州市龙海区',
+                projectDetailAddress: '漳州市龙海区漳州港',
+                contractStart: '2026-01-10',
+                contractEnd: '2026-04-10'
+            }
+        };
+
+        function editContract(contractId) {
+            const data = editContractData[contractId];
+            if (data) {
+                document.getElementById('edit-contract-id').value = data.id;
+                document.getElementById('edit-contract-name').value = data.name;
+                document.getElementById('edit-party-a').value = data.partyA;
+                document.getElementById('edit-party-a-name').value = data.partyAName;
+                document.getElementById('edit-supplier').value = data.supplier;
+                document.getElementById('edit-contract-amount').value = data.contractAmount;
+                document.getElementById('edit-deposit-amount').value = data.depositAmount;
+                document.getElementById('edit-contract-type').value = data.contractType;
+                document.getElementById('edit-deposit-start').value = data.depositStart;
+                document.getElementById('edit-deposit-end').value = data.depositEnd;
+                document.getElementById('edit-project-address').value = data.projectAddress;
+                document.getElementById('edit-project-detail-address').value = data.projectDetailAddress;
+                document.getElementById('edit-contract-start').value = data.contractStart;
+                document.getElementById('edit-contract-end').value = data.contractEnd;
+            }
+
+            document.getElementById('edit-contract-modal').classList.remove('hidden');
+        }
+
+        function closeEditContractModal() {
+            document.getElementById('edit-contract-modal').classList.add('hidden');
+        }
+
+        function saveContract() {
+            const contractId = document.getElementById('edit-contract-id').value;
+            const contractName = document.getElementById('edit-contract-name').value;
+            const partyA = document.getElementById('edit-party-a').value;
+            const contractAmount = document.getElementById('edit-contract-amount').value;
+            const contractStart = document.getElementById('edit-contract-start').value;
+            const contractEnd = document.getElementById('edit-contract-end').value;
+
+            if (!contractName || !partyA || !contractAmount || !contractStart || !contractEnd) {
+                showNotification('请填写必填字段', 'error');
+                return;
+            }
+
+            if (editContractData[contractId]) {
+                editContractData[contractId].name = document.getElementById('edit-contract-name').value;
+                editContractData[contractId].partyA = document.getElementById('edit-party-a').value;
+                editContractData[contractId].partyAName = document.getElementById('edit-party-a-name').value;
+                editContractData[contractId].supplier = document.getElementById('edit-supplier').value;
+                editContractData[contractId].contractAmount = document.getElementById('edit-contract-amount').value;
+                editContractData[contractId].depositAmount = document.getElementById('edit-deposit-amount').value;
+                editContractData[contractId].contractType = document.getElementById('edit-contract-type').value;
+                editContractData[contractId].depositStart = document.getElementById('edit-deposit-start').value;
+                editContractData[contractId].depositEnd = document.getElementById('edit-deposit-end').value;
+                editContractData[contractId].projectAddress = document.getElementById('edit-project-address').value;
+                editContractData[contractId].projectDetailAddress = document.getElementById('edit-project-detail-address').value;
+                editContractData[contractId].contractStart = document.getElementById('edit-contract-start').value;
+                editContractData[contractId].contractEnd = document.getElementById('edit-contract-end').value;
+            }
+
+            showNotification('合同保存成功', 'success');
+            setTimeout(() => {
+                closeEditContractModal();
+                location.reload();
+            }, 1500);
+        }
+
+        // 点击编辑合同模态框外部关闭
+        document.getElementById('edit-contract-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEditContractModal();
+            }
+        });
+
+        // 模态框文件上传监听
+        const modalFileInput = document.getElementById('modal-file-upload');
+        modalFileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                document.getElementById('modal-file-name').textContent = file.name;
+                document.getElementById('modal-file-size').textContent = (file.size / 1024).toFixed(2) + ' KB';
+                document.getElementById('modal-file-status').textContent = '已选择';
+            }
+        });
+        
+        // 模态框拖拽上传
+        const modalUploadArea = document.getElementById('modal-upload-area');
+        modalUploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            modalUploadArea.classList.add('border-primary');
+        });
+        modalUploadArea.addEventListener('dragleave', function() {
+            modalUploadArea.classList.remove('border-primary');
+        });
+        modalUploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            modalUploadArea.classList.remove('border-primary');
+            if (e.dataTransfer.files.length > 0) {
+                const file = e.dataTransfer.files[0];
+                document.getElementById('modal-file-name').textContent = file.name;
+                document.getElementById('modal-file-size').textContent = (file.size / 1024).toFixed(2) + ' KB';
+                document.getElementById('modal-file-status').textContent = '已选择';
+                modalFileInput.files = e.dataTransfer.files;
+            }
+        });
+
+        function downloadTemplate() {
+            showNotification('模板下载中...', 'info');
+            setTimeout(() => {
+                showNotification('模板下载成功', 'success');
+            }, 1500);
+        }
+
+        function openImportModal() {
+            // 重置模态框表单
+            document.getElementById('modal-file-name').textContent = '未选择文件';
+            document.getElementById('modal-file-size').textContent = '0 KB';
+            document.getElementById('modal-file-status').textContent = '未上传';
+            document.getElementById('modal-file-upload').value = '';
+            
+            // 显示模态框
+            document.getElementById('import-modal').classList.remove('hidden');
+        }
+
+        function closeImportModal() {
+            document.getElementById('import-modal').classList.add('hidden');
+        }
+
+        function modalImportData() {
+            const fileName = document.getElementById('modal-file-name').textContent;
+            if (fileName === '未选择文件') {
+                showNotification('请选择要导入的文件', 'error');
+                return;
+            }
+            
+            showNotification('数据导入中...', 'info');
+            setTimeout(() => {
+                showNotification('数据导入成功', 'success');
+                setTimeout(() => {
+                    closeImportModal();
+                    location.reload();
+                }, 1500);
+            }, 3000);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 ${type === 'success' ? 'bg-success text-white' : type === 'error' ? 'bg-danger text-white' : 'bg-primary text-white'}`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fa ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+
+        // 点击合同导入模态框外部关闭
+        document.getElementById('import-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImportModal();
+            }
+        });
+
+        function openImportHistoryModal() {
+            document.getElementById('import-history-modal').classList.remove('hidden');
+        }
+
+        function closeImportHistoryModal() {
+            document.getElementById('import-history-modal').classList.add('hidden');
+        }
+
+        function viewImportDetail(id) {
+            document.getElementById('import-detail-modal').classList.remove('hidden');
+        }
+
+        function closeImportDetailModal() {
+            document.getElementById('import-detail-modal').classList.add('hidden');
+        }
+
+        function downloadErrorLog(id) {
+            showNotification('错误日志下载中...', 'info');
+            setTimeout(() => {
+                showNotification('错误日志下载成功', 'success');
+            }, 1500);
+        }
+
+        // 点击导入历史模态框外部关闭
+        document.getElementById('import-history-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImportHistoryModal();
+            }
+        });
+
+        // 点击导入详情模态框外部关闭
+        document.getElementById('import-detail-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImportDetailModal();
             }
         });
     </script>

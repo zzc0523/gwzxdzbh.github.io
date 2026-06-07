@@ -142,10 +142,6 @@
                             <i class="fa fa-exclamation-circle w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">保函理赔</span>
                         </a>
-                        <a href="金融机构端_保函续保.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-refresh w-5 text-center mr-3"></i>
-                            <span class="font-medium">保函续保</span>
-                        </a>
                     </div>
                 </div>
 
@@ -211,8 +207,8 @@
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函编号">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">供应商</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入供应商名称">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">合同名称</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同名称">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
@@ -241,6 +237,10 @@
                             <i class="fa fa-exclamation-circle text-danger mr-2"></i>
                             理赔记录
                         </h3>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors flex items-center" onclick="exportGuaranteeClaims()">
+                            <i class="fa fa-download mr-2"></i>
+                            导出
+                        </button>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full">
@@ -248,7 +248,7 @@
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函编号</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供应商</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合同名称</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔金额</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请日期</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
@@ -259,7 +259,7 @@
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604150001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603280003</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门市市政工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场配套工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥50,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -280,7 +280,7 @@
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604100002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202601100001</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州市港口工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州港码头扩建工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥30,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -295,7 +295,7 @@
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202603250001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202602150002</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州市交通工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州湾大桥养护工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥15,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-25</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -310,7 +310,7 @@
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604180003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202604010004</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州市建筑工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福州地铁5号线附属工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥80,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-18</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -331,7 +331,7 @@
                                 <tr class="table-row">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604050004</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603010005</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">宁德市水利工程有限公司</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">宁德水库加固工程</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥25,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -388,18 +388,34 @@
                         <p class="text-lg font-medium text-gray-900" id="detail-guarantee-id">BH202603280003</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">供应商</p>
-                        <p class="text-lg font-medium text-gray-900" id="detail-supplier">厦门市市政工程有限公司</p>
+                        <p class="text-sm text-gray-500 mb-1">合同名称</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contract-name">厦门新机场配套工程</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">保函金额</p>
+                        <p class="text-lg font-bold text-primary" id="detail-guarantee-amount">¥350,000</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">受益人</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-beneficiary">厦门新机场建设指挥部</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">理赔金额</p>
                         <p class="text-lg font-bold text-danger" id="detail-amount">¥50,000</p>
                     </div>
                     <div>
+                        <p class="text-sm text-gray-500 mb-1">理赔联系人</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contact-name">张三</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">理赔联系电话</p>
+                        <p class="text-lg font-medium text-gray-900" id="detail-contact-phone">13800138000</p>
+                    </div>
+                    <div>
                         <p class="text-sm text-gray-500 mb-1">申请日期</p>
                         <p class="text-lg font-medium text-gray-900" id="detail-apply-date">2026-04-15</p>
                     </div>
-                    <div>
+                    <div class="md:col-span-2">
                         <p class="text-sm text-gray-500 mb-1">状态</p>
                         <p class="text-lg font-medium" id="detail-status">处理中</p>
                     </div>
@@ -473,8 +489,8 @@
                             <p class="font-medium text-gray-900" id="process-guarantee-id">-</p>
                         </div>
                         <div>
-                            <p class="text-gray-500">供应商</p>
-                            <p class="font-medium text-gray-900" id="process-supplier">-</p>
+                            <p class="text-gray-500">合同名称</p>
+                            <p class="font-medium text-gray-900" id="process-contract-name">-</p>
                         </div>
                         <div>
                             <p class="text-gray-500">申请理赔金额</p>
@@ -569,8 +585,8 @@
                             <p class="font-medium text-gray-900" id="reject-guarantee-id">-</p>
                         </div>
                         <div>
-                            <p class="text-gray-500">供应商</p>
-                            <p class="font-medium text-gray-900" id="reject-supplier">-</p>
+                            <p class="text-gray-500">合同名称</p>
+                            <p class="font-medium text-gray-900" id="reject-contract-name">-</p>
                         </div>
                         <div>
                             <p class="text-gray-500">申请理赔金额</p>
@@ -637,11 +653,15 @@
             'LP202604150001': {
                 id: 'LP202604150001',
                 guaranteeId: 'BH202603280003',
-                supplier: '厦门市市政工程有限公司',
+                contractName: '厦门新机场配套工程',
+                guaranteeAmount: '¥350,000',
+                beneficiary: '厦门新机场建设指挥部',
                 amount: '¥50,000',
+                contactName: '张三',
+                contactPhone: '13800138000',
                 applyDate: '2026-04-15',
                 status: '处理中',
-                reason: '厦门新机场配套工程存在质量问题，主要表现为：1. 路面平整度不达标；2. 排水系统堵塞；3. 路灯安装不符合规范。我方已多次要求供应商厦门市市政工程有限公司进行整改，但供应商拒不整改，故申请保函理赔。',
+                reason: '厦门新机场配套工程存在质量问题，主要表现为：1. 路面平整度不达标；2. 排水系统堵塞；3. 路灯安装不符合规范。我方已多次要求供应商进行整改，但供应商拒不整改，故申请保函理赔。',
                 materials: [
                     { name: '质量问题现场照片.pdf', type: 'pdf' },
                     { name: '整改通知书.docx', type: 'word' }
@@ -655,8 +675,12 @@
             'LP202604100002': {
                 id: 'LP202604100002',
                 guaranteeId: 'BH202601100001',
-                supplier: '漳州市港口工程有限公司',
+                contractName: '漳州港码头扩建工程',
+                guaranteeAmount: '¥280,000',
+                beneficiary: '漳州市港口管理局',
                 amount: '¥30,000',
+                contactName: '李四',
+                contactPhone: '13900139000',
                 applyDate: '2026-04-10',
                 status: '已赔付',
                 reason: '漳州港码头扩建工程存在质量问题，主要表现为：1. 码头地面裂缝；2. 护栏安装不牢固。我方已多次要求供应商进行整改，但供应商拒不整改，故申请保函理赔。',
@@ -675,8 +699,12 @@
             'LP202603250001': {
                 id: 'LP202603250001',
                 guaranteeId: 'BH202602150002',
-                supplier: '泉州市交通工程有限公司',
+                contractName: '泉州湾大桥养护工程',
+                guaranteeAmount: '¥120,000',
+                beneficiary: '泉州市交通运输局',
                 amount: '¥15,000',
+                contactName: '王五',
+                contactPhone: '13700137000',
                 applyDate: '2026-03-25',
                 status: '已拒绝',
                 reason: '泉州湾大桥养护工程存在质量问题，主要表现为：桥面坑洼不平。我方要求供应商进行整改，但供应商认为问题不严重，故申请保函理赔。',
@@ -693,8 +721,12 @@
             'LP202604180003': {
                 id: 'LP202604180003',
                 guaranteeId: 'BH202604010004',
-                supplier: '福州市建筑工程有限公司',
+                contractName: '福州地铁5号线附属工程',
+                guaranteeAmount: '¥500,000',
+                beneficiary: '福州市地铁集团有限公司',
                 amount: '¥80,000',
+                contactName: '赵六',
+                contactPhone: '13600136000',
                 applyDate: '2026-04-18',
                 status: '处理中',
                 reason: '福州地铁5号线附属工程存在质量问题，主要表现为：1. 墙体裂缝；2. 防水层失效。我方已要求供应商进行整改，但供应商未按时完成，故申请保函理赔。',
@@ -711,8 +743,12 @@
             'LP202604050004': {
                 id: 'LP202604050004',
                 guaranteeId: 'BH202603010005',
-                supplier: '宁德市水利工程有限公司',
+                contractName: '宁德水库加固工程',
+                guaranteeAmount: '¥200,000',
+                beneficiary: '宁德市水利局',
                 amount: '¥25,000',
+                contactName: '钱七',
+                contactPhone: '13500135000',
                 applyDate: '2026-04-05',
                 status: '已赔付',
                 reason: '宁德水库加固工程存在质量问题，主要表现为：堤坝渗漏。我方要求供应商进行修补，但供应商未能完成，故申请保函理赔。',
@@ -739,8 +775,12 @@
             cache.guaranteeSubmenu = document.getElementById('guarantee-submenu');
             cache.detailClaimId = document.getElementById('detail-claim-id');
             cache.detailGuaranteeId = document.getElementById('detail-guarantee-id');
-            cache.detailSupplier = document.getElementById('detail-supplier');
+            cache.detailContractName = document.getElementById('detail-contract-name');
+            cache.detailGuaranteeAmount = document.getElementById('detail-guarantee-amount');
+            cache.detailBeneficiary = document.getElementById('detail-beneficiary');
             cache.detailAmount = document.getElementById('detail-amount');
+            cache.detailContactName = document.getElementById('detail-contact-name');
+            cache.detailContactPhone = document.getElementById('detail-contact-phone');
             cache.detailApplyDate = document.getElementById('detail-apply-date');
             cache.detailStatus = document.getElementById('detail-status');
             cache.detailReason = document.getElementById('detail-reason');
@@ -750,7 +790,7 @@
             cache.processModal = document.getElementById('process-claim-modal');
             cache.processClaimId = document.getElementById('process-claim-id');
             cache.processGuaranteeId = document.getElementById('process-guarantee-id');
-            cache.processSupplier = document.getElementById('process-supplier');
+            cache.processContractName = document.getElementById('process-contract-name');
             cache.processRequestAmount = document.getElementById('process-request-amount');
             cache.processDate = document.getElementById('process-date');
             cache.processAmount = document.getElementById('process-amount');
@@ -765,7 +805,7 @@
             cache.rejectModal = document.getElementById('reject-claim-modal');
             cache.rejectClaimId = document.getElementById('reject-claim-id');
             cache.rejectGuaranteeId = document.getElementById('reject-guarantee-id');
-            cache.rejectSupplier = document.getElementById('reject-supplier');
+            cache.rejectContractName = document.getElementById('reject-contract-name');
             cache.rejectRequestAmount = document.getElementById('reject-request-amount');
             cache.rejectReason = document.getElementById('reject-reason');
             cache.rejectUploadArea = document.getElementById('reject-upload-area');
@@ -817,8 +857,12 @@
             if (data && cache.detailClaimId) {
                 cache.detailClaimId.textContent = data.id;
                 cache.detailGuaranteeId.textContent = data.guaranteeId;
-                cache.detailSupplier.textContent = data.supplier;
+                cache.detailContractName.textContent = data.contractName;
+                cache.detailGuaranteeAmount.textContent = data.guaranteeAmount;
+                cache.detailBeneficiary.textContent = data.beneficiary;
                 cache.detailAmount.textContent = data.amount;
+                cache.detailContactName.textContent = data.contactName;
+                cache.detailContactPhone.textContent = data.contactPhone;
                 cache.detailApplyDate.textContent = data.applyDate;
                 cache.detailStatus.textContent = data.status;
                 cache.detailStatus.className = data.status === '处理中' ? 'text-lg font-medium text-warning' : data.status === '已赔付' ? 'text-lg font-medium text-success' : 'text-lg font-medium text-gray-500';
@@ -856,7 +900,7 @@
             if (data) {
                 cache.processClaimId.textContent = data.id;
                 cache.processGuaranteeId.textContent = data.guaranteeId;
-                cache.processSupplier.textContent = data.supplier;
+                cache.processContractName.textContent = data.contractName;
                 cache.processRequestAmount.textContent = data.amount;
                 
                 // 预填充默认赔付金额
@@ -1026,7 +1070,7 @@
             if (data) {
                 cache.rejectClaimId.textContent = data.id;
                 cache.rejectGuaranteeId.textContent = data.guaranteeId;
-                cache.rejectSupplier.textContent = data.supplier;
+                cache.rejectContractName.textContent = data.contractName;
                 cache.rejectRequestAmount.textContent = data.amount;
             }
             
@@ -1229,7 +1273,45 @@
             if (cache.processModal && e.target === cache.processModal) {
                 closeProcessClaimModal();
             }
-        });
+        });}
+
+        // 导出保函理赔记录
+        function exportGuaranteeClaims() {
+            showNotification('正在准备导出数据...', 'info');
+            
+            setTimeout(() => {
+                // 准备表头和数据
+                const headers = ['理赔编号', '保函编号', '合同名称', '理赔金额', '申请日期', '状态'];
+                
+                // 准备数据行
+                const rows = [];
+                Object.values(claimData).forEach(claim => {
+                    rows.push([
+                        claim.id,
+                        claim.guaranteeId,
+                        claim.contractName,
+                        claim.amount,
+                        claim.applyDate,
+                        claim.status
+                    ]);
+                });
+                
+                // 生成CSV内容
+                let csvContent = headers.join(',') + '\n';
+                rows.forEach(row => {
+                    csvContent += row.map(cell => `"${cell}"`).join(',') + '\n';
+                });
+                
+                // 创建下载链接
+                const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `保函理赔_${new Date().toISOString().slice(0, 10)}.csv`;
+                link.click();
+                
+                showNotification('保函理赔记录导出成功！', 'success');
+            }, 800);
+        }
     </script>
 </body>
 </html>

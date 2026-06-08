@@ -304,9 +304,6 @@
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604150001')">
                                                 <i class="fa fa-eye mr-1"></i>查看
                                             </button>
-                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showVerifyModal('BH202604150001')">
-                                                <i class="fa fa-check-square-o mr-1"></i>验真
-                                            </button>
                                             <button class="text-primary hover:text-secondary text-sm font-medium">
                                                 <i class="fa fa-download mr-1"></i>下载
                                             </button>
@@ -405,9 +402,6 @@
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202602150002')">
                                                 <i class="fa fa-eye mr-1"></i>查看
-                                            </button>
-                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showVerifyModal('BH202602150002')">
-                                                <i class="fa fa-check-square-o mr-1"></i>验真
                                             </button>
                                             <button class="text-primary hover:text-secondary text-sm font-medium">
                                                 <i class="fa fa-download mr-1"></i>下载
@@ -1630,9 +1624,10 @@
                     buttonsHtml += '<button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors"><i class="fa fa-download mr-2"></i>下载保函</button>';
                 }
                 
-                if (data.canVerify) {
-                    buttonsHtml += '<button class="px-6 py-2 bg-blue-100 text-primary border border-primary/20 rounded-lg hover:bg-blue-200 transition-colors" onclick="showVerifyModal(\'' + data.guaranteeId + '\')"><i class="fa fa-check-square-o mr-2"></i>保函验真</button>';
-                }
+                // 隐藏保函验真按钮
+                // if (data.canVerify) {
+                //     buttonsHtml += '<button class="px-6 py-2 bg-blue-100 text-primary border border-primary/20 rounded-lg hover:bg-blue-200 transition-colors" onclick="showVerifyModal(\'' + data.guaranteeId + '\')"><i class="fa fa-check-square-o mr-2"></i>保函验真</button>';
+                // }
                 
                 if (data.canPay) {
                     buttonsHtml += '<button class="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"><i class="fa fa-credit-card mr-2"></i>立即缴费</button>';

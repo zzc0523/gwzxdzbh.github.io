@@ -259,25 +259,6 @@
                                         <td class="px-6 py-4">
                                             <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
                                         </td>
-                                        <td class="px-6 py-4 text-gray-700 font-medium">FJ202601150001</td>
-                                        <td class="px-6 py-4 text-gray-700">福州市地铁2号线延伸工程</td>
-                                        <td class="px-6 py-4 text-gray-700">投标保函</td>
-                                        <td class="px-6 py-4 text-gray-700">中国建设银行</td>
-                                        <td class="px-6 py-4 text-gray-700 font-bold">¥100,000.00</td>
-                                        <td class="px-6 py-4 text-gray-700">2026-04-20</td>
-                                        <td class="px-6 py-4">
-                                            <span class="badge bg-red-100 text-red-700 expiry-warning">5天</span>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <button class="text-primary hover:text-blue-700 transition-colors" onclick="applyForRenewal('FJ202601150001')">
-                                                <i class="fa fa-refresh mr-1"></i> 申请续保
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-row">
-                                        <td class="px-6 py-4">
-                                            <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
-                                        </td>
                                         <td class="px-6 py-4 text-gray-700 font-medium">FJ202601160002</td>
                                         <td class="px-6 py-4 text-gray-700">厦门市翔安机场快速路南段工程</td>
                                         <td class="px-6 py-4 text-gray-700">履约保函</td>
@@ -289,44 +270,6 @@
                                         </td>
                                         <td class="px-6 py-4">
                                             <button class="text-primary hover:text-blue-700 transition-colors" onclick="applyForRenewal('FJ202601160002')">
-                                                <i class="fa fa-refresh mr-1"></i> 申请续保
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-row">
-                                        <td class="px-6 py-4">
-                                            <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
-                                        </td>
-                                        <td class="px-6 py-4 text-gray-700 font-medium">FJ202601170003</td>
-                                        <td class="px-6 py-4 text-gray-700">泉州市晋江下游防洪岸线生态治理</td>
-                                        <td class="px-6 py-4 text-gray-700">预付款保函</td>
-                                        <td class="px-6 py-4 text-gray-700">中国农业银行</td>
-                                        <td class="px-6 py-4 text-gray-700 font-bold">¥300,000.00</td>
-                                        <td class="px-6 py-4 text-gray-700">2026-06-10</td>
-                                        <td class="px-6 py-4">
-                                            <span class="badge bg-yellow-100 text-yellow-700">55天</span>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <button class="text-primary hover:text-blue-700 transition-colors" onclick="applyForRenewal('FJ202601170003')">
-                                                <i class="fa fa-refresh mr-1"></i> 申请续保
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-row">
-                                        <td class="px-6 py-4">
-                                            <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
-                                        </td>
-                                        <td class="px-6 py-4 text-gray-700 font-medium">FJ202601180004</td>
-                                        <td class="px-6 py-4 text-gray-700">漳州市古雷港经济开发区基础设施</td>
-                                        <td class="px-6 py-4 text-gray-700">工资保函</td>
-                                        <td class="px-6 py-4 text-gray-700">中国银行</td>
-                                        <td class="px-6 py-4 text-gray-700 font-bold">¥200,000.00</td>
-                                        <td class="px-6 py-4 text-gray-700">2026-04-25</td>
-                                        <td class="px-6 py-4">
-                                            <span class="badge bg-red-100 text-red-700 expiry-warning">10天</span>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <button class="text-primary hover:text-blue-700 transition-colors" onclick="applyForRenewal('FJ202601180004')">
                                                 <i class="fa fa-refresh mr-1"></i> 申请续保
                                             </button>
                                         </td>
@@ -361,14 +304,6 @@
     <script>
         // 续保订单数据
         const orderData = {
-            'FJ202601150001': {
-                guaranteeId: 'FJ202601150001',
-                projectName: '福州市地铁2号线延伸工程',
-                guaranteeType: '投标保函',
-                financialInstitution: '中国建设银行',
-                amount: '¥100,000.00',
-                term: '2026-01-20 ~ 2026-04-20'
-            },
             'FJ202601160002': {
                 guaranteeId: 'FJ202601160002',
                 projectName: '厦门市翔安机场快速路南段工程',
@@ -376,22 +311,6 @@
                 financialInstitution: '中国工商银行',
                 amount: '¥500,000.00',
                 term: '2026-01-16 ~ 2026-05-15'
-            },
-            'FJ202601170003': {
-                guaranteeId: 'FJ202601170003',
-                projectName: '泉州市晋江下游防洪岸线生态治理',
-                guaranteeType: '预付款保函',
-                financialInstitution: '中国农业银行',
-                amount: '¥300,000.00',
-                term: '2026-01-17 ~ 2026-06-10'
-            },
-            'FJ202601180004': {
-                guaranteeId: 'FJ202601180004',
-                projectName: '漳州市古雷港经济开发区基础设施',
-                guaranteeType: '工资保函',
-                financialInstitution: '中国银行',
-                amount: '¥200,000.00',
-                term: '2026-01-18 ~ 2026-04-25'
             },
             'FJ202601190005': {
                 guaranteeId: 'FJ202601190005',
@@ -406,7 +325,7 @@
         // 申请续保 - 跳转到保函产品页面
         function applyForRenewal(guaranteeId) {
             // 获取订单数据
-            const data = orderData[guaranteeId] || orderData['FJ202601150001'];
+            const data = orderData[guaranteeId] || orderData['FJ202601160002'];
             
             // 构建URL参数
             const params = new URLSearchParams({

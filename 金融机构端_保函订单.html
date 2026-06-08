@@ -200,25 +200,35 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">保函编号</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函编号">
+                            <input type="text" id="search-guarantee-id" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入保函编号">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">合同编号</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同编号">
+                            <input type="text" id="search-contract-id" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同编号">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">合同名称</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同名称">
+                            <input type="text" id="search-contract-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入合同名称">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">合同甲方单位（发包人）</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入甲方单位名称">
+                            <input type="text" id="search-client-name" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入甲方单位名称">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">申请日期-开始</label>
+                            <input type="date" id="search-date-start" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">申请日期-结束</label>
+                            <input type="date" id="search-date-end" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">保函类型</label>
-                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            <select id="search-type" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部类型</option>
                                 <option value="performance">履约保函</option>
                                 <option value="quality">质量（结清款）保函</option>
@@ -227,7 +237,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
-                            <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            <select id="search-status" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部状态</option>
                                 <option value="pendingApproval">待审批</option>
                                 <option value="rejected">已拒绝</option>
@@ -237,10 +247,10 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-4 space-x-3">
-                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="resetSearch()">
                             <i class="fa fa-refresh mr-2"></i>重置
                         </button>
-                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="searchOrders()">
                             <i class="fa fa-search mr-2"></i>查询
                         </button>
                     </div>
@@ -271,6 +281,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函金额</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函类型</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">担保期限</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请时间</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">承保机构</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
@@ -287,6 +298,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥500,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量（结清款）保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2028-06-01</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行福建分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-yellow-100 text-yellow-700">待审批</span>
@@ -310,6 +322,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量（结清款）保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2028-04-14</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-08</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行福建分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-red-100 text-red-700">已拒绝</span>
@@ -330,6 +343,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥300,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量（结清款）保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2027-10-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行福建分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-blue-100 text-blue-700">待出函</span>
@@ -353,6 +367,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥200,000.00</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量（结清款）保函</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15 ~ 2028-06-01</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-01</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行福建分行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">已出函</span>
@@ -1126,6 +1141,16 @@
             cache.filePreviewModal = document.getElementById('file-preview-modal');
             cache.previewTitle = document.getElementById('preview-title');
             cache.previewFilename = document.getElementById('preview-filename');
+            
+            // 搜索相关
+            cache.searchGuaranteeId = document.getElementById('search-guarantee-id');
+            cache.searchContractId = document.getElementById('search-contract-id');
+            cache.searchContractName = document.getElementById('search-contract-name');
+            cache.searchClientName = document.getElementById('search-client-name');
+            cache.searchType = document.getElementById('search-type');
+            cache.searchStatus = document.getElementById('search-status');
+            cache.searchDateStart = document.getElementById('search-date-start');
+            cache.searchDateEnd = document.getElementById('search-date-end');
             
             const today = new Date();
             const dateStr = today.getFullYear() + '年' + (today.getMonth() + 1) + '月' + today.getDate() + '日';
@@ -2020,6 +2045,157 @@
             }, 3000);
         }
 
+        // 查询保函订单
+        function searchOrders() {
+            const guaranteeIdFilter = cache.searchGuaranteeId.value.trim();
+            const contractIdFilter = cache.searchContractId.value.trim();
+            const contractNameFilter = cache.searchContractName.value.trim();
+            const clientNameFilter = cache.searchClientName.value.trim();
+            const typeFilter = cache.searchType.value;
+            const statusFilter = cache.searchStatus.value;
+            const dateStartFilter = cache.searchDateStart.value;
+            const dateEndFilter = cache.searchDateEnd.value;
+            
+            // 筛选数据
+            let filteredOrders = Object.values(orderData);
+            
+            if (guaranteeIdFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    (order.guaranteeId || '').toLowerCase().includes(guaranteeIdFilter.toLowerCase())
+                );
+            }
+            
+            if (contractIdFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.contractId.toLowerCase().includes(contractIdFilter.toLowerCase())
+                );
+            }
+            
+            if (contractNameFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.contractName.toLowerCase().includes(contractNameFilter.toLowerCase())
+                );
+            }
+            
+            if (clientNameFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.partyA.toLowerCase().includes(clientNameFilter.toLowerCase())
+                );
+            }
+            
+            if (statusFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.status === statusFilter
+                );
+            }
+            
+            if (dateStartFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.contractStartDate >= dateStartFilter
+                );
+            }
+            
+            if (dateEndFilter) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.contractStartDate <= dateEndFilter
+                );
+            }
+            
+            // 重新渲染表格
+            renderOrderTable(filteredOrders);
+            
+            showNotification(`查询完成，共找到 ${filteredOrders.length} 条记录`, 'success');
+        }
+        
+        // 重置搜索条件
+        function resetSearch() {
+            cache.searchGuaranteeId.value = '';
+            cache.searchContractId.value = '';
+            cache.searchContractName.value = '';
+            cache.searchClientName.value = '';
+            cache.searchType.value = '';
+            cache.searchStatus.value = '';
+            cache.searchDateStart.value = '';
+            cache.searchDateEnd.value = '';
+            
+            // 重新渲染完整表格
+            renderOrderTable(Object.values(orderData));
+            
+            showNotification('搜索条件已重置', 'info');
+        }
+        
+        // 渲染订单表格
+        function renderOrderTable(orders) {
+            const tbody = document.querySelector('.bg-white.rounded-2xl.border.border-gray-100.shadow-sm.overflow-hidden tbody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = orders.map(order => {
+                let statusBadge, actions;
+                
+                switch(order.status) {
+                    case 'pendingApproval':
+                        statusBadge = '<span class="badge bg-yellow-100 text-yellow-700">待审批</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                            <button class="text-success hover:text-green-700 mr-3" onclick="openApprovalModal('${order.orderId}')">
+                                <i class="fa fa-check-circle mr-1"></i>审批
+                            </button>
+                        `;
+                        break;
+                    case 'rejected':
+                        statusBadge = '<span class="badge bg-red-100 text-red-700">已拒绝</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        `;
+                        break;
+                    case 'pendingIssue':
+                        statusBadge = '<span class="badge bg-blue-100 text-blue-700">待出函</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                            <button class="text-success hover:text-green-700" onclick="openUploadGuaranteeModal('${order.orderId}')">
+                                <i class="fa fa-upload mr-1"></i>上传保函
+                            </button>
+                        `;
+                        break;
+                    case 'issued':
+                        statusBadge = '<span class="badge bg-green-100 text-green-700">已出函</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary" onclick="viewOrderDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        `;
+                        break;
+                    default:
+                        statusBadge = '';
+                        actions = '';
+                }
+                
+                return `
+                    <tr class="table-row">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${order.orderId}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.guaranteeId || '-'}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.contractId}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.contractName}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.partyA}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.contractAmount}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.guaranteeAmount}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">质量（结清款）保函</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.guaranteeStartDate} ~ ${order.guaranteeEndDate}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.contractStartDate}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${order.financialInstitution}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${statusBadge}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${actions}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        
         // 导出保函订单
         function exportGuaranteeOrders() {
             showNotification('正在准备导出数据...', 'info');

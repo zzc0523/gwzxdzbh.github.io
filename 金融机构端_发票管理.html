@@ -482,14 +482,7 @@
                             <p class="text-xs text-gray-500 mb-1">纳税人识别号</p>
                             <p class="font-medium text-gray-900" id="detail-tax-id">91350000XXXXXXXXXX</p>
                         </div>
-                        <div>
-                            <p class="text-xs text-gray-500 mb-1">地址电话</p>
-                            <p class="font-medium text-gray-900" id="detail-address">福建省福州市XX区XX路XX号 0591-88888888</p>
-                        </div>
-                        <div>
-                            <p class="text-xs text-gray-500 mb-1">开户行及账号</p>
-                            <p class="font-medium text-gray-900" id="detail-bank">中国建设银行福州市XX支行 6227XXXXXXXXXXXX</p>
-                        </div>
+
                         <div>
                             <p class="text-xs text-gray-500 mb-1">联系电话</p>
                             <p class="font-medium text-gray-900" id="detail-contact-phone">13800138000</p>
@@ -629,8 +622,6 @@
             cache.detailProjectName = document.getElementById('detail-project-name');
             cache.detailGuaranteeNo = document.getElementById('detail-guarantee-no');
             cache.detailTaxId = document.getElementById('detail-tax-id');
-            cache.detailAddress = document.getElementById('detail-address');
-            cache.detailBank = document.getElementById('detail-bank');
             cache.detailApplyTime = document.getElementById('detail-apply-time');
             cache.detailCompanyName = document.getElementById('detail-company-name');
             cache.detailContactPhone = document.getElementById('detail-contact-phone');
@@ -848,8 +839,6 @@
             cache.detailProjectName.textContent = data.projectName;
             cache.detailGuaranteeNo.textContent = data.guaranteeNo;
             cache.detailTaxId.textContent = data.taxId;
-            cache.detailAddress.textContent = data.address;
-            cache.detailBank.textContent = data.bank;
             cache.detailApplyTime.textContent = data.applyTime;
             cache.detailCompanyName.textContent = data.companyName;
             cache.detailContactPhone.textContent = data.contactPhone;

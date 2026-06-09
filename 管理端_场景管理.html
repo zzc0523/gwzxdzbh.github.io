@@ -243,6 +243,7 @@
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         <input type="checkbox" class="rounded border-gray-300">
                                     </th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Logo</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">场景名称</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">场景介绍</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
@@ -254,6 +255,11 @@
                                 <tr class="table-row">
                                     <td class="px-4 py-4 whitespace-nowrap">
                                         <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                                            <i class="fa fa-image text-gray-400"></i>
+                                        </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">履约保函</td>
                                     <td class="px-4 py-4 max-w-xs truncate text-sm text-gray-700">为合同履行提供的担保，保证承包商按照合同约定履行义务。</td>
@@ -279,6 +285,11 @@
                                 <tr class="table-row">
                                     <td class="px-4 py-4 whitespace-nowrap">
                                         <input type="checkbox" class="rounded border-gray-300">
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap">
+                                        <div class="w-10 h-10 rounded-lg overflow-hidden bg-gray-100">
+                                            <img src="https://neeko-copilot.bytedance.net/api/text2image?prompt=quality%20badge%20icon%20green%20checkmark%20simple%20flat%20design&image_size=square" alt="质量保函Logo" class="w-full h-full object-cover">
+                                        </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">质量保函</td>
                                     <td class="px-4 py-4 max-w-xs truncate text-sm text-gray-700">用于工程质量保证的保函申请</td>
@@ -328,6 +339,21 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">场景介绍 <span class="text-red-500">*</span></label>
                         <textarea id="add-scene-intro" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入场景介绍"></textarea>
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景Logo <span class="text-red-500">*</span></label>
+                        <div class="mt-2 flex items-center space-x-4">
+                            <div id="add-scene-logo-preview" class="w-20 h-20 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50 cursor-pointer hover:border-primary transition-colors" onclick="document.getElementById('add-scene-logo').click()">
+                                <i class="fa fa-image text-gray-400 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <input type="file" id="add-scene-logo" accept=".jpg,.jpeg,.png" class="hidden" onchange="handleLogoUpload(this, 'add')">
+                                <p class="text-sm text-gray-500">建议尺寸：128*128，格式：jpg、png，大小：10M以内</p>
+                                <button type="button" class="mt-2 text-sm text-primary hover:text-blue-700" onclick="document.getElementById('add-scene-logo').click()">
+                                    <i class="fa fa-upload mr-1"></i>选择图片
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
@@ -359,6 +385,24 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">场景介绍 <span class="text-red-500">*</span></label>
                         <textarea id="edit-scene-intro" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入场景介绍"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">场景Logo <span class="text-red-500">*</span></label>
+                        <div class="mt-2 flex items-center space-x-4">
+                            <div id="edit-scene-logo-preview" class="w-20 h-20 border-2 border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50 cursor-pointer hover:border-primary transition-colors" onclick="document.getElementById('edit-scene-logo').click()">
+                                <i class="fa fa-image text-gray-400 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <input type="file" id="edit-scene-logo" accept=".jpg,.jpeg,.png" class="hidden" onchange="handleLogoUpload(this, 'edit')">
+                                <p class="text-sm text-gray-500">建议尺寸：128*128，格式：jpg、png，大小：10M以内</p>
+                                <button type="button" class="mt-2 text-sm text-primary hover:text-blue-700" onclick="document.getElementById('edit-scene-logo').click()">
+                                    <i class="fa fa-upload mr-1"></i>选择图片
+                                </button>
+                                <button type="button" id="edit-scene-logo-remove" class="mt-2 ml-4 text-sm text-red-500 hover:text-red-700 hidden" onclick="removeLogo('edit')">
+                                    <i class="fa fa-trash mr-1"></i>删除图片
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2541,9 +2585,15 @@
         function addScene() {
             const sceneName = document.getElementById('add-scene-name').value;
             const sceneIntro = document.getElementById('add-scene-intro').value;
+            const sceneLogo = document.getElementById('add-scene-logo').files[0];
 
             if (!sceneName || !sceneIntro) {
                 alert('请填写所有必填项！');
+                return;
+            }
+
+            if (!sceneLogo) {
+                alert('请上传场景Logo！');
                 return;
             }
 
@@ -2570,12 +2620,70 @@
             currentEditSceneId = null;
         }
 
+        // Logo上传处理函数
+        function handleLogoUpload(input, mode) {
+            const file = input.files[0];
+            if (!file) return;
+
+            // 检查文件大小（10MB = 10 * 1024 * 1024 = 10485760 bytes）
+            const maxSize = 10 * 1024 * 1024;
+            if (file.size > maxSize) {
+                alert('图片大小不能超过10M！');
+                input.value = '';
+                return;
+            }
+
+            // 检查文件格式
+            const validExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!validExtensions.test(file.name)) {
+                alert('图片格式只支持jpg、png！');
+                input.value = '';
+                return;
+            }
+
+            // 预览图片
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById(`${mode}-scene-logo-preview`);
+                preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-lg" />`;
+                preview.classList.remove('border-2', 'border-dashed', 'border-gray-200', 'bg-gray-50');
+                
+                // 显示删除按钮（仅编辑模式）
+                if (mode === 'edit') {
+                    document.getElementById('edit-scene-logo-remove').classList.remove('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 删除Logo函数
+        function removeLogo(mode) {
+            const preview = document.getElementById(`${mode}-scene-logo-preview`);
+            preview.innerHTML = '<i class="fa fa-image text-gray-400 text-xl"></i>';
+            preview.classList.add('border-2', 'border-dashed', 'border-gray-200', 'bg-gray-50');
+            
+            // 清空文件输入
+            document.getElementById(`${mode}-scene-logo`).value = '';
+            
+            // 隐藏删除按钮
+            if (mode === 'edit') {
+                document.getElementById('edit-scene-logo-remove').classList.add('hidden');
+            }
+        }
+
         function saveScene() {
             const sceneName = document.getElementById('edit-scene-name').value;
             const sceneIntro = document.getElementById('edit-scene-intro').value;
+            const sceneLogo = document.getElementById('edit-scene-logo').files[0];
+            const hasExistingLogo = document.getElementById('edit-scene-logo-preview').querySelector('img') !== null;
 
             if (!sceneName || !sceneIntro) {
                 alert('请填写所有必填项！');
+                return;
+            }
+
+            if (!sceneLogo && !hasExistingLogo) {
+                alert('请上传场景Logo！');
                 return;
             }
 

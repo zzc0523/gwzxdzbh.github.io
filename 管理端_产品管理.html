@@ -412,12 +412,16 @@
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平均时效，如：3个工作日">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品介绍 <span class="text-red-500">*</span></label>
+                            <textarea maxlength="50" rows="2" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" placeholder="请输入产品介绍（50字以内）"></textarea>
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">展业平台 <span class="text-red-500">*</span></label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">请选择展业平台</option>
-                                <option value="platform1">平台A</option>
-                                <option value="platform2">平台B</option>
-                                <option value="platform3">平台C</option>
+                                <option value="platform1">福建省平台</option>
+                                <option value="platform2">浙江省平台</option>
+                                <option value="platform3">广东省平台</option>
                             </select>
                         </div>
                         <div>
@@ -425,7 +429,7 @@
                             <select id="add-docking-method" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" onchange="toggleApiUrlField('add')">
                                 <option value="">请选择对接方式</option>
                                 <option value="api">API对接</option>
-                                <option value="manual">人工审核</option>
+                                <option value="manual">线下人工审核</option>
                             </select>
                         </div>
                         <div id="add-api-url-field" class="hidden">
@@ -443,6 +447,67 @@
                 </button>
                 <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addProduct()">
                     <i class="fa fa-check mr-2"></i>保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看产品详情模态框 -->
+    <div id="view-product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">产品详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeViewProductModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">产品名称</div>
+                        <div id="view-product-name" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">金融机构</div>
+                        <div id="view-financial-institution" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">产品类型</div>
+                        <div id="view-product-type" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">费率</div>
+                        <div id="view-rate" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">平均时效</div>
+                        <div id="view-average-time" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">产品介绍</div>
+                        <div id="view-product-intro" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">展业平台</div>
+                        <div id="view-platform" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">对接方式</div>
+                        <div id="view-docking-method" class="text-sm text-gray-900"></div>
+                    </div>
+                    <div class="flex border-b border-gray-100 pb-4">
+                        <div class="w-32 text-sm font-medium text-gray-500">接口地址</div>
+                        <div id="view-api-url" class="text-sm text-gray-900 break-all"></div>
+                    </div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500">状态</div>
+                        <div id="view-status" class="text-sm"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-gray-200 flex justify-end">
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="closeViewProductModal()">
+                    关闭
                 </button>
             </div>
         </div>
@@ -490,19 +555,23 @@
                             <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="3个工作日" placeholder="请输入平均时效，如：3个工作日">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">产品介绍 <span class="text-red-500">*</span></label>
+                            <textarea maxlength="50" rows="2" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none" placeholder="请输入产品介绍（50字以内）">为您提供专业的履约担保服务，快速审批，高效出函</textarea>
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">展业平台 <span class="text-red-500">*</span></label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">请选择展业平台</option>
-                                <option value="platform1">平台A</option>
-                                <option value="platform2">平台B</option>
-                                <option value="platform3" selected>平台C</option>
+                                <option value="platform1">福建省平台</option>
+                                <option value="platform2">浙江省平台</option>
+                                <option value="platform3" selected>广东省平台</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">对接方式 <span class="text-red-500">*</span></label>
                             <select id="edit-docking-method" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" onchange="toggleApiUrlField('edit')">
                                 <option value="api" selected>API对接</option>
-                                <option value="manual">人工审核</option>
+                                <option value="manual">线下人工审核</option>
                             </select>
                         </div>
                         <div id="edit-api-url-field">
@@ -610,7 +679,68 @@
         }
 
         function viewProduct(id) {
-            showNotification('查看产品详情', 'info');
+            const products = {
+                '1': {
+                    name: '履约保函',
+                    institution: '中国建设银行',
+                    type: '履约保函',
+                    rate: '0.5%',
+                    averageTime: '3个工作日',
+                    intro: '为您提供专业的履约担保服务，快速审批，高效出函',
+                    platform: '平台C',
+                    dockingMethod: 'API对接',
+                    apiUrl: 'https://api.example.com/guarantee',
+                    status: '已上架'
+                },
+                '2': {
+                    name: '质量（结清款）保函',
+                    institution: '中国工商银行',
+                    type: '质量（结清款）保函',
+                    rate: '0.8%',
+                    averageTime: '5个工作日',
+                    intro: '保障工程质量，确保结清款项安全',
+                    platform: '平台A',
+                    dockingMethod: '人工审核',
+                    apiUrl: '-',
+                    status: '已上架'
+                },
+                '3': {
+                    name: '预付款保函',
+                    institution: '中国太平洋保险',
+                    type: '预付款保函',
+                    rate: '1.0%',
+                    averageTime: '7个工作日',
+                    intro: '预付款安全保障，降低交易风险',
+                    platform: '平台B',
+                    dockingMethod: 'API对接',
+                    apiUrl: 'https://api.pacific.com/advance',
+                    status: '已下架'
+                }
+            };
+            
+            const product = products[id];
+            if (product) {
+                document.getElementById('view-product-name').textContent = product.name;
+                document.getElementById('view-financial-institution').textContent = product.institution;
+                document.getElementById('view-product-type').textContent = product.type;
+                document.getElementById('view-rate').textContent = product.rate;
+                document.getElementById('view-average-time').textContent = product.averageTime;
+                document.getElementById('view-product-intro').textContent = product.intro;
+                document.getElementById('view-platform').textContent = product.platform;
+                document.getElementById('view-docking-method').textContent = product.dockingMethod;
+                document.getElementById('view-api-url').textContent = product.apiUrl;
+                
+                const statusDiv = document.getElementById('view-status');
+                statusDiv.innerHTML = product.status === '已上架' 
+                    ? '<span class="badge bg-green-100 text-success">已上架</span>'
+                    : '<span class="badge bg-gray-100 text-gray-500">已下架</span>';
+                
+                document.getElementById('view-product-modal').classList.remove('hidden');
+            }
+        }
+        
+        function closeViewProductModal() {
+            document.getElementById('view-product-modal').classList.add('hidden');
         }
 
         function offlineProduct(id) {

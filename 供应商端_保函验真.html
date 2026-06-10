@@ -227,9 +227,6 @@
                         <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('bank')">
                             银行
                         </button>
-                        <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('insurance')">
-                            保险公司
-                        </button>
                         <button class="tab-button py-4 text-gray-600 hover:text-primary text-base" onclick="switchInstitutionTab('guarantee')">
                             担保公司
                         </button>
@@ -255,26 +252,6 @@
                 <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-6">
-                            <!-- Logo -->
-                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
-                                <span class="text-white font-bold text-xs">福建易众融资担保有限公司</span>
-                            </div>
-                            <!-- 机构名称 -->
-                            <div>
-                                <h3 class="text-base font-medium text-gray-900">福建易众融资担保有限公司</h3>
-                            </div>
-                        </div>
-                        <!-- 按钮 -->
-                        <button class="px-6 py-2 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed opacity-70 font-medium" disabled>
-                            立即验真
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- 机构卡片2 -->
-                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-6">
                             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
                                 <span class="text-white font-bold text-xs">中国建设银行</span>
                             </div>
@@ -288,17 +265,54 @@
                     </div>
                 </div>
                 
+                <!-- 机构卡片2 -->
+                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">泉州银行</span>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">泉州银行股份有限公司</h3>
+                            </div>
+                        </div>
+                        <button class="px-6 py-2 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed opacity-70 font-medium" disabled>
+                            立即验真
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- 机构卡片3 -->
                 <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center">
-                                <span class="text-white font-bold text-xs">中国人民保险</span>
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">浦发银行</span>
                             </div>
                             <div>
-                                <h3 class="text-base font-medium text-gray-900">中国人民财产保险股份有限公司福建省分公司</h3>
+                                <h3 class="text-base font-medium text-gray-900">上海浦东发展银行股份有限公司</h3>
                             </div>
                         </div>
+                        <button class="px-6 py-2 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed opacity-70 font-medium" disabled>
+                            立即验真
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 机构卡片4 -->
+                <div class="institution-card bg-white border border-gray-200 rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-6">
+                            <!-- Logo -->
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xs">福建易众融资担保有限公司</span>
+                            </div>
+                            <!-- 机构名称 -->
+                            <div>
+                                <h3 class="text-base font-medium text-gray-900">福建易众融资担保有限公司</h3>
+                            </div>
+                        </div>
+                        <!-- 按钮 -->
                         <button class="px-6 py-2 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed opacity-70 font-medium" disabled>
                             立即验真
                         </button>
@@ -427,7 +441,7 @@
                             <p class="text-base text-gray-900" id="result-modal-guarantee-type">投标保函</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-2">保函金额</p>
+                            <p class="text-sm text-gray-500 mb-2">保证金金额</p>
                             <p class="text-base text-gray-900" id="result-modal-guarantee-amount">¥100,000.00</p>
                         </div>
                         <div>
@@ -514,7 +528,7 @@
                             <p class="text-base font-medium text-gray-900" id="print-guarantee-type">投标保函</p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">保函金额</p>
+                            <p class="text-sm text-gray-500 mb-1">保证金金额</p>
                             <p class="text-base font-medium text-gray-900" id="print-guarantee-amount">¥100,000.00</p>
                         </div>
                         <div>

@@ -445,6 +445,9 @@
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-md font-bold text-gray-800">线上投保字段材料配置</h4>
                         <div class="flex space-x-3">
+                            <button class="px-4 py-2 border border-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors" onclick="restoreDefaultOnlineFields()">
+                                <i class="fa fa-rotate-right mr-1"></i>恢复默认配置
+                            </button>
                             <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-secondary transition-colors" onclick="selectAllOnlineFields()">
                                 <i class="fa fa-check-square mr-1"></i>全选
                             </button>
@@ -460,16 +463,14 @@
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段分类</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段名称</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">类型</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否需要</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">默认配置项</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
                                 </tr>
                             </thead>
                             <tbody><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同甲方单位（发包人）</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -482,12 +483,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-1" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-1" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同甲方企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -500,12 +511,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-2" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-2" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">客服电话</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -518,12 +539,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-3" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-3" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同签订日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -536,12 +567,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-4" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-4" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同签订地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -554,12 +595,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-5" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-5" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同编号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -572,12 +623,22 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-6" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-6" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
     <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
@@ -590,13 +651,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-7" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-7" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-8" value="yes" checked class="text-primary">
@@ -608,13 +679,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-8" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-8" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同金额（元）</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-9" value="yes" checked class="text-primary">
@@ -626,13 +707,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-9" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-9" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金金额（元）</td>
     <td class="px-4 py-2 border border-gray-200">数值</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-10" value="yes" checked class="text-primary">
@@ -644,13 +735,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-10" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-10" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金起始日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-11" value="yes" checked class="text-primary">
@@ -662,13 +763,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-11" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-11" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金结束日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-12" value="yes" checked class="text-primary">
@@ -680,13 +791,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-12" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-12" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">项目地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-13" value="yes" checked class="text-primary">
@@ -698,13 +819,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-13" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-13" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">项目详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-14" value="yes" checked class="text-primary">
@@ -716,13 +847,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-14" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-14" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同起期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-15" value="yes" checked class="text-primary">
@@ -734,13 +875,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-15" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-15" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同止期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-16" value="yes" checked class="text-primary">
@@ -752,13 +903,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-16" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-16" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保起期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-17" value="yes" checked class="text-primary">
@@ -770,13 +931,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-17" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-17" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保止期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-18" value="yes" checked class="text-primary">
@@ -788,13 +959,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-18" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-18" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保期限（天）</td>
     <td class="px-4 py-2 border border-gray-200">数值</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-19" value="yes" checked class="text-primary">
@@ -806,13 +987,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-19" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-19" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保有效期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-20" value="yes" checked class="text-primary">
@@ -824,13 +1015,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-20" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-20" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-21" value="yes" checked class="text-primary">
@@ -842,13 +1043,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-21" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-21" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-22" value="yes" checked class="text-primary">
@@ -860,13 +1071,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-22" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-22" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业经营范围</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-23" value="yes"  class="text-primary">
@@ -878,13 +1099,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-23" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-23" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">营业执照有限期类型</td>
     <td class="px-4 py-2 border border-gray-200">短期/长期</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-24" value="yes"  class="text-primary">
@@ -896,13 +1128,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-24" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-24" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">营业执照有效期截止日</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-25" value="yes"  class="text-primary">
@@ -914,13 +1157,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-25" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-25" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人行业</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-26" value="yes" checked class="text-primary">
@@ -932,13 +1186,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-26" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-26" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人纳税人类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-27" value="yes"  class="text-primary">
@@ -950,13 +1214,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-27" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-27" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">企业类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-28" value="yes"  class="text-primary">
@@ -968,13 +1243,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-28" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-28" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业资质等级</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-29" value="yes" checked class="text-primary">
@@ -986,13 +1272,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-29" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-29" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人姓名</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-30" value="yes" checked class="text-primary">
@@ -1004,13 +1300,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-30" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-30" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-31" value="yes" checked class="text-primary">
@@ -1022,13 +1328,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-31" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-31" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">身份证到期时间</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-32" value="yes" checked class="text-primary">
@@ -1040,13 +1356,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-32" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-32" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">税务登记地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-33" value="yes"  class="text-primary">
@@ -1058,13 +1384,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-33" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-33" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">税务登记电话</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-34" value="yes"  class="text-primary">
@@ -1076,13 +1413,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-34" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-34" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">开户行名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-35" value="yes" checked class="text-primary">
@@ -1094,13 +1442,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-35" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-35" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">银行账号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-36" value="yes" checked class="text-primary">
@@ -1112,13 +1470,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-36" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-36" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人姓名</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-37" value="yes" checked class="text-primary">
@@ -1130,13 +1498,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-37" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-37" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-38" value="yes" checked class="text-primary">
@@ -1148,13 +1526,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-38" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-38" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-39" value="yes" checked class="text-primary">
@@ -1166,13 +1554,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-39" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-39" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人手机号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-40" value="yes" checked class="text-primary">
@@ -1184,13 +1582,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-40" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-40" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人电子邮箱</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-41" value="yes"  class="text-primary">
@@ -1202,13 +1610,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-41" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-41" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-42" value="yes" checked class="text-primary">
@@ -1220,13 +1639,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-42" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-42" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-43" value="yes" checked class="text-primary">
@@ -1238,13 +1667,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-43" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-43" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-44" value="yes"  class="text-primary">
@@ -1256,13 +1695,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-44" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-44" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-45" value="yes"  class="text-primary">
@@ -1274,13 +1724,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-45" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-45" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">项目合同</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-46" value="yes" checked class="text-primary">
@@ -1292,13 +1753,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-46" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-46" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业营业执照</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-47" value="yes" checked class="text-primary">
@@ -1310,13 +1781,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-47" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-47" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">资质证书</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-48" value="yes" checked class="text-primary">
@@ -1328,13 +1809,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-48" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-48" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（人像面）</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-49" value="yes" checked class="text-primary">
@@ -1346,13 +1837,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-49" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-49" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（国徽面）</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-50" value="yes" checked class="text-primary">
@@ -1364,13 +1865,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-50" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-50" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">审计报告</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-51" value="yes" checked class="text-primary">
@@ -1382,13 +1893,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-51" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-51" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">财务报表</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-52" value="yes" checked class="text-primary">
@@ -1400,13 +1921,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-52" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-52" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">被保险人营业执照照片</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-53" value="yes"  class="text-primary">
@@ -1418,13 +1949,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-53" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-53" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">其他材料</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="online-field-54" value="yes"  class="text-primary">
@@ -1436,7 +1978,18 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="online-required-54" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="online-required-54" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr></tbody>
                         </table>
                     </div>
@@ -1447,6 +2000,9 @@
                     <div class="flex items-center justify-between mb-4">
                         <h4 class="text-md font-bold text-gray-800">线下投保字段材料配置</h4>
                         <div class="flex space-x-3">
+                            <button class="px-4 py-2 border border-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors" onclick="restoreDefaultOfflineFields()">
+                                <i class="fa fa-rotate-right mr-1"></i>恢复默认配置
+                            </button>
                             <button class="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-secondary transition-colors" onclick="selectAllOfflineFields()">
                                 <i class="fa fa-check-square mr-1"></i>全选
                             </button>
@@ -1462,17 +2018,15 @@
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段分类</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">字段名称</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">类型</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
                                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否需要</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">默认配置项</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-200">是否必填</th>
                                 </tr>
                             </thead>
                             <tbody><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同甲方单位（发包人）</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-1" value="yes" checked class="text-primary">
@@ -1484,13 +2038,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-1" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-1" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同甲方企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-2" value="yes" checked class="text-primary">
@@ -1502,13 +2066,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-2" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-2" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">客服电话</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-3" value="yes"  class="text-primary">
@@ -1520,13 +2094,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-3" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-3" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同签订日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-4" value="yes" checked class="text-primary">
@@ -1538,13 +2123,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-4" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-4" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同签订地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-5" value="yes" checked class="text-primary">
@@ -1556,13 +2151,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-5" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-5" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同编号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-6" value="yes" checked class="text-primary">
@@ -1574,13 +2179,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-6" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-6" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-7" value="yes" checked class="text-primary">
@@ -1592,13 +2207,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-7" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-7" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-8" value="yes" checked class="text-primary">
@@ -1610,13 +2236,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-8" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-8" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同金额（元）</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-9" value="yes" checked class="text-primary">
@@ -1628,13 +2264,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-9" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-9" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金金额（元）</td>
     <td class="px-4 py-2 border border-gray-200">数值</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-10" value="yes" checked class="text-primary">
@@ -1646,13 +2292,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-10" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-10" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金起始日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-11" value="yes" checked class="text-primary">
@@ -1664,13 +2320,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-11" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-11" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">保证金结束日期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-12" value="yes" checked class="text-primary">
@@ -1682,13 +2348,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-12" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-12" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">项目地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-13" value="yes" checked class="text-primary">
@@ -1700,13 +2376,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-13" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-13" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">项目详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-14" value="yes" checked class="text-primary">
@@ -1718,13 +2404,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-14" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-14" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同起期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-15" value="yes" checked class="text-primary">
@@ -1736,13 +2432,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-15" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-15" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">合同信息</td>
     <td class="px-4 py-2 border border-gray-200">合同止期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-16" value="yes" checked class="text-primary">
@@ -1754,13 +2460,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-16" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-16" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保起期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-17" value="yes" checked class="text-primary">
@@ -1772,13 +2488,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-17" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-17" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保止期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-18" value="yes" checked class="text-primary">
@@ -1790,13 +2516,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-18" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-18" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保期限（天）</td>
     <td class="px-4 py-2 border border-gray-200">数值</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-19" value="yes" checked class="text-primary">
@@ -1808,13 +2544,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-19" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-19" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保信息</td>
     <td class="px-4 py-2 border border-gray-200">担保有效期</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-20" value="yes" checked class="text-primary">
@@ -1826,13 +2572,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-20" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-20" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-21" value="yes" checked class="text-primary">
@@ -1844,13 +2600,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-21" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-21" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-22" value="yes" checked class="text-primary">
@@ -1862,13 +2628,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-22" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-22" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业经营范围</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-23" value="yes"  class="text-primary">
@@ -1880,13 +2656,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-23" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-23" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">营业执照有限期类型</td>
     <td class="px-4 py-2 border border-gray-200">短期/长期</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-24" value="yes"  class="text-primary">
@@ -1898,13 +2685,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-24" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-24" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">营业执照有效期截止日</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-25" value="yes"  class="text-primary">
@@ -1916,13 +2714,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-25" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-25" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人行业</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-26" value="yes" checked class="text-primary">
@@ -1934,13 +2743,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-26" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-26" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保人纳税人类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-27" value="yes"  class="text-primary">
@@ -1952,13 +2771,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-27" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-27" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">企业类型</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-28" value="yes"  class="text-primary">
@@ -1970,13 +2800,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-28" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-28" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业资质等级</td>
     <td class="px-4 py-2 border border-gray-200">下拉框</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-29" value="yes" checked class="text-primary">
@@ -1988,13 +2829,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-29" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-29" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人姓名</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-30" value="yes" checked class="text-primary">
@@ -2006,13 +2857,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-30" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-30" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-31" value="yes" checked class="text-primary">
@@ -2024,13 +2885,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-31" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-31" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">身份证到期时间</td>
     <td class="px-4 py-2 border border-gray-200">日期</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-32" value="yes" checked class="text-primary">
@@ -2042,13 +2913,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-32" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-32" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">税务登记地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-33" value="yes"  class="text-primary">
@@ -2060,13 +2941,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-33" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-33" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">税务登记电话</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-34" value="yes"  class="text-primary">
@@ -2078,13 +2970,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-34" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-34" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">开户行名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-35" value="yes" checked class="text-primary">
@@ -2096,13 +2999,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-35" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-35" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">银行账号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-36" value="yes" checked class="text-primary">
@@ -2114,13 +3027,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-36" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-36" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人姓名</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-37" value="yes" checked class="text-primary">
@@ -2132,13 +3055,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-37" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-37" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-38" value="yes" checked class="text-primary">
@@ -2150,13 +3083,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-38" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-38" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-39" value="yes" checked class="text-primary">
@@ -2168,13 +3111,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-39" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-39" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人手机号</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-40" value="yes" checked class="text-primary">
@@ -2186,13 +3139,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-40" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-40" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保人信息</td>
     <td class="px-4 py-2 border border-gray-200">联系人电子邮箱</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-41" value="yes"  class="text-primary">
@@ -2204,13 +3167,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-41" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-41" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人企业名称</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-42" value="yes" checked class="text-primary">
@@ -2222,13 +3196,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-42" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-42" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">统一社会信用代码</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-43" value="yes" checked class="text-primary">
@@ -2240,13 +3224,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-43" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-43" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人地址</td>
     <td class="px-4 py-2 border border-gray-200">省市区</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-44" value="yes"  class="text-primary">
@@ -2258,13 +3252,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-44" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-44" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">被保证人信息</td>
     <td class="px-4 py-2 border border-gray-200">被保险人详细地址</td>
     <td class="px-4 py-2 border border-gray-200">文本</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-45" value="yes"  class="text-primary">
@@ -2276,13 +3281,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-45" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-45" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">项目合同</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-46" value="yes" checked class="text-primary">
@@ -2294,13 +3310,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-46" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-46" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业营业执照</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-47" value="yes" checked class="text-primary">
@@ -2312,13 +3338,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-47" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-47" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">资质证书</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-48" value="yes" checked class="text-primary">
@@ -2330,13 +3366,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-48" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-48" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（人像面）</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-49" value="yes" checked class="text-primary">
@@ -2348,13 +3394,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-49" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-49" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">投保企业法定代表人身份证（国徽面）</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-50" value="yes" checked class="text-primary">
@@ -2366,13 +3422,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-50" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-50" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">审计报告</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-51" value="yes" checked class="text-primary">
@@ -2384,13 +3450,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-51" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-51" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">财务报表</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 text-red-600">是</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-52" value="yes" checked class="text-primary">
@@ -2402,13 +3478,23 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-52" value="yes" checked class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-52" value="no"  class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
 </tr><tr class="">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">被保险人营业执照照片</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-53" value="yes"  class="text-primary">
@@ -2420,13 +3506,24 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-53" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-53" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr><tr class="bg-gray-50">
     <td class="px-4 py-2 border border-gray-200">投保材料</td>
     <td class="px-4 py-2 border border-gray-200">其他材料</td>
     <td class="px-4 py-2 border border-gray-200">文件</td>
-    <td class="px-4 py-2 border border-gray-200 ">否</td>
-    <td class="px-4 py-2 border border-gray-200">
+        <td class="px-4 py-2 border border-gray-200">
         <div class="flex items-center space-x-2">
             <label class="flex items-center">
                 <input type="radio" name="offline-field-54" value="yes"  class="text-primary">
@@ -2438,7 +3535,19 @@
             </label>
         </div>
     </td>
-    <td class="px-4 py-2 border border-gray-200">默认配置</td>
+    <td class="px-4 py-2 border border-gray-200">
+        <div class="flex items-center space-x-2">
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-54" value="yes"  class="text-primary">
+                <span class="ml-1 text-xs">是</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="offline-required-54" value="no" checked class="text-primary">
+                <span class="ml-1 text-xs">否</span>
+            </label>
+        </div>
+    </td>
+    
 </tr></tbody>
                         </table>
                     </div>
@@ -2544,6 +3653,19 @@
             });
         }
 
+        // 线上字段恢复默认配置
+        function restoreDefaultOnlineFields() {
+            // 默认配置：所有字段"是否需要"为"是"，"是否必填"为"是"
+            const fieldRadios = document.querySelectorAll('input[type="radio"][name^="online-field-"][value="yes"]');
+            const requiredRadios = document.querySelectorAll('input[type="radio"][name^="online-required-"][value="yes"]');
+            fieldRadios.forEach(radio => {
+                radio.checked = true;
+            });
+            requiredRadios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
         // 线下字段全选
         function selectAllOfflineFields() {
             const radios = document.querySelectorAll('input[type="radio"][name^="offline-field-"][value="yes"]');
@@ -2556,6 +3678,19 @@
         function clearAllOfflineFields() {
             const radios = document.querySelectorAll('input[type="radio"][name^="offline-field-"][value="no"]');
             radios.forEach(radio => {
+                radio.checked = true;
+            });
+        }
+
+        // 线下字段恢复默认配置
+        function restoreDefaultOfflineFields() {
+            // 默认配置：所有字段"是否需要"为"是"，"是否必填"为"是"
+            const fieldRadios = document.querySelectorAll('input[type="radio"][name^="offline-field-"][value="yes"]');
+            const requiredRadios = document.querySelectorAll('input[type="radio"][name^="offline-required-"][value="yes"]');
+            fieldRadios.forEach(radio => {
+                radio.checked = true;
+            });
+            requiredRadios.forEach(radio => {
                 radio.checked = true;
             });
         }
@@ -2761,4 +3896,4 @@
         }
     </script>
 </body>
-</html>
+</html>    

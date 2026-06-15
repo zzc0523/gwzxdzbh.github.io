@@ -675,9 +675,6 @@
                                     <span class="badge bg-green-100 text-success">导入成功</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('1')">
-                                        <i class="fa fa-eye mr-1"></i>查看
-                                    </button>
                                     <button class="text-warning hover:text-yellow-600" onclick="downloadErrorLog('1')">
                                         <i class="fa fa-download mr-1"></i>错误日志
                                     </button>
@@ -693,9 +690,6 @@
                                     <span class="badge bg-green-100 text-success">导入成功</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('2')">
-                                        <i class="fa fa-eye mr-1"></i>查看
-                                    </button>
                                 </td>
                             </tr>
                             <tr class="table-row">
@@ -708,9 +702,6 @@
                                     <span class="badge bg-red-100 text-danger">导入失败</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewImportDetail('3')">
-                                        <i class="fa fa-eye mr-1"></i>查看
-                                    </button>
                                     <button class="text-warning hover:text-yellow-600" onclick="downloadErrorLog('3')">
                                         <i class="fa fa-download mr-1"></i>错误日志
                                     </button>
@@ -743,84 +734,6 @@
                 <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeImportHistoryModal()">
                     关闭
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 导入详情模态框 -->
-    <div id="import-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-            <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">导入详情</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeImportDetailModal()">
-                    <i class="fa fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">导入时间</p>
-                        <p class="text-lg font-medium text-gray-900">2026-04-15 14:30:00</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">文件名</p>
-                        <p class="text-lg font-medium text-gray-900">合同数据-20260415.xlsx</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">导入数量</p>
-                        <p class="text-lg font-medium text-gray-900">100</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">成功数量</p>
-                        <p class="text-lg font-medium text-success">98</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">失败数量</p>
-                        <p class="text-lg font-medium text-danger">2</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">状态</p>
-                        <p class="text-lg font-medium text-success">导入成功</p>
-                    </div>
-                </div>
-                
-                <!-- 失败记录 -->
-                <div class="mb-6">
-                    <h4 class="text-md font-bold text-gray-800 mb-3">失败记录</h4>
-                    <div class="overflow-x-auto">
-                        <table class="w-full border border-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">行号</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">合同编号</th>
-                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b">错误信息</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="px-4 py-3 border-b">5</td>
-                                    <td class="px-4 py-3 border-b">HT202604001</td>
-                                    <td class="px-4 py-3 border-b text-danger">合同金额格式错误</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-3">12</td>
-                                    <td class="px-4 py-3">HT202604008</td>
-                                    <td class="px-4 py-3 text-danger">供应商不存在</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- 操作 -->
-                <div class="flex justify-end">
-                    <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors mr-3" onclick="downloadErrorLog('1')">
-                        <i class="fa fa-download mr-2"></i>下载错误日志
-                    </button>
-                    <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeImportDetailModal()">
-                        关闭
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -1214,14 +1127,6 @@
             document.getElementById('import-history-modal').classList.add('hidden');
         }
 
-        function viewImportDetail(id) {
-            document.getElementById('import-detail-modal').classList.remove('hidden');
-        }
-
-        function closeImportDetailModal() {
-            document.getElementById('import-detail-modal').classList.add('hidden');
-        }
-
         function downloadErrorLog(id) {
             showNotification('错误日志下载中...', 'info');
             setTimeout(() => {
@@ -1236,12 +1141,6 @@
             }
         });
 
-        // 点击导入详情模态框外部关闭
-        document.getElementById('import-detail-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeImportDetailModal();
-            }
-        });
     </script>
 </body>
 </html>

@@ -267,9 +267,13 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部状态</option>
-                                <option value="approved">生效中</option>
-                                <option value="waiting_renew">待续保</option>
-                                <option value="expired">已过期</option>
+                                <option value="applying">申请中</option>
+                                <option value="reviewing">审批中</option>
+                                <option value="cancelled">已撤销</option>
+                                <option value="rejected">审批不通过</option>
+                                <option value="pending_payment">待支付</option>
+                                <option value="paid">已支付</option>
+                                <option value="issued">已出函</option>
                             </select>
                         </div>
                     </div>
@@ -325,7 +329,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2024-04-15 ~ 2026-04-14</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国建设银行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-green-100 text-success">生效中</span>
+                                        <span class="badge bg-blue-100 text-primary">已出函</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-01</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -350,15 +354,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2024-06-15 ~ 2025-12-15</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国工商银行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-green-100 text-success">生效中</span>
+                                        <span class="badge bg-green-100 text-success">已支付</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-28</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('2')">
                                             <i class="fa fa-eye mr-1"></i>查看
-                                        </button>
-                                        <button class="text-warning hover:text-yellow-600" onclick="downloadGuarantee('2')">
-                                            <i class="fa fa-download mr-1"></i>下载
                                         </button>
                                     </td>
                                 </tr>
@@ -375,7 +376,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2024-04-15 ~ 2025-04-14</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">中国农业银行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-gray-100 text-gray-500">已过期</span>
+                                        <span class="badge bg-red-100 text-red-600">审批不通过</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-15</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -397,11 +398,77 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2024-07-20 ~ 2026-06-01</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">招商银行</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-orange-100 text-orange-700">待续保</span>
+                                        <span class="badge bg-yellow-100 text-yellow-700">待支付</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-10</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                         <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('6')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604200007</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604200007</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州市城市快速路工程</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州市住建局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省漳州市龙文区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">履约保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥600,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">¥3,000.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-20 ~ 2028-04-19</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">交通银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-gray-100 text-gray-600">申请中</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-20</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('7')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604190008</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604190008</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">龙岩市体育中心项目</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">龙岩市体育局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省龙岩市新罗区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">投标保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥100,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">¥500.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-19 ~ 2026-07-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">建设银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-orange-100 text-orange-600">审批中</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-19</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('8')">
+                                            <i class="fa fa-eye mr-1"></i>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">DD202604180009</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">HT202604180009</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">三明市文化艺术中心</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">三明市文旅局</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省三明市梅列区</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">-</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">预付款保函</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥400,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-primary font-medium">¥2,000.00</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-18 ~ 2028-04-17</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">农业银行</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-gray-100 text-gray-500">已撤销</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('9')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
                                     </td>
@@ -617,12 +684,9 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end space-x-3">
+            <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end space-x-3" id="detail-action-buttons">
                 <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeGuaranteeDetailModal()">
                     关闭
-                </button>
-                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="downloadGuarantee()">
-                    <i class="fa fa-download mr-2"></i>下载保函
                 </button>
             </div>
         </div>
@@ -821,7 +885,8 @@
                     guaranteeType: '质量（结清款）保函',
                     projectName: '福州市地铁1号线配套工程',
                     amount: '¥150,000',
-                    status: '生效中',
+                    status: '已出函',
+                    canDownload: true,
                     contractCode: 'XM2026040001',
                     partyA: '福州市地铁集团有限公司',
                     partyAName: '福州市地铁集团有限公司',
@@ -851,7 +916,8 @@
                     guaranteeType: '质量（结清款）保函',
                     projectName: '厦门市环岛路扩建工程',
                     amount: '¥200,000',
-                    status: '生效中',
+                    status: '已支付',
+                    canDownload: false,
                     contractCode: 'XM2026040002',
                     partyA: '厦门新机场建设指挥部',
                     partyAName: '厦门新机场建设指挥部',
@@ -881,7 +947,8 @@
                     guaranteeType: '质量（结清款）保函',
                     projectName: '泉州市高速公路连接线工程',
                     amount: '¥300,000',
-                    status: '已过期',
+                    status: '审批不通过',
+                    canDownload: false,
                     contractCode: 'XM2026040003',
                     partyA: '泉州市交通运输局',
                     partyAName: '泉州市交通运输局',
@@ -911,7 +978,8 @@
                     guaranteeType: '质量（结清款）保函',
                     projectName: '莆田市木兰溪防洪工程',
                     amount: '¥200,000',
-                    status: '待续保',
+                    status: '待支付',
+                    canDownload: false,
                     contractCode: 'XM202604150006',
                     partyA: '莆田市水利局',
                     partyAName: '莆田市水利局',
@@ -1018,6 +1086,14 @@
             } else {
                 otherFile2Section.classList.add('hidden');
             }
+
+            // 更新操作按钮
+            const actionButtonsEl = document.getElementById('detail-action-buttons');
+            let buttonsHtml = '<button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeGuaranteeDetailModal()">关闭</button>';
+            if (data.canDownload) {
+                buttonsHtml += '<button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="downloadGuarantee()"><i class="fa fa-download mr-2"></i>下载保函</button>';
+            }
+            actionButtonsEl.innerHTML = buttonsHtml;
 
             document.getElementById('guarantee-detail-modal').classList.remove('hidden');
         }

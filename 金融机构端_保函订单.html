@@ -239,9 +239,12 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">状态</label>
                             <select id="search-status" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部状态</option>
-                                <option value="pendingApproval">待审批</option>
-                                <option value="rejected">已拒绝</option>
-                                <option value="pendingIssue">待出函</option>
+                                <option value="applying">申请中</option>
+                                <option value="reviewing">审批中</option>
+                                <option value="cancelled">已撤销</option>
+                                <option value="rejected">审批不通过</option>
+                                <option value="pending_payment">待支付</option>
+                                <option value="paid">已支付</option>
                                 <option value="issued">已出函</option>
                             </select>
                         </div>
@@ -969,7 +972,7 @@
                 contractFile: '项目合同_福州市地铁5号线延长线工程.pdf',
                 otherFile1: '补充说明.pdf',
                 otherFile2: '其他材料.zip',
-                status: 'pendingApproval',
+                status: 'reviewing',
                 rejectReason: '',
                 premium: '',
                 paymentVoucher: null
@@ -1033,7 +1036,7 @@
                 contractFile: '项目合同_泉州市高速公路连接线工程.pdf',
                 otherFile1: '',
                 otherFile2: '其他材料.zip',
-                status: 'pendingIssue',
+                status: 'paid',
                 rejectReason: '',
                 premium: '¥15,000.00',
                 paymentVoucher: {
@@ -1075,6 +1078,102 @@
                     name: '缴费凭证_莆田木兰溪.pdf',
                     size: '1.2 MB'
                 }
+            },
+            'DD202604200005': {
+                orderId: 'DD202604200005',
+                guaranteeId: '',
+                contractId: 'XM202604200005',
+                contractName: '南平市滨江路改造工程',
+                partyA: '南平市住建局',
+                partyAName: '南平市住建局',
+                contractAmount: '¥5,000,000.00',
+                guaranteeAmount: '¥250,000.00',
+                qualityStartDate: '2026-04-20',
+                qualityEndDate: '2028-05-20',
+                provinceCity: '福建省南平市延平区',
+                detailAddress: '滨江路改造施工现场',
+                contractStartDate: '2026-04-20',
+                contractEndDate: '2028-04-19',
+                guaranteeStartDate: '2026-04-20',
+                guaranteeEndDate: '2028-05-20',
+                guaranteePeriod: '761天',
+                financialInstitution: '中国建设银行福建分行',
+                applicantName: '南平市政工程有限公司',
+                unifiedCreditCode: '91350700MA56K9X3Y',
+                contactName: '孙九',
+                contactPhone: '13400134000',
+                licenseFile: '营业执照_扫描件.pdf',
+                contractFile: '项目合同_南平市滨江路改造工程.pdf',
+                otherFile1: '补充说明.pdf',
+                otherFile2: '',
+                status: 'applying',
+                rejectReason: '',
+                premium: '',
+                paymentVoucher: null
+            },
+            'DD202604180007': {
+                orderId: 'DD202604180007',
+                guaranteeId: '',
+                contractId: 'XM202604180007',
+                contractName: '龙岩市体育公园建设项目',
+                partyA: '龙岩市体育局',
+                partyAName: '龙岩市体育局',
+                contractAmount: '¥8,000,000.00',
+                guaranteeAmount: '¥400,000.00',
+                qualityStartDate: '2026-04-18',
+                qualityEndDate: '2028-07-18',
+                provinceCity: '福建省龙岩市新罗区',
+                detailAddress: '体育公园建设现场',
+                contractStartDate: '2026-04-18',
+                contractEndDate: '2028-04-17',
+                guaranteeStartDate: '2026-04-18',
+                guaranteeEndDate: '2028-07-18',
+                guaranteePeriod: '822天',
+                financialInstitution: '中国建设银行福建分行',
+                applicantName: '龙岩市体育设施有限公司',
+                unifiedCreditCode: '91350800MA67K8X4Y',
+                contactName: '周十',
+                contactPhone: '13300133000',
+                licenseFile: '营业执照_扫描件.pdf',
+                contractFile: '项目合同_龙岩市体育公园建设项目.pdf',
+                otherFile1: '',
+                otherFile2: '',
+                status: 'cancelled',
+                rejectReason: '',
+                premium: '',
+                paymentVoucher: null
+            },
+            'DD202604160008': {
+                orderId: 'DD202604160008',
+                guaranteeId: '',
+                contractId: 'XM202604160008',
+                contractName: '三明市文化艺术中心项目',
+                partyA: '三明市文旅局',
+                partyAName: '三明市文旅局',
+                contractAmount: '¥6,500,000.00',
+                guaranteeAmount: '¥325,000.00',
+                qualityStartDate: '2026-04-16',
+                qualityEndDate: '2028-06-16',
+                provinceCity: '福建省三明市梅列区',
+                detailAddress: '文化艺术中心项目现场',
+                contractStartDate: '2026-04-16',
+                contractEndDate: '2028-04-15',
+                guaranteeStartDate: '2026-04-16',
+                guaranteeEndDate: '2028-06-16',
+                guaranteePeriod: '792天',
+                financialInstitution: '中国建设银行福建分行',
+                applicantName: '三明市文化建设有限公司',
+                unifiedCreditCode: '91350400MA78K7X5Y',
+                contactName: '吴十一',
+                contactPhone: '13200132000',
+                licenseFile: '营业执照_扫描件.pdf',
+                contractFile: '项目合同_三明市文化艺术中心项目.pdf',
+                otherFile1: '补充说明.pdf',
+                otherFile2: '其他材料.zip',
+                status: 'pending_payment',
+                rejectReason: '',
+                premium: '¥8,000.00',
+                paymentVoucher: null
             }
         };
         
@@ -1181,7 +1280,10 @@
             if (cache.rejectReasonInput) {
                 cache.rejectReasonInput.addEventListener('input', checkApprovalFormValid);
             }
-            
+
+            // 初始渲染订单表格
+            renderOrderTable(Object.values(orderData));
+
         });
 
         function toggleMenu(menuId) {
@@ -1252,14 +1354,23 @@
                 // 更新状态显示
                 let statusText = '';
                 switch(order.status) {
-                    case 'pendingApproval':
-                        statusText = '待审批';
+                    case 'applying':
+                        statusText = '申请中';
+                        break;
+                    case 'reviewing':
+                        statusText = '审批中';
+                        break;
+                    case 'cancelled':
+                        statusText = '已撤销';
                         break;
                     case 'rejected':
-                        statusText = '已拒绝';
+                        statusText = '审批不通过';
                         break;
-                    case 'pendingIssue':
-                        statusText = '待出函';
+                    case 'pending_payment':
+                        statusText = '待支付';
+                        break;
+                    case 'paid':
+                        statusText = '已支付';
                         break;
                     case 'issued':
                         statusText = '已出函';
@@ -1274,16 +1385,16 @@
                     cache.rejectReasonSection.classList.add('hidden');
                 }
                 
-                // 处理保费区域（待出函、已出函状态显示）
-                if ((order.status === 'pendingIssue' || order.status === 'issued') && order.premium) {
+                // 处理保费区域（已支付、已出函状态显示）
+                if ((order.status === 'paid' || order.status === 'issued') && order.premium) {
                     cache.premiumSection.classList.remove('hidden');
                     cache.detailPremium.textContent = order.premium;
                 } else {
                     cache.premiumSection.classList.add('hidden');
                 }
                 
-                // 处理缴费凭证区域（待出函、已出函状态显示）
-                if (order.status === 'pendingIssue' || order.status === 'issued') {
+                // 处理缴费凭证区域（已支付、已出函状态显示）
+                if (order.status === 'paid' || order.status === 'issued') {
                     cache.paymentVoucherSection.classList.remove('hidden');
                     
                     let actionsHTML = '';
@@ -1615,20 +1726,20 @@
                 
                 showNotification('正在处理审批...', 'info');
                 setTimeout(function() {
-                    // 更新订单状态为待出函，并保存保费
+                    // 更新订单状态为待支付，并保存保费
                     if (orderData[currentOrderId]) {
-                        orderData[currentOrderId].status = 'pendingIssue';
+                        orderData[currentOrderId].status = 'pending_payment';
                         orderData[currentOrderId].premium = '¥' + Number(cache.premiumInput.value).toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                     }
-                    
+
                     // 更新列表状态
-                    updateOrderListStatus(currentOrderId, 'pendingIssue');
-                    
+                    updateOrderListStatus(currentOrderId, 'pending_payment');
+
                     // 关闭弹窗
                     closeApprovalModal();
-                    
+
                     // 显示成功通知
-                    showNotification('审批通过，订单状态已变更为待出函！', 'success');
+                    showNotification('审批通过，订单状态已变更为待支付！', 'success');
                 }, 1000);
             } else if (selectedValue === 'reject') {
                 if (!cache.rejectReasonInput.value.trim()) {
@@ -1651,7 +1762,7 @@
                     closeApprovalModal();
                     
                     // 显示成功通知
-                    showNotification('已拒绝该订单！', 'success');
+                    showNotification('审批不通过，订单状态已变更！', 'success');
                 }, 1000);
             }
         }
@@ -1858,21 +1969,33 @@
                             let badgeClass = '';
                             
                             switch(newStatus) {
-                                case 'pendingApproval':
-                                    statusText = '待审批';
-                                    badgeClass = 'badge bg-yellow-100 text-yellow-700';
+                                case 'applying':
+                                    statusText = '申请中';
+                                    badgeClass = 'badge bg-gray-100 text-gray-600';
+                                    break;
+                                case 'reviewing':
+                                    statusText = '审批中';
+                                    badgeClass = 'badge bg-orange-100 text-orange-600';
+                                    break;
+                                case 'cancelled':
+                                    statusText = '已撤销';
+                                    badgeClass = 'badge bg-gray-100 text-gray-500';
                                     break;
                                 case 'rejected':
-                                    statusText = '已拒绝';
-                                    badgeClass = 'badge bg-red-100 text-red-700';
+                                    statusText = '审批不通过';
+                                    badgeClass = 'badge bg-red-100 text-red-600';
                                     break;
-                                case 'pendingIssue':
-                                    statusText = '待出函';
-                                    badgeClass = 'badge bg-blue-100 text-blue-700';
+                                case 'pending_payment':
+                                    statusText = '待支付';
+                                    badgeClass = 'badge bg-yellow-100 text-yellow-700';
+                                    break;
+                                case 'paid':
+                                    statusText = '已支付';
+                                    badgeClass = 'badge bg-green-100 text-success';
                                     break;
                                 case 'issued':
                                     statusText = '已出函';
-                                    badgeClass = 'badge bg-green-100 text-success';
+                                    badgeClass = 'badge bg-blue-100 text-primary';
                                     break;
                             }
                             
@@ -2126,12 +2249,20 @@
             
             tbody.innerHTML = orders.map(order => {
                 let statusBadge, actions;
-                
+
                 switch(order.status) {
-                    case 'pendingApproval':
-                        statusBadge = '<span class="badge bg-yellow-100 text-yellow-700">待审批</span>';
+                    case 'applying':
+                        statusBadge = '<span class="badge bg-gray-100 text-gray-600">申请中</span>';
                         actions = `
-                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        `;
+                        break;
+                    case 'reviewing':
+                        statusBadge = '<span class="badge bg-orange-100 text-orange-600">审批中</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
                                 <i class="fa fa-eye mr-1"></i>查看
                             </button>
                             <button class="text-success hover:text-green-700 mr-3" onclick="openApprovalModal('${order.orderId}')">
@@ -2139,18 +2270,34 @@
                             </button>
                         `;
                         break;
-                    case 'rejected':
-                        statusBadge = '<span class="badge bg-red-100 text-red-700">已拒绝</span>';
+                    case 'cancelled':
+                        statusBadge = '<span class="badge bg-gray-100 text-gray-500">已撤销</span>';
                         actions = `
-                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
                                 <i class="fa fa-eye mr-1"></i>查看
                             </button>
                         `;
                         break;
-                    case 'pendingIssue':
-                        statusBadge = '<span class="badge bg-blue-100 text-blue-700">待出函</span>';
+                    case 'rejected':
+                        statusBadge = '<span class="badge bg-red-100 text-red-600">审批不通过</span>';
                         actions = `
-                            <button class="text-primary hover:text-secondary mr-3" onclick="viewOrderDetail('${order.orderId}')">
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        `;
+                        break;
+                    case 'pending_payment':
+                        statusBadge = '<span class="badge bg-yellow-100 text-yellow-700">待支付</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                        `;
+                        break;
+                    case 'paid':
+                        statusBadge = '<span class="badge bg-green-100 text-success">已支付</span>';
+                        actions = `
+                            <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
                                 <i class="fa fa-eye mr-1"></i>查看
                             </button>
                             <button class="text-success hover:text-green-700" onclick="openUploadGuaranteeModal('${order.orderId}')">
@@ -2159,9 +2306,9 @@
                         `;
                         break;
                     case 'issued':
-                        statusBadge = '<span class="badge bg-green-100 text-green-700">已出函</span>';
+                        statusBadge = '<span class="badge bg-blue-100 text-primary">已出函</span>';
                         actions = `
-                            <button class="text-primary hover:text-secondary" onclick="viewOrderDetail('${order.orderId}')">
+                            <button class="text-primary hover:text-secondary" onclick="viewGuaranteeDetail('${order.orderId}')">
                                 <i class="fa fa-eye mr-1"></i>查看
                             </button>
                         `;
@@ -2205,9 +2352,12 @@
                     // 确定状态文本
                     let statusText = '';
                     switch(order.status) {
-                        case 'pendingApproval': statusText = '待审批'; break;
-                        case 'rejected': statusText = '已拒绝'; break;
-                        case 'pendingIssue': statusText = '待出函'; break;
+                        case 'applying': statusText = '申请中'; break;
+                        case 'reviewing': statusText = '审批中'; break;
+                        case 'cancelled': statusText = '已撤销'; break;
+                        case 'rejected': statusText = '审批不通过'; break;
+                        case 'pending_payment': statusText = '待支付'; break;
+                        case 'paid': statusText = '已支付'; break;
                         case 'issued': statusText = '已出函'; break;
                     }
                     

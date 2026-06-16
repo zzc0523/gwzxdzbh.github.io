@@ -183,6 +183,7 @@
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                 <option value="">全部状态</option>
                                 <option value="applying">申请中</option>
+                                <option value="reviewing">审批中</option>
                                 <option value="cancelled">已撤销</option>
                                 <option value="rejected">审批不通过</option>
                                 <option value="pending_payment">待支付</option>
@@ -389,7 +390,7 @@
                                         <span class="text-sm text-gray-900">中国农业银行</span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="badge bg-blue-100 text-primary">已出函</span>
+                                        <span class="badge bg-yellow-100 text-yellow-700">已出函</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-02-15 09:15</span>
@@ -401,6 +402,54 @@
                                             </button>
                                             <button class="text-primary hover:text-secondary text-sm font-medium">
                                                 <i class="fa fa-download mr-1"></i>下载
+                                            </button>
+                                            <button class="text-gray-400 hover:text-gray-600 text-sm" title="更多">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td class="px-6 py-4">
+                                        <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-900 font-medium">DD202604180008</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-900">宁德市智慧城市建设项目</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-900">宁德市大数据管理局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-500 font-medium">-</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-700">履约保函</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-gray-900">¥800,000</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-primary">¥4,000.00</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">2026-04-18 ~ 2028-04-17</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-900">兴业银行</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="badge bg-orange-100 text-orange-600">审批中</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">2026-04-18 15:30</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604180008')">
+                                                <i class="fa fa-eye mr-1"></i>查看
                                             </button>
                                             <button class="text-gray-400 hover:text-gray-600 text-sm" title="更多">
                                                 <i class="fa fa-ellipsis-v"></i>
@@ -1462,6 +1511,52 @@
                     // 投保材料字段
                     licenseFile: '营业执照_扫描件.pdf',
                     contractFile: '项目合同_厦门市轨道交通3号线工程.pdf'
+                },
+                'BH202604180008': {
+                    guaranteeId: 'BH202604180008',
+                    guaranteeType: '履约保函',
+                    projectName: '宁德市智慧城市建设项目',
+                    amount: '¥800,000',
+                    term: '2026-04-18 ~ 2028-04-17',
+                    status: '审批中',
+                    applyTime: '2026-04-18 15:30',
+                    statusClass: 'text-orange-600',
+                    feeStatus: '待缴费',
+                    feeStatusClass: 'text-yellow-600',
+                    invoiceStatus: '未申请',
+                    invoiceStatusClass: 'text-gray-400',
+                    feePaidTime: '',
+                    canDownload: false,
+                    canApplyInvoice: false,
+                    canPay: false,
+                    canCancel: true,
+                    showFeeInfo: true,
+                    showRejection: false,
+                    // 合同/项目信息字段
+                    contractCode: 'XM2026040008',
+                    partyAUnit: '宁德市大数据管理局',
+                    partyAName: '宁德市大数据管理局',
+                    contractAmount: '¥16,000,000.00',
+                    depositAmount: '¥800,000.00',
+                    depositStartDate: '2026-04-18',
+                    depositEndDate: '2028-04-17',
+                    projectAddress: '福建省宁德市蕉城区',
+                    projectDetailAddress: '宁德市智慧城市建设项目现场',
+                    contractStartDate: '2026-04-18',
+                    contractEndDate: '2028-04-17',
+                    // 投保信息字段
+                    effectiveDate: '',
+                    expiryDate: '',
+                    termDays: '730天',
+                    institution: '兴业银行宁德分行',
+                    // 投保人信息字段
+                    insuredEnterprise: '福建省建设工程有限公司',
+                    creditCode: '91350000XXXXXXXXXX',
+                    contactName: '吴十',
+                    contactPhone: '13300000001',
+                    // 投保材料字段
+                    licenseFile: '营业执照_扫描件.pdf',
+                    contractFile: '项目合同_宁德市智慧城市建设项目.pdf'
                 }
             };
 

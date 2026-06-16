@@ -298,7 +298,7 @@
                                         <th class="px-6 py-3 text-left font-medium">合同名称</th>
                                         <th class="px-6 py-3 text-left font-medium">保函类型</th>
                                         <th class="px-6 py-3 text-left font-medium">金融机构</th>
-                                        <th class="px-6 py-3 text-left font-medium">担保金额</th>
+                                        <th class="px-6 py-3 text-left font-medium">保证金金额</th>
                                         <th class="px-6 py-3 text-left font-medium">有效期至</th>
                                         <th class="px-6 py-3 text-left font-medium">剩余天数</th>
                                         <th class="px-6 py-3 text-left font-medium">操作</th>
@@ -419,52 +419,137 @@
         const guaranteeData = {
             'FJ202601150001': {
                 guaranteeId: 'FJ202601150001',
+                applyId: 'DD202601150001',
+                contractId: 'HT202601150001',
                 projectName: '福州市地铁2号线延伸工程',
+                partyA: '福州市交通运输局',
+                partyAEnterprise: '福州市交通运输局',
+                contractAmount: '¥5,000,000.00',
+                depositAmount: '¥100,000.00',
+                premiumAmount: '¥500.00',
+                depositStart: '2026-01-15',
+                depositEnd: '2026-04-20',
+                projectAddress: '福建省福州市鼓楼区',
+                projectDetailAddress: '福州市地铁2号线延伸工程施工现场',
+                contractStart: '2026-01-15',
+                contractEnd: '2028-01-14',
                 guaranteeType: '投标保函',
-                financialInstitution: '中国建设银行',
-                amount: '¥100,000.00',
-                term: '2026-01-15 ~ 2026-04-20',
+                effectiveDate: '2026-01-15',
                 expiryDate: '2026-04-20',
+                term: '95天',
+                financialInstitution: '中国建设银行福建分行',
+                enterpriseName: '福建省建设工程有限公司',
+                creditCode: '91350000MA34K8XG9Y',
+                contactName: '张三',
+                contactPhone: '13800000001',
                 remainingDays: '5'
             },
             'FJ202601160002': {
                 guaranteeId: 'FJ202601160002',
+                applyId: 'DD202601160002',
+                contractId: 'HT202601160002',
                 projectName: '厦门市翔安机场快速路南段工程',
+                partyA: '厦门新机场建设指挥部',
+                partyAEnterprise: '厦门新机场建设指挥部',
+                contractAmount: '¥25,000,000.00',
+                depositAmount: '¥500,000.00',
+                premiumAmount: '¥2,500.00',
+                depositStart: '2026-01-16',
+                depositEnd: '2026-05-15',
+                projectAddress: '福建省厦门市翔安区',
+                projectDetailAddress: '厦门新机场快速路施工现场',
+                contractStart: '2026-01-16',
+                contractEnd: '2028-01-15',
                 guaranteeType: '履约保函',
-                financialInstitution: '中国工商银行',
-                amount: '¥500,000.00',
-                term: '2026-01-16 ~ 2026-05-15',
+                effectiveDate: '2026-01-16',
                 expiryDate: '2026-05-15',
+                term: '120天',
+                financialInstitution: '中国工商银行厦门分行',
+                enterpriseName: '福建省建设工程有限公司',
+                creditCode: '91350000MA34K8XG9Y',
+                contactName: '李四',
+                contactPhone: '13800000002',
                 remainingDays: '30'
             },
             'FJ202601170003': {
                 guaranteeId: 'FJ202601170003',
+                applyId: 'DD202601170003',
+                contractId: 'HT202601170003',
                 projectName: '泉州市晋江下游防洪岸线生态治理',
+                partyA: '泉州市水利局',
+                partyAEnterprise: '泉州市水利局',
+                contractAmount: '¥15,000,000.00',
+                depositAmount: '¥300,000.00',
+                premiumAmount: '¥1,500.00',
+                depositStart: '2026-01-17',
+                depositEnd: '2026-06-10',
+                projectAddress: '福建省泉州市丰泽区',
+                projectDetailAddress: '晋江下游防洪岸线生态治理现场',
+                contractStart: '2026-01-17',
+                contractEnd: '2028-01-16',
                 guaranteeType: '预付款保函',
-                financialInstitution: '中国农业银行',
-                amount: '¥300,000.00',
-                term: '2026-01-17 ~ 2026-06-10',
+                effectiveDate: '2026-01-17',
                 expiryDate: '2026-06-10',
+                term: '145天',
+                financialInstitution: '中国农业银行泉州分行',
+                enterpriseName: '福建省建设工程有限公司',
+                creditCode: '91350000MA34K8XG9Y',
+                contactName: '王五',
+                contactPhone: '13800000003',
                 remainingDays: '55'
             },
             'FJ202601180004': {
                 guaranteeId: 'FJ202601180004',
+                applyId: 'DD202601180004',
+                contractId: 'HT202601180004',
                 projectName: '漳州市古雷港经济开发区基础设施',
+                partyA: '漳州市港务局',
+                partyAEnterprise: '漳州市港务局',
+                contractAmount: '¥10,000,000.00',
+                depositAmount: '¥200,000.00',
+                premiumAmount: '¥1,000.00',
+                depositStart: '2026-01-18',
+                depositEnd: '2026-04-25',
+                projectAddress: '福建省漳州市古雷区',
+                projectDetailAddress: '古雷港经济开发区基础设施建设现场',
+                contractStart: '2026-01-18',
+                contractEnd: '2028-01-17',
                 guaranteeType: '工资保函',
-                financialInstitution: '中国银行',
-                amount: '¥200,000.00',
-                term: '2026-01-18 ~ 2026-04-25',
+                effectiveDate: '2026-01-18',
                 expiryDate: '2026-04-25',
+                term: '97天',
+                financialInstitution: '中国银行漳州分行',
+                enterpriseName: '福建省建设工程有限公司',
+                creditCode: '91350000MA34K8XG9Y',
+                contactName: '赵六',
+                contactPhone: '13800000004',
                 remainingDays: '10'
             },
             'FJ202601190005': {
                 guaranteeId: 'FJ202601190005',
+                applyId: 'DD202601190005',
+                contractId: 'HT202601190005',
                 projectName: '莆田市湄洲湾港口物流园区',
+                partyA: '莆田市港口管理局',
+                partyAEnterprise: '莆田市港口管理局',
+                contractAmount: '¥8,000,000.00',
+                depositAmount: '¥150,000.00',
+                premiumAmount: '¥750.00',
+                depositStart: '2026-01-19',
+                depositEnd: '2026-05-01',
+                projectAddress: '福建省莆田市秀屿区',
+                projectDetailAddress: '湄洲湾港口物流园区施工现场',
+                contractStart: '2026-01-19',
+                contractEnd: '2028-01-18',
                 guaranteeType: '质量（结清款）保函',
-                financialInstitution: '交通银行',
-                amount: '¥150,000.00',
-                term: '2026-01-19 ~ 2026-05-01',
+                effectiveDate: '2026-01-19',
                 expiryDate: '2026-05-01',
+                term: '102天',
+                financialInstitution: '交通银行莆田分行',
+                enterpriseName: '福建省建设工程有限公司',
+                creditCode: '91350000MA34K8XG9Y',
+                contactName: '孙七',
+                contactPhone: '13800000005',
                 remainingDays: '16'
             }
         };
@@ -503,12 +588,180 @@
 
         // 查看保函详情
         function viewGuaranteeDetail(guaranteeId) {
-            // 获取保函数据
             const data = guaranteeData[guaranteeId] || guaranteeData['FJ202601150001'];
-            
-            // 创建临时模态框或者跳转
-            alert(`查看保函详情：${data.guaranteeId}\n合同名称：${data.projectName}\n金融机构：${data.financialInstitution}`);
+
+            // 填充合同/项目信息
+            document.getElementById('detail-contract-name').textContent = data.projectName;
+            document.getElementById('detail-contract-id').textContent = data.contractId;
+            document.getElementById('detail-party-a').textContent = data.partyA;
+            document.getElementById('detail-party-a-enterprise').textContent = data.partyAEnterprise;
+            document.getElementById('detail-contract-amount').textContent = data.contractAmount;
+            document.getElementById('detail-deposit-amount').textContent = data.depositAmount;
+            document.getElementById('detail-premium-amount').textContent = data.premiumAmount;
+            document.getElementById('detail-deposit-start').textContent = data.depositStart;
+            document.getElementById('detail-deposit-end').textContent = data.depositEnd;
+            document.getElementById('detail-project-address').textContent = data.projectAddress;
+            document.getElementById('detail-project-detail-address').textContent = data.projectDetailAddress;
+            document.getElementById('detail-contract-start').textContent = data.contractStart;
+            document.getElementById('detail-contract-end').textContent = data.contractEnd;
+
+            // 填充投保信息
+            document.getElementById('detail-guarantee-type').textContent = data.guaranteeType;
+            document.getElementById('detail-effective-date').textContent = data.effectiveDate;
+            document.getElementById('detail-expiry-date').textContent = data.expiryDate;
+            document.getElementById('detail-term').textContent = data.term;
+            document.getElementById('detail-financial-institution').textContent = data.financialInstitution;
+
+            // 填充投保人信息
+            document.getElementById('detail-enterprise-name').textContent = data.enterpriseName;
+            document.getElementById('detail-credit-code').textContent = data.creditCode;
+            document.getElementById('detail-contact-name').textContent = data.contactName;
+            document.getElementById('detail-contact-phone').textContent = data.contactPhone;
+
+            // 显示模态框
+            document.getElementById('guarantee-detail-modal').classList.remove('hidden');
+        }
+
+        // 关闭详情模态框
+        function closeGuaranteeDetailModal() {
+            document.getElementById('guarantee-detail-modal').classList.add('hidden');
+        }
+
+        // 下载保函
+        function downloadGuaranteeModal() {
+            alert('正在下载保函...');
+            closeGuaranteeDetailModal();
         }
     </script>
+
+    <!-- 保函详情模态框 -->
+    <div id="guarantee-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden p-4 sm:p-6">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900">保函详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeGuaranteeDetailModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-4 sm:p-6 space-y-6 overflow-y-auto flex-1">
+                <!-- 合同/项目信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">合同/项目信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同编号：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同甲方单位（发包人）：</p>
+                            <p class="font-medium text-gray-900" id="detail-party-a">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同甲方企业名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-party-a-enterprise">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同金额（元）：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-amount">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保证金金额（元）：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-amount">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保费（元）：</p>
+                            <p class="font-medium text-primary" id="detail-premium-amount">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保证金起始日期：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-start">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保证金结束日期：</p>
+                            <p class="font-medium text-gray-900" id="detail-deposit-end">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">项目地址（省市区）：</p>
+                            <p class="font-medium text-gray-900" id="detail-project-address">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">项目详细地址：</p>
+                            <p class="font-medium text-gray-900" id="detail-project-detail-address">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同起期：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-start">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">合同止期：</p>
+                            <p class="font-medium text-gray-900" id="detail-contract-end">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 投保信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">投保信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">保函类型：</p>
+                            <p class="font-medium text-gray-900" id="detail-guarantee-type">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">担保起期：</p>
+                            <p class="font-medium text-gray-900" id="detail-effective-date">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">担保止期：</p>
+                            <p class="font-medium text-gray-900" id="detail-expiry-date">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">担保期限：</p>
+                            <p class="font-medium text-gray-900" id="detail-term">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">承保机构：</p>
+                            <p class="font-medium text-gray-900" id="detail-financial-institution">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 投保人信息 -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-bold text-gray-700 mb-4">投保人信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">企业名称：</p>
+                            <p class="font-medium text-gray-900" id="detail-enterprise-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">统一社会信用代码：</p>
+                            <p class="font-medium text-gray-900" id="detail-credit-code">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">经办人姓名：</p>
+                            <p class="font-medium text-gray-900" id="detail-contact-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">经办人手机号：</p>
+                            <p class="font-medium text-gray-900" id="detail-contact-phone">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 sm:p-6 border-t border-gray-200 flex justify-end space-x-3">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeGuaranteeDetailModal()">
+                    关闭
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="downloadGuaranteeModal()">
+                    <i class="fa fa-download mr-2"></i>下载保函
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

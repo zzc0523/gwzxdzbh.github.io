@@ -912,6 +912,85 @@
         </div>
     </div>
 
+    <!-- 支付审核模态框 -->
+    <div id="payment-review-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-900">支付审核</h3>
+                <button class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closePaymentReviewModal()">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <!-- 订单信息 -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                    <div class="flex items-center mb-3">
+                        <i class="fa fa-info-circle text-blue-500 mr-2"></i>
+                        <span class="font-medium text-gray-800">订单信息</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">申请编号</p>
+                            <p class="font-medium text-gray-900" id="review-order-id">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">合同名称</p>
+                            <p class="font-medium text-gray-900" id="review-contract-name">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">合同甲方单位（发包人）</p>
+                            <p class="font-medium text-gray-900" id="review-party-a">-</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">保费</p>
+                            <p class="font-bold text-primary" id="review-premium">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 缴费凭证（供应商端上传的交付凭证） -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">交付凭证（供应商上传）</label>
+                    <div id="review-voucher-area" class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                    </div>
+                </div>
+
+                <!-- 审核选项 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-800 mb-3">审核结果</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="reviewResult" value="approve" class="mr-2" onchange="toggleReviewFields()">
+                            <span class="text-gray-700">通过</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer">
+                            <input type="radio" name="reviewResult" value="reject" class="mr-2" onchange="toggleReviewFields()">
+                            <span class="text-gray-700">驳回</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 驳回原因输入（仅驳回时显示） -->
+                <div id="review-reject-field" class="mb-6 hidden">
+                    <label class="block text-sm font-medium text-gray-800 mb-2">
+                        驳回原因 <span class="text-red-500">*</span>
+                    </label>
+                    <textarea id="review-reject-reason" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" rows="4" placeholder="请输入驳回原因"></textarea>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
+                    <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closePaymentReviewModal()">
+                        取消
+                    </button>
+                    <button id="confirm-review-btn" class="px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="confirmPaymentReview()">
+                        <i class="fa fa-check-circle mr-1"></i>确认提交
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 文件预览模态框 -->
     <div id="file-preview-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -1173,7 +1252,10 @@
                 status: 'pending_payment',
                 rejectReason: '',
                 premium: '¥8,000.00',
-                paymentVoucher: null
+                paymentVoucher: {
+                    name: '缴费凭证_三明市文化艺术中心项目.pdf',
+                    size: '1.8 MB'
+                }
             }
         };
         
@@ -1230,6 +1312,16 @@
             cache.voucherPreviewFilesize = document.getElementById('voucher-preview-filesize');
             cache.voucherPreviewIcon = document.getElementById('voucher-preview-icon');
             cache.confirmVoucherBtn = document.getElementById('confirm-voucher-btn');
+
+            // 支付审核相关
+            cache.paymentReviewModal = document.getElementById('payment-review-modal');
+            cache.reviewOrderId = document.getElementById('review-order-id');
+            cache.reviewContractName = document.getElementById('review-contract-name');
+            cache.reviewPartyA = document.getElementById('review-party-a');
+            cache.reviewPremium = document.getElementById('review-premium');
+            cache.reviewVoucherArea = document.getElementById('review-voucher-area');
+            cache.reviewRejectField = document.getElementById('review-reject-field');
+            cache.reviewRejectReason = document.getElementById('review-reject-reason');
             
             // 文件预览相关
             cache.filePreviewModal = document.getElementById('file-preview-modal');
@@ -1640,6 +1732,188 @@
                 // 显示成功通知
                 showNotification('缴费凭证上传成功', 'success');
             }, 1500);
+        }
+
+        // 打开支付审核弹窗
+        function openPaymentReviewModal(orderId) {
+            currentOrderId = orderId;
+            const order = orderData[orderId];
+            
+            if (!order) return;
+
+            // 填充订单信息
+            cache.reviewOrderId.textContent = order.orderId;
+            cache.reviewContractName.textContent = order.contractName;
+            cache.reviewPartyA.textContent = order.partyA;
+            cache.reviewPremium.textContent = order.premium || '-';
+
+            // 填充交付凭证区域
+            if (order.paymentVoucher && order.paymentVoucher.name) {
+                const fileName = order.paymentVoucher.name;
+                const fileSize = order.paymentVoucher.size || '';
+                const isPdf = fileName.toLowerCase().endsWith('.pdf');
+                const fileIcon = isPdf ? 'fa-file-pdf-o text-red-500' : 'fa-file-image-o text-blue-500';
+                const fileType = isPdf ? 'pdf' : 'image';
+                cache.reviewVoucherArea.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa ${fileIcon} text-3xl mr-4"></i>
+                            <div>
+                                <p class="font-medium text-gray-900">${fileName}</p>
+                                <p class="text-xs text-gray-500">${fileSize}</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="text-primary hover:text-secondary text-sm" onclick="previewFile('${fileName}', '${fileType}')">
+                                <i class="fa fa-eye mr-1"></i>预览
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                cache.reviewVoucherArea.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fa fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                        <p class="text-gray-600 text-sm">供应商暂未上传交付凭证</p>
+                    </div>
+                `;
+            }
+
+            // 重置表单
+            resetReviewForm();
+
+            // 显示弹窗
+            cache.paymentReviewModal.classList.remove('hidden');
+        }
+
+        // 关闭支付审核弹窗
+        function closePaymentReviewModal() {
+            cache.paymentReviewModal.classList.add('hidden');
+            resetReviewForm();
+        }
+
+        // 重置支付审核表单
+        function resetReviewForm() {
+            // 清除单选按钮
+            const radioButtons = document.querySelectorAll('input[name="reviewResult"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+            // 隐藏字段
+            cache.reviewRejectField.classList.add('hidden');
+            // 清空输入
+            if (cache.reviewRejectReason) cache.reviewRejectReason.value = '';
+        }
+
+        // 切换支付审核字段显示
+        function toggleReviewFields() {
+            const selectedValue = document.querySelector('input[name="reviewResult"]:checked')?.value;
+            if (selectedValue === 'reject') {
+                cache.reviewRejectField.classList.remove('hidden');
+            } else {
+                cache.reviewRejectField.classList.add('hidden');
+            }
+        }
+
+        // 确认支付审核
+        function confirmPaymentReview() {
+            const selectedValue = document.querySelector('input[name="reviewResult"]:checked')?.value;
+
+            if (!selectedValue) {
+                showNotification('请选择审核结果', 'error');
+                return;
+            }
+
+            const order = orderData[currentOrderId];
+            if (!order) return;
+
+            if (selectedValue === 'approve') {
+                // 审核通过 - 变更状态为已支付
+                showNotification('正在处理审核...', 'info');
+                setTimeout(function() {
+                    // 更新订单状态
+                    order.status = 'paid';
+                    // 更新列表状态
+                    updateOrderListStatusPayment(currentOrderId, 'paid');
+                    // 关闭弹窗
+                    closePaymentReviewModal();
+                    // 显示成功通知
+                    showNotification('支付审核通过，订单状态已变更为已支付！', 'success');
+                }, 1000);
+            } else if (selectedValue === 'reject') {
+                if (!cache.reviewRejectReason.value.trim()) {
+                    showNotification('请输入驳回原因', 'error');
+                    return;
+                }
+                showNotification('正在处理审核...', 'info');
+                setTimeout(function() {
+                    // 保存驳回原因
+                    order.rejectReason = cache.reviewRejectReason.value.trim();
+                    // 关闭弹窗
+                    closePaymentReviewModal();
+                    // 显示通知
+                    showNotification('已驳回，供应商将收到通知重新上传凭证', 'success');
+                }, 1000);
+            }
+        }
+
+        // 更新列表状态（支付审核专用）
+        function updateOrderListStatusPayment(orderId, newStatus) {
+            const rows = document.querySelectorAll('.table-row');
+            rows.forEach(function(row) {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell && firstCell.textContent.trim() === orderId) {
+                    // 更新状态标签
+                    const statusCell = row.querySelector('td:nth-child(12)');
+                    if (statusCell) {
+                        const badge = statusCell.querySelector('.badge');
+                        if (badge) {
+                            let statusText = '';
+                            let badgeClass = '';
+                            switch(newStatus) {
+                                case 'paid':
+                                    statusText = '已支付';
+                                    badgeClass = 'badge bg-green-100 text-success';
+                                    break;
+                                case 'pending_payment':
+                                    statusText = '待支付';
+                                    badgeClass = 'badge bg-yellow-100 text-yellow-700';
+                                    break;
+                            }
+                            badge.textContent = statusText;
+                            badge.className = badgeClass;
+                        }
+                    }
+                    // 更新操作按钮
+                    const actionCell = row.querySelector('td:last-child');
+                    if (actionCell) {
+                        let actionButtons = '';
+                        switch(newStatus) {
+                            case 'paid':
+                                actionButtons = `
+                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${orderId}')">
+                                        <i class="fa fa-eye mr-1"></i>查看
+                                    </button>
+                                    <button class="text-success hover:text-green-700" onclick="openUploadGuaranteeModal('${orderId}')">
+                                        <i class="fa fa-upload mr-1"></i>上传保函
+                                    </button>
+                                `;
+                                break;
+                            case 'pending_payment':
+                                actionButtons = `
+                                    <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${orderId}')">
+                                        <i class="fa fa-eye mr-1"></i>查看
+                                    </button>
+                                    <button class="text-warning hover:text-yellow-600 mr-3" onclick="openPaymentReviewModal('${orderId}')">
+                                        <i class="fa fa-check-square-o mr-1"></i>支付审核
+                                    </button>
+                                `;
+                                break;
+                        }
+                        actionCell.innerHTML = actionButtons;
+                    }
+                }
+            });
         }
 
         // 打开审批弹窗
@@ -2291,6 +2565,9 @@
                         actions = `
                             <button class="text-primary hover:text-secondary mr-3" onclick="viewGuaranteeDetail('${order.orderId}')">
                                 <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                            <button class="text-warning hover:text-yellow-600 mr-3" onclick="openPaymentReviewModal('${order.orderId}')">
+                                <i class="fa fa-check-square-o mr-1"></i>支付审核
                             </button>
                         `;
                         break;

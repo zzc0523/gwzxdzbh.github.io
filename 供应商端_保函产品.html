@@ -39,7 +39,7 @@
         ];
 
         // 当前筛选条件（全局）
-        let currentRegion = '全国';
+        let currentRegion = '福建省';
         let currentType = 'quality';
         
         // 续保相关数据
@@ -1276,7 +1276,8 @@
                 if (!container) return;
                 
                 let filtered = institutionData.filter(inst => {
-                    const regionMatch = inst.regions.includes(currentRegion);
+                    // 多省份筛选：检查机构的服务区域是否与任一选中省份匹配
+                    const regionMatch = selectedRegions.includes('全国') || inst.regions.some(region => selectedRegions.includes(region));
                     const typeMatch = inst.types.includes(currentType);
                     return regionMatch && typeMatch;
                 });
@@ -1290,6 +1291,15 @@
                         filtered = filtered.filter(inst => inst.name !== renewalData.financialInstitution);
                     }
                     filtered = [...sorted, ...filtered];
+                }
+                
+                // 更新机构数量显示
+                const institutionCountEl = document.getElementById('institution-count');
+                if (institutionCountEl) {
+                    institutionCountEl.innerHTML = `
+                        <i class="fa fa-building-o"></i>
+                        <span>共${filtered.length}家合作机构</span>
+                    `;
                 }
                 
                 if (filtered.length === 0) {
@@ -1353,21 +1363,95 @@
                 });
             }
 
-            // 省份筛选
-            const regionButtons = document.querySelectorAll('.region-btn');
-            if (regionButtons.length > 0) {
-                regionButtons.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        regionButtons.forEach(b => b.classList.remove('active', 'bg-primary', 'text-white'));
-                        regionButtons.forEach(b => b.classList.add('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200'));
-                        this.classList.add('active', 'bg-primary', 'text-white');
-                        this.classList.remove('bg-gray-100', 'text-gray-600', 'hover:bg-gray-200');
-                        currentRegion = this.textContent;
-                        renderInstitutions();
-                        showNotification(`已选择省份：${currentRegion}`, 'info');
+            // 所有省份列表（包含全国所有省级行政区）
+            const allRegions = ['全国', '福建省', '北京市', '上海市', '天津市', '重庆市', '河北省', '山西省', '内蒙古自治区', '辽宁省', '吉林省', '黑龙江省', '江苏省', '浙江省', '安徽省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '广西壮族自治区', '海南省', '四川省', '贵州省', '云南省', '西藏自治区', '陕西省', '甘肃省', '青海省', '宁夏回族自治区', '新疆维吾尔自治区', '香港特别行政区', '澳门特别行政区', '台湾省'];
+            
+            // 当前选中的省份（支持多选）
+            let selectedRegions = ['福建省'];
+            
+            // 是否展开状态
+            let isRegionsExpanded = false;
+            
+            // 渲染省份标签
+            function renderRegionTags() {
+                const container = document.getElementById('region-tags-container');
+                const toggleBtn = document.getElementById('region-toggle-btn');
+                if (!container || !toggleBtn) return;
+                
+                let displayRegions = allRegions;
+                let showToggle = true;
+                
+                if (!isRegionsExpanded) {
+                    // 只显示第一行能容纳的省份标签
+                    displayRegions = getFirstLineRegions();
+                    showToggle = displayRegions.length < allRegions.length;
+                }
+                
+                container.innerHTML = displayRegions.map(region => {
+                    const isSelected = selectedRegions.includes(region);
+                    return `
+                        <span 
+                            class="region-tag inline-flex items-center px-3 py-1.5 rounded-full text-sm cursor-pointer transition-all ${
+                                isSelected 
+                                    ? 'bg-blue-500 text-white' 
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            }"
+                            data-region="${region}"
+                        >
+                            ${region}
+                            ${isSelected ? '<i class="fa fa-check ml-1 text-xs"></i>' : ''}
+                        </span>
+                    `;
+                }).join('');
+                
+                // 更新展开/收起按钮
+                if (showToggle) {
+                    toggleBtn.style.display = 'flex';
+                    toggleBtn.innerHTML = isRegionsExpanded 
+                        ? '<span>收起</span><i class="fa fa-chevron-up"></i>'
+                        : '<span>展开</span><i class="fa fa-chevron-down"></i>';
+                } else {
+                    toggleBtn.style.display = 'none';
+                }
+                
+                // 绑定点击事件
+                container.querySelectorAll('.region-tag').forEach(tag => {
+                    tag.addEventListener('click', function() {
+                        const region = this.getAttribute('data-region');
+                        toggleRegionSelection(region);
                     });
                 });
             }
+            
+            // 获取默认显示的省份数量
+            function getFirstLineRegions() {
+                // 默认显示前15个省份
+                return allRegions.slice(0, 15);
+            }
+            
+            // 切换省份选择状态（单选模式）
+            function toggleRegionSelection(region) {
+                // 单选模式：直接替换为新选择的省份
+                selectedRegions = [region];
+                
+                // 重新渲染标签并更新机构列表
+                renderRegionTags();
+                renderInstitutions();
+                
+                showNotification(`已选择：${region}`, 'info');
+            }
+            
+            // 切换展开/收起状态
+            const regionToggleBtn = document.getElementById('region-toggle-btn');
+            if (regionToggleBtn) {
+                regionToggleBtn.addEventListener('click', function() {
+                    isRegionsExpanded = !isRegionsExpanded;
+                    renderRegionTags();
+                });
+            }
+            
+            // 初始化省份标签
+            renderRegionTags();
             
             // 初始化机构列表
             renderInstitutions();
@@ -1772,6 +1856,29 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- 省份筛选 -->
+                    <div class="bg-white rounded-xl border border-gray-100 px-6 py-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center space-x-2">
+                                <i class="fa fa-map-marker text-blue-500"></i>
+                                <span class="text-sm text-gray-500">区域选择：</span>
+                            </div>
+                            <div id="institution-count" class="flex items-center space-x-1 text-gray-400 text-sm">
+                                <i class="fa fa-building-o"></i>
+                                <span>共1家合作机构</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <div id="region-tags-container" class="flex flex-wrap gap-2">
+                                <!-- 省份标签动态生成 -->
+                            </div>
+                            <button id="region-toggle-btn" class="text-blue-500 text-sm flex items-center space-x-1 hover:text-blue-600 transition-colors">
+                                <span>展开</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
                         </div>
                     </div>
 

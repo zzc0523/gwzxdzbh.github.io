@@ -585,12 +585,6 @@
                     </div>
                 </div>
 
-                <!-- 备注 -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-800 mb-3">备注</label>
-                    <textarea id="issue-remark" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none" rows="3" placeholder="请输入备注信息（选填）"></textarea>
-                </div>
-
                 <!-- 操作按钮 -->
                 <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
                     <button class="px-6 py-2.5 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeIssueInvoiceModal()">
@@ -642,7 +636,6 @@
             cache.filePreview = document.getElementById('file-preview');
             cache.previewFilename = document.getElementById('preview-filename');
             cache.previewFilesize = document.getElementById('preview-filesize');
-            cache.issueRemark = document.getElementById('issue-remark');
             cache.confirmIssueBtn = document.getElementById('confirm-issue-btn');
             
             // 初始化拖拽上传
@@ -994,7 +987,6 @@
         function resetIssueForm() {
             cache.invoiceFileInput.value = '';
             cache.filePreview.classList.add('hidden');
-            cache.issueRemark.value = '';
             cache.confirmIssueBtn.disabled = true;
         }
 

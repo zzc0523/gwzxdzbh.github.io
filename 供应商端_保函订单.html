@@ -171,12 +171,33 @@
                             <input type="text" placeholder="请输入保函编号" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">合同编号</label>
+                            <input type="text" placeholder="请输入合同编号" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">合同名称</label>
                             <input type="text" placeholder="请输入合同名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">合同甲方单位（发包人）</label>
                             <input type="text" placeholder="请输入甲方单位名称" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">项目地址</label>
+                            <div class="flex space-x-2">
+                                <select id="search-province" class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+                                    <option value="">请选择省</option>
+                                    <option value="福建省">福建省</option>
+                                    <option value="浙江省">浙江省</option>
+                                    <option value="广东省">广东省</option>
+                                </select>
+                                <select id="search-city" class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+                                    <option value="">请选择市</option>
+                                </select>
+                                <select id="search-district" class="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm">
+                                    <option value="">请选择区</option>
+                                </select>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">订单状态</label>
@@ -200,8 +221,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">申请日期</label>
-                            <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">申请时间</label>
+                            <div class="flex space-x-2">
+                                <input type="date" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="开始日期">
+                                <span class="flex items-center text-gray-400">~</span>
+                                <input type="date" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="结束日期">
+                            </div>
                         </div>
                         <div class="flex items-end">
                             <div class="flex space-x-3">
@@ -237,16 +262,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
+                    <div class="overflow-x-auto relative">
+                        <table class="w-full" style="table-layout: fixed;">
+                            <colgroup>
+                                <col style="width: 50px;">
+                                <col style="width: 140px;">
+                                <col style="width: 140px;">
+                                <col style="width: 220px;">
+                                <col style="width: 200px;">
+                                <col style="width: 160px;">
+                                <col style="width: 130px;">
+                                <col style="width: 140px;">
+                                <col style="width: 120px;">
+                                <col style="width: 90px;">
+                                <col style="width: 160px;">
+                                <col style="width: 130px;">
+                                <col style="width: 90px;">
+                                <col style="width: 130px;">
+                                <col style="width: 190px;">
+                            </colgroup>
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider w-12">
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                                         <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
                                     </th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">申请编号</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同编号</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同名称</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">合同甲方单位（发包人）</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">项目地址</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函编号</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保函类型</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">保证金金额</th>
@@ -255,7 +299,7 @@
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">承保机构</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">状态</th>
                                     <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">申请时间</th>
-                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">操作</th>
+                                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider sticky right-0 bg-gray-50 z-10">操作</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
@@ -267,10 +311,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202604150001</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202604150001</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">福州市地铁5号线延长线工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">福州市地铁集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 福州市 鼓楼区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202604150001</span>
@@ -296,7 +346,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-04-15 10:30</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604150001')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -318,10 +368,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202603280003</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202603280003</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门新机场配套工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门翔业集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 厦门市 思明区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202603280003</span>
@@ -347,7 +403,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-03-28 14:20</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202603280003')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -366,10 +422,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202602150002</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202602150002</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">泉州湾大桥养护工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">泉州市交通集团有限责任公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 泉州市 丰泽区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202602150002</span>
@@ -395,7 +457,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-02-15 09:15</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202602150002')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -417,10 +479,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202604180008</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202604180008</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">宁德市智慧城市建设项目</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">宁德市大数据管理局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 宁德市 蕉城区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-gray-500 font-medium">-</span>
@@ -446,7 +514,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-04-18 15:30</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604180008')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -465,10 +533,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202604100004</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202604100004</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市城市快速路工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市城市建设投资集团</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 莆田市 城厢区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202604100004</span>
@@ -494,7 +568,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-04-10 11:30</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604100004')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -513,10 +587,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202512200005</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202512200005</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">漳州港码头扩建工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">漳州港务局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 漳州市 龙海区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202512200005</span>
@@ -542,7 +622,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2025-12-20 16:45</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202512200005')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -561,10 +641,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202604150006</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202604150006</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市木兰溪防洪工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">莆田市水利局</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 莆田市 荔城区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202604150006</span>
@@ -590,7 +676,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-04-15 09:20</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202604150006')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -612,10 +698,16 @@
                                         <span class="font-mono text-sm text-gray-900 font-medium">DD202603100007</span>
                                     </td>
                                     <td class="px-6 py-4">
+                                        <span class="font-mono text-sm text-gray-700">HT202603100007</span>
+                                    </td>
+                                    <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门市轨道交通3号线工程</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-900">厦门市地铁集团有限公司</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm text-gray-600">福建省 厦门市 湖里区</span>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="font-mono text-sm text-primary font-medium">BH202603100007</span>
@@ -641,7 +733,7 @@
                                     <td class="px-6 py-4">
                                         <span class="text-sm text-gray-600">2026-03-10 10:00</span>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
                                         <div class="flex items-center space-x-3">
                                             <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('BH202603100007')">
                                                 <i class="fa fa-eye mr-1"></i>查看
@@ -1762,10 +1854,172 @@
         // 搜索防抖定时器
         let searchDebounceTimer = null;
         
+        // 原始订单数据
+        const originalOrderData = [
+            { id: 1, applicationNo: 'DD202604150001', contractNo: 'HT202604150001', contractName: '福州市地铁5号线延长线工程', partyA: '福州市地铁集团有限公司', address: '福建省 福州市 鼓楼区', guaranteeNo: 'BH202604150001', type: '履约保函', amount: '¥500,000', premium: '¥2,500.00', term: '2026-04-15 ~ 2028-04-14', institution: '中国建设银行', status: '已出函', applyTime: '2026-04-15 10:30:00' },
+            { id: 2, applicationNo: 'DD202603280003', contractNo: 'HT202603280003', contractName: '厦门新机场配套工程', partyA: '厦门翔业集团有限公司', address: '福建省 厦门市 思明区', guaranteeNo: 'BH202603280003', type: '质量（结清款）保函', amount: '¥300,000', premium: '¥1,500.00', term: '2026-03-28 ~ 2026-05-28', institution: '中国工商银行', status: '已出函', applyTime: '2026-03-28 14:20:00' },
+            { id: 3, applicationNo: 'DD202602150002', contractNo: 'HT202602150002', contractName: '泉州湾大桥养护工程', partyA: '泉州市交通集团有限责任公司', address: '福建省 泉州市 丰泽区', guaranteeNo: 'BH202602150002', type: '履约保函', amount: '¥200,000', premium: '¥1,000.00', term: '2026-02-15 ~ 2027-02-14', institution: '中国农业银行', status: '已出函', applyTime: '2026-02-15 09:15:00' },
+            { id: 4, applicationNo: 'DD202604180008', contractNo: 'HT202604180008', contractName: '宁德市智慧城市建设项目', partyA: '宁德市大数据管理局', address: '福建省 宁德市 蕉城区', guaranteeNo: '-', type: '履约保函', amount: '¥800,000', premium: '¥4,000.00', term: '2026-04-18 ~ 2028-04-17', institution: '中国建设银行', status: '申请中', applyTime: '2026-04-18 16:45:00' },
+            { id: 5, applicationNo: 'DD202604100004', contractNo: 'HT202604100004', contractName: '莆田市城市快速路工程', partyA: '莆田市城市建设投资集团', address: '福建省 莆田市 城厢区', guaranteeNo: 'BH202604100004', type: '投标保函', amount: '¥400,000', premium: '¥2,000.00', term: '2026-04-10 ~ 2026-10-10', institution: '中国工商银行', status: '已出函', applyTime: '2026-04-10 11:00:00' },
+            { id: 6, applicationNo: 'DD202512200005', contractNo: 'HT202512200005', contractName: '漳州港码头扩建工程', partyA: '漳州港务局', address: '福建省 漳州市 龙海区', guaranteeNo: 'BH202512200005', type: '预付款保函', amount: '¥800,000', premium: '¥4,000.00', term: '2025-12-20 ~ 2026-03-20', institution: '中国建设银行', status: '已到期', applyTime: '2025-12-20 13:30:00' },
+            { id: 7, applicationNo: 'DD202604150006', contractNo: 'HT202604150006', contractName: '莆田市木兰溪防洪工程', partyA: '莆田市水利局', address: '福建省 莆田市 荔城区', guaranteeNo: 'BH202604150006', type: '履约保函', amount: '¥200,000', premium: '¥1,000.00', term: '2026-04-15 ~ 2026-10-15', institution: '中国农业银行', status: '待支付', applyTime: '2026-04-15 15:20:00' },
+            { id: 8, applicationNo: 'DD202603100007', contractNo: 'HT202603100007', contractName: '厦门市轨道交通3号线工程', partyA: '厦门市地铁集团有限公司', address: '福建省 厦门市 湖里区', guaranteeNo: 'BH202603100007', type: '履约保函', amount: '¥600,000', premium: '¥3,000.00', term: '2026-03-10 ~ 2028-03-09', institution: '中国工商银行', status: '已到期', applyTime: '2026-03-10 10:00:00' }
+        ];
+        
         // 搜索功能（带防抖）
         function handleSearch() {
-            // 搜索逻辑
-            showNotification('搜索功能已优化', 'info');
+            // 获取查询条件
+            const guaranteeNo = document.querySelector('input[placeholder="请输入保函编号"]')?.value || '';
+            const contractNo = document.querySelector('input[placeholder="请输入合同编号"]')?.value || '';
+            const contractName = document.querySelector('input[placeholder="请输入合同名称"]')?.value || '';
+            const partyA = document.querySelector('input[placeholder="请输入甲方单位名称"]')?.value || '';
+            const province = document.getElementById('search-province')?.value || '';
+            const city = document.getElementById('search-city')?.value || '';
+            const district = document.getElementById('search-district')?.value || '';
+            const status = document.querySelector('select option:checked')?.parentElement?.value || '';
+            const guaranteeType = document.querySelectorAll('select')[1]?.value || '';
+            const applyStartDate = document.querySelectorAll('input[type="date"]')[0]?.value || '';
+            const applyEndDate = document.querySelectorAll('input[type="date"]')[1]?.value || '';
+            
+            // 过滤数据
+            const filteredData = originalOrderData.filter(item => {
+                // 保函编号筛选
+                if (guaranteeNo && !item.guaranteeNo.includes(guaranteeNo)) return false;
+                // 合同编号筛选
+                if (contractNo && !item.contractNo.includes(contractNo)) return false;
+                // 合同名称筛选
+                if (contractName && !item.contractName.includes(contractName)) return false;
+                // 合同甲方单位筛选
+                if (partyA && !item.partyA.includes(partyA)) return false;
+                // 省份筛选
+                if (province && !item.address.includes(province)) return false;
+                // 城市筛选
+                if (city && !item.address.includes(city)) return false;
+                // 区县筛选
+                if (district && !item.address.includes(district)) return false;
+                // 状态筛选
+                if (status && item.status !== getStatusText(status)) return false;
+                // 保函类型筛选
+                if (guaranteeType && item.type !== getGuaranteeTypeText(guaranteeType)) return false;
+                // 申请时间区间筛选
+                const applyDate = item.applyTime.split(' ')[0];
+                if (applyStartDate && applyDate < applyStartDate) return false;
+                if (applyEndDate && applyDate > applyEndDate) return false;
+                return true;
+            });
+            
+            // 渲染过滤后的表格
+            renderOrderTable(filteredData);
+            
+            showNotification(`搜索完成，共找到 ${filteredData.length} 条记录`, 'info');
+        }
+        
+        // 获取状态文本
+        function getStatusText(value) {
+            const statusMap = {
+                'applying': '申请中',
+                'reviewing': '审批中',
+                'cancelled': '已撤销',
+                'rejected': '审批不通过',
+                'pending_payment': '待支付',
+                'paid': '已支付',
+                'issued': '已出函',
+                'expired': '已到期'
+            };
+            return statusMap[value] || '';
+        }
+        
+        // 获取保函类型文本
+        function getGuaranteeTypeText(value) {
+            const typeMap = {
+                'performance': '履约保函',
+                'quality': '质量（结清款）保函',
+                'advance': '预付款保函',
+                'bid': '投标保函'
+            };
+            return typeMap[value] || '';
+        }
+        
+        // 渲染订单表格
+        function renderOrderTable(data) {
+            const tbody = document.querySelector('tbody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = data.map(item => `
+                <tr class="table-row">
+                    <td class="px-6 py-4">
+                        <input type="checkbox" class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary">
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="font-mono text-sm text-gray-900 font-medium">${item.applicationNo}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="font-mono text-sm text-gray-700">${item.contractNo}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-900">${item.contractName}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-900">${item.partyA}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-600">${item.address}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="${item.guaranteeNo === '-' ? 'text-gray-500' : 'text-primary font-medium font-mono'}">${item.guaranteeNo}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-700">${item.type}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-900 font-medium">${item.amount}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-700">${item.premium}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-600">${item.term}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-700">${item.institution}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusClass(item.status)}">${item.status}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="text-sm text-gray-600">${item.applyTime}</span>
+                    </td>
+                    <td class="px-6 py-4 sticky right-0 bg-white z-10">
+                        <div class="flex items-center space-x-3">
+                            <button class="text-primary hover:text-secondary text-sm font-medium" onclick="showOrderDetail('${item.guaranteeNo}')">
+                                <i class="fa fa-eye mr-1"></i>查看
+                            </button>
+                            ${item.status === '待支付' ? '<button class="text-green-500 hover:text-green-600 text-sm font-medium"><i class="fa fa-credit-card mr-1"></i>支付</button>' : ''}
+                            ${item.status === '申请中' || item.status === '待支付' ? '<button class="text-red-500 hover:text-red-600 text-sm font-medium" onclick="showCancelModal(\'' + item.guaranteeNo + '\')"><i class="fa fa-times mr-1"></i>撤销</button>' : ''}
+                            ${item.status === '已到期' ? '<button class="text-primary hover:text-secondary text-sm font-medium"><i class="fa fa-refresh mr-1"></i>重新申请</button>' : ''}
+                            ${item.status === '已出函' ? '<button class="text-primary hover:text-secondary text-sm font-medium"><i class="fa fa-download mr-1"></i>下载</button>' : ''}
+                            <button class="text-gray-400 hover:text-gray-600 text-sm" title="更多">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // 获取状态样式类
+        function getStatusClass(status) {
+            const classMap = {
+                '申请中': 'bg-yellow-100 text-yellow-800',
+                '审批中': 'bg-blue-100 text-blue-800',
+                '已撤销': 'bg-gray-100 text-gray-800',
+                '审批不通过': 'bg-red-100 text-red-800',
+                '待支付': 'bg-orange-100 text-orange-800',
+                '已支付': 'bg-green-100 text-green-800',
+                '已出函': 'bg-green-100 text-green-800',
+                '已到期': 'bg-gray-100 text-gray-800'
+            };
+            return classMap[status] || 'bg-gray-100 text-gray-800';
         }
         
         // 防抖搜索

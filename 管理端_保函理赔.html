@@ -453,6 +453,40 @@
                     </div>
                 </div>
                 
+                <!-- 已赔付信息 -->
+                <div id="detail-pay-info" class="mb-6 hidden">
+                    <h4 class="text-md font-bold text-gray-800 mb-3">赔付信息</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">赔付时间</p>
+                            <p class="text-lg font-medium text-gray-900" id="detail-pay-date"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">赔付金额</p>
+                            <p class="text-lg font-bold text-success" id="detail-pay-amount"></p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">赔付证明文件</p>
+                        <div class="space-y-2" id="detail-pay-materials">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 已拒绝信息 -->
+                <div id="detail-reject-info" class="mb-6 hidden">
+                    <h4 class="text-md font-bold text-gray-800 mb-3">拒绝信息</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <p class="text-sm text-gray-500 mb-1">拒绝原因</p>
+                        <p class="text-gray-700" id="detail-reject-reason"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-2">拒绝证明文件</p>
+                        <div class="space-y-2" id="detail-reject-materials">
+                        </div>
+                    </div>
+                </div>
+                
                 <div>
                     <h4 class="text-md font-bold text-gray-800 mb-3">处理进度</h4>
                     <div class="space-y-3" id="detail-progress">
@@ -558,6 +592,12 @@
                         { step: '材料审核通过', date: '2026-04-10 11:30', status: 'completed' },
                         { step: '金融机构处理中', date: '2026-04-11 14:00', status: 'completed' },
                         { step: '理赔已赔付', date: '2026-04-12 10:00', status: 'completed' }
+                    ],
+                    payDate: '2026-04-12',
+                    payAmount: '¥30,000',
+                    payMaterials: [
+                        { name: '赔付凭证.pdf', type: 'pdf' },
+                        { name: '银行转账回执.pdf', type: 'pdf' }
                     ]
                 },
                 'LP202603250001': {
@@ -580,6 +620,11 @@
                         { step: '材料审核通过', date: '2026-03-26 10:00', status: 'completed' },
                         { step: '金融机构处理中', date: '2026-03-27 09:00', status: 'completed' },
                         { step: '理赔已拒绝', date: '2026-03-28 14:00', status: 'completed' }
+                    ],
+                    rejectReason: '经核查，申请人提供的证据不足以证明供应商存在违约行为，桥面坑洼属于正常使用磨损，不符合理赔条件。',
+                    rejectMaterials: [
+                        { name: '现场复查报告.pdf', type: 'pdf' },
+                        { name: '专家意见.docx', type: 'word' }
                     ]
                 },
                 'LP202604180003': {
@@ -625,6 +670,12 @@
                         { step: '材料审核通过', date: '2026-04-06 09:30', status: 'completed' },
                         { step: '金融机构处理中', date: '2026-04-07 14:00', status: 'completed' },
                         { step: '理赔已赔付', date: '2026-04-08 10:00', status: 'completed' }
+                    ],
+                    payDate: '2026-04-08',
+                    payAmount: '¥25,000',
+                    payMaterials: [
+                        { name: '赔付凭证.pdf', type: 'pdf' },
+                        { name: '银行转账回执.pdf', type: 'pdf' }
                     ]
                 }
             };
@@ -656,6 +707,40 @@
                         </button>
                     </div>
                 `).join('');
+                
+                document.getElementById('detail-pay-info').classList.add('hidden');
+                document.getElementById('detail-reject-info').classList.add('hidden');
+                
+                if (data.status === '已赔付') {
+                    document.getElementById('detail-pay-info').classList.remove('hidden');
+                    document.getElementById('detail-pay-date').textContent = data.payDate || '-';
+                    document.getElementById('detail-pay-amount').textContent = data.payAmount || '-';
+                    document.getElementById('detail-pay-materials').innerHTML = (data.payMaterials || []).map(material => `
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-${material.type === 'pdf' ? 'pdf-o text-red-500' : material.type === 'word' ? 'word-o text-blue-500' : 'archive-o text-gray-500'} mr-3"></i>
+                                <span class="text-sm text-gray-700">${material.name}</span>
+                            </div>
+                            <button class="text-primary hover:text-secondary text-sm">
+                                <i class="fa fa-download mr-1"></i>下载
+                            </button>
+                        </div>
+                    `).join('');
+                } else if (data.status === '已拒绝') {
+                    document.getElementById('detail-reject-info').classList.remove('hidden');
+                    document.getElementById('detail-reject-reason').textContent = data.rejectReason || '-';
+                    document.getElementById('detail-reject-materials').innerHTML = (data.rejectMaterials || []).map(material => `
+                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fa fa-file-${material.type === 'pdf' ? 'pdf-o text-red-500' : material.type === 'word' ? 'word-o text-blue-500' : 'archive-o text-gray-500'} mr-3"></i>
+                                <span class="text-sm text-gray-700">${material.name}</span>
+                            </div>
+                            <button class="text-primary hover:text-secondary text-sm">
+                                <i class="fa fa-download mr-1"></i>下载
+                            </button>
+                        </div>
+                    `).join('');
+                }
                 
                 const progressEl = document.getElementById('detail-progress');
                 progressEl.innerHTML = data.progress.map(item => `

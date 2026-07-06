@@ -485,7 +485,7 @@
                             <div class="mt-6 pt-4 border-t border-gray-200">
                                 <div class="flex items-center space-x-4">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
-                                    <span class="text-sm text-gray-600">累计投保金额 &gt;=</span>
+                                    <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
@@ -513,7 +513,7 @@
                                                     <span class="text-gray-500 text-xs">（含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-input" placeholder="200000" value="200000" onchange="updateNextRowStart(this)">
-                                                    <span class="text-gray-500 text-xs">（不含）</span>
+                                                    <span class="text-gray-500 text-xs">（含）</span>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3">
@@ -535,10 +535,10 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center space-x-2">
                                                     <input type="number" step="0.01" class="w-24 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="200000" value="200000">
-                                                    <span class="text-gray-500 text-xs">（含）</span>
+                                                    <span class="text-gray-500 text-xs">（不含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-input" placeholder="1000000" value="1000000" onchange="updateNextRowStart(this)">
-                                                    <span class="text-gray-500 text-xs">（不含）</span>
+                                                    <span class="text-gray-500 text-xs">（含）</span>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3">
@@ -560,10 +560,10 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center space-x-2">
                                                     <input type="number" step="0.01" class="w-24 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="1000000" value="1000000">
-                                                    <span class="text-gray-500 text-xs">（含）</span>
+                                                    <span class="text-gray-500 text-xs">（不含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <select class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-select">
-                                                        <option value="infinite">+∞（不含）</option>
+                                                        <option value="infinite">+∞（含）</option>
                                                         <option value="custom">自定义金额</option>
                                                     </select>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-custom-input hidden" placeholder="结束金额">
@@ -593,7 +593,7 @@
                             <div class="mt-6 pt-4 border-t border-gray-200">
                                 <div class="flex items-center space-x-4">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
-                                    <span class="text-sm text-gray-600">累计投保金额 &gt;=</span>
+                                    <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
@@ -720,7 +720,7 @@
                     <div id="view-discount-section" class="hidden border-b border-gray-100 pb-4">
                         <div class="w-full">
                             <div class="text-sm font-medium text-gray-500 mb-2">折扣费率配置</div>
-                            <div class="text-sm text-gray-900" id="view-discount-rate">累计投保金额 >= 4000000元，费率：1.05%</div>
+                            <div class="text-sm text-gray-900" id="view-discount-rate">累计投保金额 > 4000000元，费率：1.05%</div>
                         </div>
                     </div>
                     <div class="flex border-b border-gray-100 pb-4">
@@ -825,7 +825,7 @@
                             <div class="mt-6 pt-4 border-t border-gray-200">
                                 <div class="flex items-center space-x-4">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
-                                    <span class="text-sm text-gray-600">累计投保金额 &gt;=</span>
+                                    <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
@@ -853,7 +853,7 @@
                                                     <span class="text-gray-500 text-xs">（含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-input" placeholder="200000" value="200000" onchange="updateNextRowStart(this)">
-                                                    <span class="text-gray-500 text-xs">（不含）</span>
+                                                    <span class="text-gray-500 text-xs">（含）</span>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3">
@@ -875,10 +875,10 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center space-x-2">
                                                     <input type="number" step="0.01" class="w-24 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="200000" value="200000">
-                                                    <span class="text-gray-500 text-xs">（含）</span>
+                                                    <span class="text-gray-500 text-xs">（不含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-input" placeholder="1000000" value="1000000" onchange="updateNextRowStart(this)">
-                                                    <span class="text-gray-500 text-xs">（不含）</span>
+                                                    <span class="text-gray-500 text-xs">（含）</span>
                                                 </div>
                                             </td>
                                             <td class="px-4 py-3">
@@ -900,10 +900,10 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center space-x-2">
                                                     <input type="number" step="0.01" class="w-24 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="1000000" value="1000000">
-                                                    <span class="text-gray-500 text-xs">（含）</span>
+                                                    <span class="text-gray-500 text-xs">（不含）</span>
                                                     <span class="text-gray-400">—</span>
                                                     <select class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-select" onchange="toggleEndSelect(this)">
-                                                        <option value="infinite">+∞（不含）</option>
+                                                        <option value="infinite">+∞（含）</option>
                                                         <option value="custom">自定义金额</option>
                                                     </select>
                                                     <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-custom-input hidden" placeholder="结束金额">
@@ -933,7 +933,7 @@
                             <div class="mt-6 pt-4 border-t border-gray-200">
                                 <div class="flex items-center space-x-4">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
-                                    <span class="text-sm text-gray-600">累计投保金额 &gt;=</span>
+                                    <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
@@ -1177,10 +1177,10 @@
                 <td class="px-4 py-3">
                     <div class="flex items-center space-x-2">
                         <input type="number" step="0.01" class="w-24 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="起始金额" value="${lastEndValue}">
-                        <span class="text-gray-500 text-xs">（含）</span>
+                        <span class="text-gray-500 text-xs">（不含）</span>
                         <span class="text-gray-400">—</span>
                         <select class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-select" onchange="toggleEndSelect(this)">
-                            <option value="infinite">+∞（不含）</option>
+                            <option value="infinite">+∞（含）</option>
                             <option value="custom">自定义金额</option>
                         </select>
                         <input type="number" step="0.01" class="w-28 px-3 py-2 border border-gray-200 rounded text-sm end-custom-input hidden" placeholder="结束金额">
@@ -1381,7 +1381,7 @@
                     if (product.discount) {
                         discountSection.classList.remove('hidden');
                         document.getElementById('view-discount-rate').textContent = 
-                            `累计投保金额 >= ${product.discount.amount}元，费率：${product.discount.rate}%`;
+                            `累计投保金额 > ${product.discount.amount}元，费率：${product.discount.rate}%`;
                     } else {
                         discountSection.classList.add('hidden');
                     }
@@ -1394,10 +1394,12 @@
                     const intervalTableBody = document.getElementById('view-interval-rate-table');
                     intervalTableBody.innerHTML = '';
                     if (product.intervals && product.intervals.length > 0) {
-                        product.intervals.forEach(interval => {
+                        product.intervals.forEach((interval, index) => {
+                            const startInclude = index === 0 ? '（含）' : '（不含）';
+                            const endInclude = interval.end === '+∞' ? '' : '（含）';
                             const row = document.createElement('tr');
                             row.innerHTML = `
-                                <td class="px-4 py-2">${interval.start}（含）— ${interval.end === '+∞' ? '+∞' : interval.end + '（不含）'}</td>
+                                <td class="px-4 py-2">${interval.start}${startInclude} — ${interval.end === '+∞' ? '+∞' : interval.end + endInclude}</td>
                                 <td class="px-4 py-2">${interval.rate}</td>
                                 <td class="px-4 py-2">${interval.minFee || '-'}</td>
                                 <td class="px-4 py-2">${interval.maxFee || '-'}</td>
@@ -1408,7 +1410,7 @@
                     
                     if (product.discount) {
                         document.getElementById('view-discount-rate').textContent = 
-                            `累计投保金额 >= ${product.discount.amount}元，费率：${product.discount.rate}%`;
+                            `累计投保金额 > ${product.discount.amount}元，费率：${product.discount.rate}%`;
                     }
                 }
                 

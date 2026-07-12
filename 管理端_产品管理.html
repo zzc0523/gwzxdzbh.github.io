@@ -139,6 +139,10 @@
                             <i class="fa fa-globe w-5 text-center mr-3"></i>
                             <span class="font-medium">省级平台管理</span>
                         </a>
+                        <a href="管理端_省级账号管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                            <span class="font-medium">省级账号管理</span>
+                        </a>
                     </div>
                 </div>
                 
@@ -478,19 +482,33 @@
                                     <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入费率，单位：%，两位小数">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">最低收费（元/笔）</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">最低保费（元/年）</label>
                                     <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入金额，单位：元，两位小数">
                                 </div>
                             </div>
                             <div class="mt-6 pt-4 border-t border-gray-200">
-                                <div class="flex items-center space-x-4">
+                                <div class="flex items-center justify-between mb-3">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                        <span class="ms-2 text-sm text-gray-600">开启</span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-4">
                                     <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
                                     <input type="number" step="0.01" class="w-20 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="费率" value="0.45">
                                 </div>
+                                <div class="flex items-center space-x-4 mt-3">
+                                    <span class="text-sm font-medium text-gray-700">优惠时间：</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-01-01T00:00:00">
+                                    <span class="text-sm text-gray-600">至</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-12-31T23:59:59">
+                                </div>
+                                <p class="text-xs text-red-500 mt-2">若开启折扣费率配置，则同一企业在优惠期间内，累计投保金额满足配置值时，超过部分可享受对应优惠费率。</p>
                             </div>
                         </div>
                         <div id="add-interval-rate" class="md:col-span-2 hidden">
@@ -500,8 +518,8 @@
                                         <tr>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保证金区间（元） <span class="text-red-500">*</span></th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">费率（%） <span class="text-red-500">*</span></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最低保费（元/笔）</th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最高保费（元/笔）</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最低保费（元/年）</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最高保费（元/年）</th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">操作</th>
                                         </tr>
                                     </thead>
@@ -591,14 +609,28 @@
                                 <i class="fa fa-plus mr-1"></i>添加
                             </button>
                             <div class="mt-6 pt-4 border-t border-gray-200">
-                                <div class="flex items-center space-x-4">
+                                <div class="flex items-center justify-between mb-3">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                        <span class="ms-2 text-sm text-gray-600">开启</span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-4">
                                     <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
                                     <input type="number" step="0.01" class="w-20 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="费率" value="1.05">
                                 </div>
+                                <div class="flex items-center space-x-4 mt-3">
+                                    <span class="text-sm font-medium text-gray-700">优惠时间：</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-01-01T00:00:00">
+                                    <span class="text-sm text-gray-600">至</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-12-31T23:59:59">
+                                </div>
+                                <p class="text-xs text-red-500 mt-2">若开启折扣费率配置，则同一企业在优惠期间内，累计投保金额满足配置值时，超过部分可享受对应优惠费率。</p>
                             </div>
                         </div>
                         <div>
@@ -665,7 +697,7 @@
 
     <!-- 查看产品详情模态框 -->
     <div id="view-product-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[80vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
                 <h3 class="text-lg font-bold text-gray-900">产品详情</h3>
                 <button class="text-gray-400 hover:text-gray-600" onclick="closeViewProductModal()">
@@ -673,86 +705,115 @@
                 </button>
             </div>
             <div class="p-6">
-                <div class="space-y-4">
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">产品名称</div>
+                <!-- 产品基础信息 -->
+                <h4 class="text-md font-bold text-gray-800 mb-4">产品基础信息</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 mb-6">
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">产品名称</div>
                         <div id="view-product-name" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">金融机构</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">金融机构</div>
                         <div id="view-financial-institution" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">适用场景</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">适用场景</div>
                         <div id="view-product-type" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">费率计算方式</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">费率计算方式</div>
                         <div id="view-rate-type" class="text-sm text-gray-900">固定费率</div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">参考费率（%）</div>
-                        <div id="view-rate" class="text-sm text-gray-900"></div>
-                    </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">最低收费（元/笔）</div>
-                        <div id="view-min-fee" class="text-sm text-gray-900">-</div>
-                    </div>
-                    <div id="view-interval-rate-section" class="hidden border-b border-gray-100 pb-4">
-                        <div class="w-full">
-                            <div class="text-sm font-medium text-gray-500 mb-3">费率区间配置</div>
-                            <div class="border border-gray-200 rounded-lg overflow-hidden">
-                                <table class="w-full text-sm">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">保证金区间（元）</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">费率（%）</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">最低保费（元/笔）</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">最高保费（元/笔）</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="view-interval-rate-table" class="bg-white divide-y divide-gray-200">
-                                    </tbody>
-                                </table>
+                </div>
+
+                <!-- 费率配置 -->
+                <h4 class="text-md font-bold text-gray-800 mb-4 pt-4 border-t border-gray-200">费率配置</h4>
+                <div class="mb-6">
+                    <!-- 固定费率 -->
+                    <div id="view-fixed-rate-fields" class="mb-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                            <div class="flex">
+                                <div class="w-36 text-sm font-medium text-gray-500 shrink-0">参考费率（%）</div>
+                                <div id="view-rate" class="text-sm text-gray-900"></div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-36 text-sm font-medium text-gray-500 shrink-0">最低保费（元/年）</div>
+                                <div id="view-min-fee" class="text-sm text-gray-900">-</div>
                             </div>
                         </div>
                     </div>
-                    <div id="view-discount-section" class="hidden border-b border-gray-100 pb-4">
-                        <div class="w-full">
-                            <div class="text-sm font-medium text-gray-500 mb-2">折扣费率配置</div>
-                            <div class="text-sm text-gray-900" id="view-discount-rate">累计投保金额 > 4000000元，费率：1.05%</div>
+                    <!-- 区间定价费率 -->
+                    <div id="view-interval-rate-section" class="hidden mb-4">
+                        <div class="text-sm font-medium text-gray-500 mb-2">费率区间配置</div>
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">保证金区间（元）</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">费率（%）</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">最低保费（元/年）</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">最高保费（元/年）</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="view-interval-rate-table" class="bg-white divide-y divide-gray-200">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">平均时效</div>
+                    <!-- 折扣费率配置 -->
+                    <div id="view-discount-section" class="hidden border-t border-gray-100 pt-4">
+                        <div class="text-sm font-medium text-gray-700 mb-3">折扣费率配置</div>
+                        <div class="space-y-2">
+                            <div class="flex">
+                                <div class="w-36 text-sm font-medium text-gray-500 shrink-0">折扣条件及费率</div>
+                                <div id="view-discount-rate" class="text-sm text-gray-900"></div>
+                            </div>
+                            <div class="flex">
+                                <div class="w-36 text-sm font-medium text-gray-500 shrink-0">优惠时间</div>
+                                <div id="view-discount-time" class="text-sm text-gray-900"></div>
+                            </div>
+                            <p class="text-xs text-red-500 ml-36">若开启折扣费率配置，则同一企业在优惠期间内，累计投保金额满足配置值时，超过部分可享受对应优惠费率。</p>
+                            <div class="flex">
+                                <div class="w-36 text-sm font-medium text-gray-500 shrink-0">状态</div>
+                                <div id="view-discount-status" class="text-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 其他信息 -->
+                <h4 class="text-md font-bold text-gray-800 mb-4 pt-4 border-t border-gray-200">其他信息</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">平均时效</div>
                         <div id="view-average-time" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">产品介绍</div>
+                    <div class="flex md:col-span-2">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">产品介绍</div>
                         <div id="view-product-intro" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">所属省份</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">所属省份</div>
                         <div id="view-platform" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">对接方式</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">对接方式</div>
                         <div id="view-docking-method" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">接口地址</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">接口地址</div>
                         <div id="view-api-url" class="text-sm text-gray-900 break-all"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">展示排序</div>
+                    <div class="flex">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">展示排序</div>
                         <div id="view-sort-order" class="text-sm text-gray-900"></div>
                     </div>
-                    <div class="flex border-b border-gray-100 pb-4">
-                        <div class="w-32 text-sm font-medium text-gray-500">前端提示词</div>
+                    <div class="flex md:col-span-2">
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">前端提示词</div>
                         <div id="view-no-sale-tip" class="text-sm text-gray-900">-</div>
                     </div>
                     <div class="flex">
-                        <div class="w-32 text-sm font-medium text-gray-500">状态</div>
+                        <div class="w-32 text-sm font-medium text-gray-500 shrink-0">状态</div>
                         <div id="view-status" class="text-sm"></div>
                     </div>
                 </div>
@@ -818,19 +879,33 @@
                                     <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="0.5" placeholder="请输入费率，单位：%，两位小数">
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">最低收费（元/笔）</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">最低保费（元/年）</label>
                                     <input type="number" step="0.01" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入金额，单位：元，两位小数">
                                 </div>
                             </div>
                             <div class="mt-6 pt-4 border-t border-gray-200">
-                                <div class="flex items-center space-x-4">
+                                <div class="flex items-center justify-between mb-3">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                        <span class="ms-2 text-sm text-gray-600">开启</span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-4">
                                     <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
                                     <input type="number" step="0.01" class="w-20 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="费率" value="0.45">
                                 </div>
+                                <div class="flex items-center space-x-4 mt-3">
+                                    <span class="text-sm font-medium text-gray-700">优惠时间：</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-01-01T00:00:00">
+                                    <span class="text-sm text-gray-600">至</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-12-31T23:59:59">
+                                </div>
+                                <p class="text-xs text-red-500 mt-2">若开启折扣费率配置，则同一企业在优惠期间内，累计投保金额满足配置值时，超过部分可享受对应优惠费率。</p>
                             </div>
                         </div>
                         <div id="edit-interval-rate" class="md:col-span-2 hidden">
@@ -840,8 +915,8 @@
                                         <tr>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保证金区间（元） <span class="text-red-500">*</span></th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">费率（%） <span class="text-red-500">*</span></th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最低保费（元/笔）</th>
-                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最高保费（元/笔）</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最低保费（元/年）</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最高保费（元/年）</th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-20">操作</th>
                                         </tr>
                                     </thead>
@@ -931,14 +1006,28 @@
                                 <i class="fa fa-plus mr-1"></i>添加
                             </button>
                             <div class="mt-6 pt-4 border-t border-gray-200">
-                                <div class="flex items-center space-x-4">
+                                <div class="flex items-center justify-between mb-3">
                                     <span class="text-sm font-medium text-gray-700">折扣费率配置：</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                        <span class="ms-2 text-sm text-gray-600">开启</span>
+                                    </label>
+                                </div>
+                                <div class="flex items-center space-x-4">
                                     <span class="text-sm text-gray-600">累计投保金额 &gt;</span>
                                     <input type="number" step="0.01" class="w-32 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="金额" value="4000000">
                                     <span class="text-sm text-gray-600">元</span>
                                     <span class="text-sm text-gray-600">费率（%）：</span>
                                     <input type="number" step="0.01" class="w-20 px-3 py-2 border border-gray-200 rounded text-sm" placeholder="费率" value="1.05">
                                 </div>
+                                <div class="flex items-center space-x-4 mt-3">
+                                    <span class="text-sm font-medium text-gray-700">优惠时间：</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-01-01T00:00:00">
+                                    <span class="text-sm text-gray-600">至</span>
+                                    <input type="datetime-local" step="1" class="w-52 px-3 py-2 border border-gray-200 rounded text-sm" value="2026-12-31T23:59:59">
+                                </div>
+                                <p class="text-xs text-red-500 mt-2">若开启折扣费率配置，则同一企业在优惠期间内，累计投保金额满足配置值时，超过部分可享受对应优惠费率。</p>
                             </div>
                         </div>
                         <div>
@@ -1290,12 +1379,26 @@
                     name: '履约保函',
                     institution: '中国建设银行',
                     type: '履约保函',
+                    rateType: 'interval',
                     rate: '1.05-2.8',
+                    minFee: '1000',
+                    intervals: [
+                        { start: '1', end: '200000', rate: '2.8', minFee: '1000', maxFee: '' },
+                        { start: '200000', end: '1000000', rate: '1.8', minFee: '1000', maxFee: '' },
+                        { start: '1000000', end: '+∞', rate: '1.05', minFee: '', maxFee: '' }
+                    ],
+                    discount: {
+                        amount: '4000000',
+                        rate: '1.05',
+                        enabled: true,
+                        timeStart: '2026-08-01 00:00:00',
+                        timeEnd: '2028-07-31 23:59:59'
+                    },
                     averageTime: '3个工作日',
                     intro: '为您提供专业的履约担保服务，快速审批，高效出函',
-                    platform: '平台C',
+                    platform: '福建省',
                     dockingMethod: 'API对接',
-                    apiUrl: 'https://api.example.com/guarantee',
+                    apiUrl: 'https://api.ccb.com/guarantee',
                     status: '已上架',
                     sortOrder: '1'
                 },
@@ -1303,11 +1406,20 @@
                     name: '质量（结清款）保函',
                     institution: '中国工商银行',
                     type: '质量（结清款）保函',
-                    rate: '1.05-2.8',
+                    rateType: 'fixed',
+                    rate: '2.8',
+                    minFee: '1000',
+                    discount: {
+                        amount: '5000000',
+                        rate: '1.05',
+                        enabled: true,
+                        timeStart: '2026-03-01 00:00:00',
+                        timeEnd: '2026-09-30 23:59:59'
+                    },
                     averageTime: '5个工作日',
                     intro: '保障工程质量，确保结清款项安全',
-                    platform: '平台A',
-                    dockingMethod: '人工审核',
+                    platform: '浙江省',
+                    dockingMethod: '线下人工审核',
                     apiUrl: '-',
                     status: '已上架',
                     sortOrder: '2'
@@ -1316,12 +1428,21 @@
                     name: '预付款保函',
                     institution: '中国太平洋保险',
                     type: '预付款保函',
-                    rate: '1.05-2.8',
+                    rateType: 'fixed',
+                    rate: '1.55',
+                    minFee: '800',
+                    discount: {
+                        amount: '4000000',
+                        rate: '0.60',
+                        enabled: false,
+                        timeStart: '2026-01-01 00:00:00',
+                        timeEnd: '2026-06-30 23:59:59'
+                    },
                     averageTime: '7个工作日',
                     intro: '预付款安全保障，降低交易风险',
-                    platform: '平台B',
+                    platform: '广东省',
                     dockingMethod: 'API对接',
-                    apiUrl: 'https://api.pacific.com/advance',
+                    apiUrl: 'https://api.cpic.com/advance',
                     status: '已下架',
                     sortOrder: '3'
                 },
@@ -1339,7 +1460,10 @@
                     ],
                     discount: {
                         amount: '4000000',
-                        rate: '0.7'
+                        rate: '0.7',
+                        enabled: true,
+                        timeStart: '2026-01-01 00:00:00',
+                        timeEnd: '2026-12-31 23:59:59'
                     },
                     averageTime: '2个工作日',
                     intro: '为投标企业提供专业的投标担保服务',
@@ -1368,12 +1492,14 @@
                 const rateType = product.rateType || 'fixed';
                 document.getElementById('view-rate-type').textContent = rateType === 'fixed' ? '固定费率' : '按区间定价';
                 
+                const fixedRateFields = document.getElementById('view-fixed-rate-fields');
                 const intervalSection = document.getElementById('view-interval-rate-section');
                 const discountSection = document.getElementById('view-discount-section');
                 const minFeeDiv = document.getElementById('view-min-fee');
                 const rateDiv = document.getElementById('view-rate');
                 
                 if (rateType === 'fixed') {
+                    fixedRateFields.classList.remove('hidden');
                     rateDiv.textContent = product.rate;
                     minFeeDiv.textContent = product.minFee || '-';
                     intervalSection.classList.add('hidden');
@@ -1382,10 +1508,17 @@
                         discountSection.classList.remove('hidden');
                         document.getElementById('view-discount-rate').textContent = 
                             `累计投保金额 > ${product.discount.amount}元，费率：${product.discount.rate}%`;
+                        document.getElementById('view-discount-time').textContent = 
+                            `${product.discount.timeStart || '2026-01-01 00:00:00'} 至 ${product.discount.timeEnd || '2026-12-31 23:59:59'}`;
+                        document.getElementById('view-discount-status').innerHTML = 
+                            product.discount.enabled !== false 
+                                ? '<span class="badge bg-green-100 text-success">已开启</span>' 
+                                : '<span class="badge bg-gray-100 text-gray-500">已关闭</span>';
                     } else {
                         discountSection.classList.add('hidden');
                     }
                 } else {
+                    fixedRateFields.classList.add('hidden');
                     rateDiv.textContent = '-';
                     minFeeDiv.textContent = '-';
                     intervalSection.classList.remove('hidden');
@@ -1411,6 +1544,12 @@
                     if (product.discount) {
                         document.getElementById('view-discount-rate').textContent = 
                             `累计投保金额 > ${product.discount.amount}元，费率：${product.discount.rate}%`;
+                        document.getElementById('view-discount-time').textContent = 
+                            `${product.discount.timeStart || '2026-01-01 00:00:00'} 至 ${product.discount.timeEnd || '2026-12-31 23:59:59'}`;
+                        document.getElementById('view-discount-status').innerHTML = 
+                            product.discount.enabled !== false 
+                                ? '<span class="badge bg-green-100 text-success">已开启</span>' 
+                                : '<span class="badge bg-gray-100 text-gray-500">已关闭</span>';
                     }
                 }
                 

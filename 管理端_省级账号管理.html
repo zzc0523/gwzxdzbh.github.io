@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>国网征信系统 - 省级平台管理</title>
+    <title>国网征信系统 - 省级账号管理</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -111,10 +111,6 @@
                             <i class="fa fa-file-text-o w-5 text-center mr-3"></i>
                             <span class="font-medium">投保材料管理</span>
                         </a>
-                        <a href="管理端_对账管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-calculator w-5 text-center mr-3"></i>
-                            <span class="font-medium">对账管理</span>
-                        </a>
                     </div>
                 </div>
                 
@@ -128,12 +124,12 @@
                         <i class="fa fa-angle-down text-xs transition-transform" id="platform-icon" style="transform: rotate(180deg);"></i>
                     </button>
                     <div id="platform-submenu" class="submenu">
-                        <a href="管理端_省级平台管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
-                            <i class="fa fa-globe w-5 text-center mr-3 text-primary"></i>
+                        <a href="管理端_省级平台管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
+                            <i class="fa fa-globe w-5 text-center mr-3"></i>
                             <span class="font-medium">省级平台管理</span>
                         </a>
-                        <a href="管理端_省级账号管理.html" class="sidebar-link flex items-center px-6 py-3 text-gray-600 pl-12">
-                            <i class="fa fa-user-circle w-5 text-center mr-3"></i>
+                        <a href="管理端_省级账号管理.html" class="sidebar-link active flex items-center px-6 py-3 text-gray-700 pl-12">
+                            <i class="fa fa-user-circle w-5 text-center mr-3 text-primary"></i>
                             <span class="font-medium">省级账号管理</span>
                         </a>
                     </div>
@@ -191,12 +187,12 @@
             <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-10">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h2 class="text-xl font-bold text-gray-900">省级平台管理</h2>
+                        <h2 class="text-xl font-bold text-gray-900">省级账号管理</h2>
                         <p class="text-sm text-gray-500">欢迎回来，今日是 <span id="today-date" class="font-medium text-primary"></span></p>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddPlatformModal()">
-                            <i class="fa fa-plus mr-2"></i>新增省级平台
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="openAddAdminModal()">
+                            <i class="fa fa-plus mr-2"></i>新增账号
                         </button>
                         <button class="relative p-2 text-gray-400 hover:text-primary transition-colors">
                             <i class="fa fa-bell-o text-xl"></i>
@@ -215,18 +211,21 @@
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">平台名称</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平台名称">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">手机号(登录账号）</label>
+                            <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入手机号(登录账号）">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入姓名">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">所属省份</label>
                             <select class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
-                                <option value="">全部省份</option>
-                                <option value="beijing">福建省</option>
-                                <option value="shanghai">辽宁省</option>
-                                <option value="guangdong">河北省</option>
+                                <option value="">全部平台</option>
+                                <option value="beijing">北京市</option>
+                                <option value="shanghai">上海市</option>
+                                <option value="guangdong">广东省</option>
                                 <option value="zhejiang">浙江省</option>
-                                <option value="jiangsu">江苏省</option>
                             </select>
                         </div>
                         <div>
@@ -235,11 +234,8 @@
                                 <option value="">全部状态</option>
                                 <option value="active">启用</option>
                                 <option value="inactive">停用</option>
+
                             </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">创建时间</label>
-                            <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                         </div>
                     </div>
                     <div class="flex justify-end mt-4 space-x-3">
@@ -252,26 +248,25 @@
                     </div>
                 </div>
 
-                <!-- 省级平台列表 -->
+                <!-- 管理员列表 -->
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-gray-100 flex items-center justify-between">
                         <h3 class="text-lg font-bold text-gray-900 flex items-center">
-                            <i class="fa fa-map text-primary mr-2"></i>
-                            省级平台列表
+                            <i class="fa fa-user-circle text-primary mr-2"></i>
+                            管理员列表
                         </h3>
                         <div class="flex items-center space-x-2 text-sm text-gray-500">
-                            <span>共 <strong class="text-primary">12</strong> 个省级平台</span>
+                            <span>共 <strong class="text-primary">24</strong> 个管理员账号</span>
                         </div>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平台名称</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">省编码</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">手机号(登录账号）</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">姓名</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">所属省份</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平台负责人</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">联系电话</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">角色</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">创建时间</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
@@ -279,100 +274,82 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">福建省平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">110000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">福建省</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">张三</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138001</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-01-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">张三</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">北京市</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-blue-100 text-primary">省级管理员</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-05-18 14:30</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">启用</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        <button class="text-primary hover:text-secondary mr-3" onclick="editPlatform('1')">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="editAdmin('1')">
                                             <i class="fa fa-edit mr-1"></i>编辑
                                         </button>
-                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewPlatform('1')">
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewAdmin('1')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
-                                        <button class="text-danger hover:text-red-600" onclick="disablePlatform('1')">
+                                        <button class="text-danger hover:text-red-600" onclick="disableAdmin('1')">
                                             <i class="fa fa-ban mr-1"></i>停用
                                         </button>
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">辽宁省平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">310000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">辽宁省</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">李四</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138002</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-02-20</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">李四</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">上海市</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-blue-100 text-primary">省级管理员</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-05-17 09:15</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">启用</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        <button class="text-primary hover:text-secondary mr-3" onclick="editPlatform('2')">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="editAdmin('2')">
                                             <i class="fa fa-edit mr-1"></i>编辑
                                         </button>
-                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewPlatform('2')">
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewAdmin('2')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
-                                        <button class="text-danger hover:text-red-600" onclick="disablePlatform('2')">
+                                        <button class="text-danger hover:text-red-600" onclick="disableAdmin('2')">
                                             <i class="fa fa-ban mr-1"></i>停用
                                         </button>
                                     </td>
                                 </tr>
                                 <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">河北省平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">440000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">河北省</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">王五</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138003</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-10</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">王五</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">广东省</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="badge bg-blue-100 text-primary">省级管理员</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-05-15 16:45</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-gray-100 text-gray-500">停用</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        <button class="text-primary hover:text-secondary mr-3" onclick="editPlatform('3')">
+                                        <button class="text-primary hover:text-secondary mr-3" onclick="editAdmin('3')">
                                             <i class="fa fa-edit mr-1"></i>编辑
                                         </button>
-                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewPlatform('3')">
+                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewAdmin('3')">
                                             <i class="fa fa-eye mr-1"></i>查看
                                         </button>
-                                        <button class="text-success hover:text-green-600" onclick="enablePlatform('3')">
+                                        <button class="text-success hover:text-green-600" onclick="enableAdmin('3')">
                                             <i class="fa fa-check mr-1"></i>启用
                                         </button>
                                     </td>
                                 </tr>
-                                <tr class="table-row">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">浙江省平台</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">330000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">浙江省</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">赵六</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">13800138004</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-05</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="badge bg-green-100 text-success">启用</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        <button class="text-primary hover:text-secondary mr-3" onclick="editPlatform('4')">
-                                            <i class="fa fa-edit mr-1"></i>编辑
-                                        </button>
-                                        <button class="text-warning hover:text-yellow-600 mr-3" onclick="viewPlatform('4')">
-                                            <i class="fa fa-eye mr-1"></i>查看
-                                        </button>
-                                        <button class="text-danger hover:text-red-600" onclick="disablePlatform('4')">
-                                            <i class="fa fa-ban mr-1"></i>停用
-                                        </button>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
                     <!-- 分页 -->
                     <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
                         <div class="text-sm text-gray-700">
-                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">4</span> 条，共 <span class="font-medium">12</span> 条
+                            显示 <span class="font-medium">1</span> 到 <span class="font-medium">4</span> 条，共 <span class="font-medium">24</span> 条
                         </div>
                         <div class="flex space-x-2">
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
@@ -381,6 +358,8 @@
                             <button class="px-3 py-1 border border-gray-200 rounded-md bg-primary text-white">1</button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">2</button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">4</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">5</button>
                             <button class="px-3 py-1 border border-gray-200 rounded-md text-gray-700 hover:bg-gray-50">
                                 <i class="fa fa-angle-right"></i>
                             </button>
@@ -391,24 +370,24 @@
         </main>
     </div>
 
-    <!-- 新增省级平台模态框 -->
-    <div id="add-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- 新增账号模态框 -->
+    <div id="add-admin-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">新增省级平台</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeAddPlatformModal()">
+                <h3 class="text-lg font-bold text-gray-900">新增账号</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeAddAdminModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台名称 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平台名称">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">手机号(登录账号） <span class="text-red-500">*</span></label>
+                        <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入手机号(登录账号）">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">省编码 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入省编码（如：110000）">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">姓名 <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入姓名">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">所属省份 <span class="text-red-500">*</span></label>
@@ -422,56 +401,45 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台负责人 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入负责人姓名">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">角色</label>
+                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入角色（选填）">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">联系电话 <span class="text-red-500">*</span></label>
-                        <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入联系电话">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">电子邮箱</label>
-                        <input type="email" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入电子邮箱">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台地址</label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入平台地址">
-                    </div>
+
                 </div>
                 <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">平台描述</label>
-                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入平台描述信息"></textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">备注</label>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入备注信息"></textarea>
                 </div>
             </div>
             <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeAddPlatformModal()">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeAddAdminModal()">
                     取消
                 </button>
-                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addPlatform()">
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="addAdmin()">
                     <i class="fa fa-check mr-2"></i>保存
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 编辑省级平台模态框 -->
-    <div id="edit-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- 编辑管理员模态框 -->
+    <div id="edit-admin-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">编辑省级平台</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditPlatformModal()">
+                <h3 class="text-lg font-bold text-gray-900">编辑管理员</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeEditAdminModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台名称 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="北京市省级平台" placeholder="请输入平台名称">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">手机号(登录账号） <span class="text-red-500">*</span></label>
+                        <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="13800138001" placeholder="请输入手机号(登录账号）">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">省编码 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="110000" placeholder="请输入省编码（如：110000）">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">姓名 <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="张三" placeholder="请输入姓名">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">所属省份 <span class="text-red-500">*</span></label>
@@ -480,97 +448,80 @@
                             <option value="shanghai">上海市</option>
                             <option value="guangdong">广东省</option>
                             <option value="zhejiang">浙江省</option>
-                            <option value="jiangsu">江苏省</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台负责人 <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="张三" placeholder="请输入负责人姓名">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">角色</label>
+                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="省级管理员" placeholder="请输入角色（选填）">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">联系电话 <span class="text-red-500">*</span></label>
-                        <input type="tel" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="13800138001" placeholder="请输入联系电话">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">电子邮箱</label>
-                        <input type="email" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="zhangsan@beijing.gov.cn" placeholder="请输入电子邮箱">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">平台地址</label>
-                        <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="北京市西城区金融大街1号" placeholder="请输入平台地址">
-                    </div>
+
                 </div>
                 <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">平台描述</label>
-                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="4" placeholder="请输入平台描述信息">负责北京市区域内的电子保函业务管理，包括产品管理、合同管理、保函订单查看等功能。</textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">备注</label>
+                    <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" placeholder="请输入备注信息">北京市省级平台管理员</textarea>
                 </div>
             </div>
             <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
-                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditPlatformModal()">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeEditAdminModal()">
                     取消
                 </button>
-                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="updatePlatform()">
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors" onclick="updateAdmin()">
                     <i class="fa fa-check mr-2"></i>保存
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 查看省级平台详情模态框 -->
-    <div id="view-platform-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- 查看管理员详情模态框 -->
+    <div id="view-admin-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div class="p-6 border-b border-gray-200 flex items-center justify-between">
-                <h3 class="text-lg font-bold text-gray-900">平台详情</h3>
-                <button class="text-gray-400 hover:text-gray-600" onclick="closeViewPlatformModal()">
+                <h3 class="text-lg font-bold text-gray-900">管理员详情</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeViewAdminModal()">
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">平台名称</p>
-                        <p class="text-lg font-medium text-gray-900">北京市省级平台</p>
+                        <p class="text-sm text-gray-500 mb-1">手机号(登录账号）</p>
+                        <p class="text-lg font-medium text-gray-900">13800138001</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">省编码</p>
-                        <p class="text-lg font-medium text-gray-900">110000</p>
+                        <p class="text-sm text-gray-500 mb-1">姓名</p>
+                        <p class="text-lg font-medium text-gray-900">张三</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">所属省份</p>
                         <p class="text-lg font-medium text-gray-900">北京市</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">平台负责人</p>
-                        <p class="text-lg font-medium text-gray-900">张三</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">联系电话</p>
-                        <p class="text-lg font-medium text-gray-900">13800138001</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">电子邮箱</p>
-                        <p class="text-lg font-medium text-gray-900">zhangsan@beijing.gov.cn</p>
-                    </div>
-                    <div>
-                        <p class="text-sm text-gray-500 mb-1">平台地址</p>
-                        <p class="text-lg font-medium text-gray-900">北京市西城区金融大街1号</p>
+                        <p class="text-sm text-gray-500 mb-1">角色</p>
+                        <p class="text-lg font-medium"><span class="badge bg-blue-100 text-primary">省级管理员</span></p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">创建时间</p>
-                        <p class="text-lg font-medium text-gray-900">2026-01-15</p>
+                        <p class="text-lg font-medium text-gray-900">2026-01-15 10:30</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">创建时间</p>
+                        <p class="text-lg font-medium text-gray-900">2026-05-18 14:30</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">状态</p>
                         <p class="text-lg font-medium"><span class="badge bg-green-100 text-success">启用</span></p>
                     </div>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-500 mb-2">平台描述</p>
-                    <p class="text-gray-700">负责北京市区域内的电子保函业务管理，包括产品管理、合同管理、保函订单查看等功能。</p>
+                <div class="mb-6">
+                    <p class="text-sm text-gray-500 mb-2">备注</p>
+                    <p class="text-gray-700">北京市省级平台管理员</p>
+                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="p-6 border-t border-gray-200 flex justify-end">
-                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeViewPlatformModal()">
+                <button class="px-4 py-2 border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors" onclick="closeViewAdminModal()">
                     关闭
                 </button>
             </div>
@@ -599,63 +550,65 @@
             }
         }
 
-        function openAddPlatformModal() {
-            document.getElementById('add-platform-modal').classList.remove('hidden');
+        function openAddAdminModal() {
+            document.getElementById('add-admin-modal').classList.remove('hidden');
         }
 
-        function closeAddPlatformModal() {
-            document.getElementById('add-platform-modal').classList.add('hidden');
+        function closeAddAdminModal() {
+            document.getElementById('add-admin-modal').classList.add('hidden');
         }
 
-        function addPlatform() {
-            showNotification('省级平台添加成功', 'success');
+        function addAdmin() {
+            showNotification('管理员添加成功', 'success');
             setTimeout(() => {
-                closeAddPlatformModal();
+                closeAddAdminModal();
                 location.reload();
             }, 1500);
         }
 
-        function editPlatform(id) {
-            document.getElementById('edit-platform-modal').classList.remove('hidden');
+        function editAdmin(id) {
+            document.getElementById('edit-admin-modal').classList.remove('hidden');
         }
 
-        function closeEditPlatformModal() {
-            document.getElementById('edit-platform-modal').classList.add('hidden');
+        function closeEditAdminModal() {
+            document.getElementById('edit-admin-modal').classList.add('hidden');
         }
 
-        function updatePlatform() {
-            showNotification('省级平台更新成功', 'success');
+        function updateAdmin() {
+            showNotification('管理员信息更新成功', 'success');
             setTimeout(() => {
-                closeEditPlatformModal();
+                closeEditAdminModal();
                 location.reload();
             }, 1500);
         }
 
-        function viewPlatform(id) {
-            document.getElementById('view-platform-modal').classList.remove('hidden');
+        function viewAdmin(id) {
+            document.getElementById('view-admin-modal').classList.remove('hidden');
         }
 
-        function closeViewPlatformModal() {
-            document.getElementById('view-platform-modal').classList.add('hidden');
+        function closeViewAdminModal() {
+            document.getElementById('view-admin-modal').classList.add('hidden');
         }
 
-        function disablePlatform(id) {
-            if (confirm('确定要停用该省级平台吗？停用后将无法使用相关功能。')) {
-                showNotification('省级平台已停用', 'success');
+        function disableAdmin(id) {
+            if (confirm('确定要停用该管理员账号吗？停用后将无法登录系统。')) {
+                showNotification('管理员账号已停用', 'success');
                 setTimeout(() => {
                     location.reload();
                 }, 1500);
             }
         }
 
-        function enablePlatform(id) {
-            if (confirm('确定要启用该省级平台吗？')) {
-                showNotification('省级平台已启用', 'success');
+        function enableAdmin(id) {
+            if (confirm('确定要启用该管理员账号吗？')) {
+                showNotification('管理员账号已启用', 'success');
                 setTimeout(() => {
                     location.reload();
                 }, 1500);
             }
         }
+
+
 
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
@@ -675,23 +628,24 @@
         }
 
         // 点击模态框外部关闭
-        document.getElementById('add-platform-modal').addEventListener('click', function(e) {
+        document.getElementById('add-admin-modal').addEventListener('click', function(e) {
             if (e.target === this) {
-                closeAddPlatformModal();
+                closeAddAdminModal();
             }
         });
 
-        document.getElementById('edit-platform-modal').addEventListener('click', function(e) {
+        document.getElementById('edit-admin-modal').addEventListener('click', function(e) {
             if (e.target === this) {
-                closeEditPlatformModal();
+                closeEditAdminModal();
             }
         });
 
-        document.getElementById('view-platform-modal').addEventListener('click', function(e) {
+        document.getElementById('view-admin-modal').addEventListener('click', function(e) {
             if (e.target === this) {
-                closeViewPlatformModal();
+                closeViewAdminModal();
             }
         });
+
     </script>
 </body>
 </html>

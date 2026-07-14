@@ -230,7 +230,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">保函编号</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">合同名称</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔金额</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">理赔金额（元）</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">申请日期</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
@@ -241,7 +241,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604150001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202603280003</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">厦门新机场配套工程</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥50,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">50,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-15</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-yellow-100 text-warning">处理中</span>
@@ -256,7 +256,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202604100002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202601100001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">漳州港码头扩建工程</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥30,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">30,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-04-10</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-green-100 text-success">已赔付</span>
@@ -271,7 +271,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">LP202603250001</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">BH202602150002</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">泉州湾大桥养护工程</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">¥15,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">15,000</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2026-03-25</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="badge bg-gray-100 text-gray-500">已拒绝</span>
@@ -330,8 +330,8 @@
                         <input type="text" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入供应商名称">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">理赔金额 <span class="text-red-500">*</span></label>
-                        <input type="number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔金额">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">理赔金额（元） <span class="text-red-500">*</span></label>
+                        <input type="number" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="请输入理赔金额（元）">
                     </div>
                 </div>
                 
@@ -384,16 +384,16 @@
                         <p class="text-lg font-medium text-gray-900" id="detail-contract-name">厦门新机场配套工程</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">保证金金额</p>
-                        <p class="text-lg font-bold text-primary" id="detail-guarantee-amount">¥350,000</p>
+                        <p class="text-sm text-gray-500 mb-1">保证金金额（元）</p>
+                        <p class="text-lg font-bold text-primary" id="detail-guarantee-amount">350,000</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">受益人</p>
                         <p class="text-lg font-medium text-gray-900" id="detail-beneficiary">厦门新机场建设指挥部</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">理赔金额</p>
-                        <p class="text-lg font-bold text-danger" id="detail-amount">¥50,000</p>
+                        <p class="text-sm text-gray-500 mb-1">理赔金额（元）</p>
+                        <p class="text-lg font-bold text-danger" id="detail-amount">50,000</p>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500 mb-1">理赔联系人</p>
@@ -456,7 +456,7 @@
                             <p class="text-lg font-medium text-gray-900" id="detail-pay-date"></p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-500 mb-1">赔付金额</p>
+                            <p class="text-sm text-gray-500 mb-1">赔付金额（元）</p>
                             <p class="text-lg font-bold text-success" id="detail-pay-amount"></p>
                         </div>
                     </div>
@@ -551,9 +551,9 @@
                     id: 'LP202604150001',
                     guaranteeId: 'BH202603280003',
                     contractName: '厦门新机场配套工程',
-                    guaranteeAmount: '¥350,000',
+                    guaranteeAmount: '350,000',
                     beneficiary: '厦门新机场建设指挥部',
-                    amount: '¥50,000',
+                    amount: '50,000',
                     contactName: '张三',
                     contactPhone: '13800138000',
                     applyDate: '2026-04-15',
@@ -573,9 +573,9 @@
                     id: 'LP202604100002',
                     guaranteeId: 'BH202601100001',
                     contractName: '漳州港码头扩建工程',
-                    guaranteeAmount: '¥280,000',
+                    guaranteeAmount: '280,000',
                     beneficiary: '漳州市港口管理局',
-                    amount: '¥30,000',
+                    amount: '30,000',
                     contactName: '李四',
                     contactPhone: '13900139000',
                     applyDate: '2026-04-10',
@@ -593,7 +593,7 @@
                         { step: '理赔已赔付', date: '2026-04-12 10:00', status: 'completed' }
                     ],
                     payDate: '2026-04-12',
-                    payAmount: '¥30,000',
+                    payAmount: '30,000',
                     payMaterials: [
                         { name: '赔付凭证.pdf', type: 'pdf' },
                         { name: '银行转账回执.pdf', type: 'pdf' }
@@ -603,9 +603,9 @@
                     id: 'LP202603250001',
                     guaranteeId: 'BH202602150002',
                     contractName: '泉州湾大桥养护工程',
-                    guaranteeAmount: '¥120,000',
+                    guaranteeAmount: '120,000',
                     beneficiary: '泉州市交通运输局',
-                    amount: '¥15,000',
+                    amount: '15,000',
                     contactName: '王五',
                     contactPhone: '13700137000',
                     applyDate: '2026-03-25',
